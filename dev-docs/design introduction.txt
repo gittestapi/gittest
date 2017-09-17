@@ -1,0 +1,98 @@
+Database design introduction... will be coming later, currently only have Chinese introduction...
+
+CREATE TABLE Org (orgid INT NOT NULL AUTO_INCREMENT, orgname VARCHAR(300), adminid INT NOT NULL, RegisterDate DATETIME, PRIMARY KEY ( orgid ));
+Org
+orgname
+adminid
+RegisterDate
+
+CREATE TABLE Repo (repoid INT NOT NULL AUTO_INCREMENT, reponame VARCHAR(300), adminid INT NOT NULL,ishide CHAR(1), RegisterDate DATETIME, PRIMARY KEY ( repoid ));
+Repo
+reponame
+adminid
+ishide
+RegisterDate
+
+CREATE TABLE User (uid INT NOT NULL AUTO_INCREMENT, uname VARCHAR(300), passwd VARCHAR(300), email VARCHAR(300), RegisterDate DATETIME, PRIMARY KEY ( uid ));
+User
+uname
+passwd
+email
+RegisterDate
+
+CREATE TABLE JoinRepo (id INT NOT NULL AUTO_INCREMENT, uid INT NOT NULL, repoid INT NOT NULL, IsApproved CHAR(1), JoinDate DATETIME, PRIMARY KEY ( id ));
+JoinRepo
+uid
+repoid
+IsApproved
+JoinDate
+
+CREATE TABLE JoinOrg (id INT NOT NULL AUTO_INCREMENT, uid INT NOT NULL, orgid INT NOT NULL, IsApproved CHAR(1), JoinDate DATETIME, PRIMARY KEY ( id ));
+JoinOrg
+uid
+orgid
+IsApproved
+JoinDate
+
+CREATE TABLE TestCase (tcid INT NOT NULL AUTO_INCREMENT, tctitle VARCHAR(1000), priority INT NOT NULL, serverity INT NOT NULL, repoid INT NOT NULL, area VARCHAR(100), category VARCHAR(100), tag VARCHAR(100), CreateDate DATETIME, PRIMARY KEY ( tcid ));
+TestCase
+tctitle
+priority
+serverity
+repoid
+area
+category
+tag
+CreateDate
+
+CREATE TABLE Steps (sid INT NOT NULL AUTO_INCREMENT, content VARCHAR(1000), tcid INT NOT NULL, PRIMARY KEY ( sid ));
+Steps
+content
+tcid
+
+CREATE TABLE TestExcution (teid INT NOT NULL AUTO_INCREMENT, tename VARCHAR(300),milestone VARCHAR(300), CreateDate DATETIME, PRIMARY KEY ( teid ));
+TestExcution
+tename
+milestone
+CreateDate
+
+CREATE TABLE TestResult (trid INT NOT NULL AUTO_INCREMENT, tcid INT NOT NULL, tctitle VARCHAR(1000), status CHAR(4),whorun VARCHAR(300),teid INT NOT NULL,gitissuelink VARCHAR(1000),updatedate DATETIME, PRIMARY KEY ( trid ));
+TestResult
+tcid
+tctitle
+status
+whorun
+teid
+gitissuelink
+updatedate
+
+CREATE TABLE TestStepsResult (id INT NOT NULL AUTO_INCREMENT, sid INT NOT NULL, tcid INT NOT NULL, trid INT NOT NULL, content VARCHAR(1000), status CHAR(4),whorun VARCHAR(300),updatedate DATETIME, PRIMARY KEY ( id ));
+TestStepsResult
+sid
+tcid
+trid
+content
+status
+whorun
+updatedate
+
+CREATE TABLE RepoInOrg (id INT NOT NULL AUTO_INCREMENT, repoid INT NOT NULL, orgid INT NOT NULL, CreateDate DATETIME, PRIMARY KEY ( id ));
+RepoInOrg
+repoid
+orgid
+CreateDate
+
+CREATE TABLE Area (id INT NOT NULL AUTO_INCREMENT, repoid INT NOT NULL, area VARCHAR(100), PRIMARY KEY ( id ));
+Area
+repoid
+area
+
+CREATE TABLE Category (id INT NOT NULL AUTO_INCREMENT, repoid INT NOT NULL, category VARCHAR(100), PRIMARY KEY ( id ));
+Category
+repoid
+category
+
+CREATE TABLE Tag (id INT NOT NULL AUTO_INCREMENT, repoid INT NOT NULL, tag VARCHAR(100), PRIMARY KEY ( id ));
+Tag
+repoid
+tag
