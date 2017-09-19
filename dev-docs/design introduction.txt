@@ -27,13 +27,6 @@ repoid
 IsApproved
 JoinDate
 
-CREATE TABLE JoinOrg (id INT NOT NULL AUTO_INCREMENT, uid INT NOT NULL, orgid INT NOT NULL, IsApproved CHAR(1), JoinDate DATETIME, PRIMARY KEY ( id ));
-JoinOrg
-uid
-orgid
-IsApproved
-JoinDate
-
 CREATE TABLE TestCase (tcid INT NOT NULL AUTO_INCREMENT, tctitle VARCHAR(1000), priority INT NOT NULL, serverity INT NOT NULL, repoid INT NOT NULL, area VARCHAR(100), category VARCHAR(100), tag VARCHAR(100), CreateDate DATETIME, PRIMARY KEY ( tcid ));
 TestCase
 tctitle
@@ -75,12 +68,6 @@ content
 status
 whorun
 updatedate
-
-CREATE TABLE RepoInOrg (id INT NOT NULL AUTO_INCREMENT, repoid INT NOT NULL, orgid INT NOT NULL, CreateDate DATETIME, PRIMARY KEY ( id ));
-RepoInOrg
-repoid
-orgid
-CreateDate
 
 CREATE TABLE Area (id INT NOT NULL AUTO_INCREMENT, repoid INT NOT NULL, area VARCHAR(100), PRIMARY KEY ( id ));
 Area
