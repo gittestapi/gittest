@@ -7,8 +7,6 @@ CREATE TABLE User (uid INT NOT NULL AUTO_INCREMENT, uname VARCHAR(300), passwd V
 INSERT INTO User (uname, passwd, email, RegisterDate) VALUES ('user001','pass','yzpcreate@qq.com',NOW());
 CREATE TABLE JoinRepo (id INT NOT NULL AUTO_INCREMENT, uid INT NOT NULL, repoid INT NOT NULL, IsApproved CHAR(1), JoinDate DATETIME, PRIMARY KEY ( id ));
 INSERT INTO JoinRepo (uid,repoid,IsApproved,JoinDate) VALUES (1,1,'y',NOW());
-CREATE TABLE JoinOrg (id INT NOT NULL AUTO_INCREMENT, uid INT NOT NULL, orgid INT NOT NULL, IsApproved CHAR(1), JoinDate DATETIME, PRIMARY KEY ( id ));
-INSERT INTO JoinOrg (uid,orgid,IsApproved,JoinDate) VALUES (1,1,'y',NOW());
 CREATE TABLE TestCase (tcid INT NOT NULL AUTO_INCREMENT, tctitle VARCHAR(1000), priority INT NOT NULL, serverity INT NOT NULL, repoid INT NOT NULL, area VARCHAR(100), category VARCHAR(100), tag VARCHAR(100), CreateDate DATETIME, PRIMARY KEY ( tcid ));
 INSERT INTO TestCase (tctitle,priority,serverity,repoid,area,category,tag,CreateDate) VALUES ('test title 001',1,1,1,'area01','category01','tag01',NOW());
 CREATE TABLE Steps (sid INT NOT NULL AUTO_INCREMENT, content VARCHAR(1000), tcid INT NOT NULL, PRIMARY KEY ( sid ));
@@ -19,9 +17,6 @@ CREATE TABLE TestResult (trid INT NOT NULL AUTO_INCREMENT, tcid INT NOT NULL, tc
 INSERT INTO TestResult (tcid,tctitle,status,whorun,teid,gitissuelink,updatedate) VALUES (1,'test title 001','Pass','user001',1,'http://github.com/PowerShell/issue/1',NOW());
 CREATE TABLE TestStepsResult (id INT NOT NULL AUTO_INCREMENT, sid INT NOT NULL, tcid INT NOT NULL, trid INT NOT NULL, content VARCHAR(1000), status CHAR(4),whorun VARCHAR(300),updatedate DATETIME, PRIMARY KEY ( id ));
 INSERT INTO TestStepsResult (sid,tcid,trid,content,status,whorun,updatedate) VALUES (1,1,1,'step001','Pass','user001',NOW());
-
-CREATE TABLE RepoInOrg (id INT NOT NULL AUTO_INCREMENT, repoid INT NOT NULL, orgid INT NOT NULL, CreateDate DATETIME, PRIMARY KEY ( id ));
-INSERT INTO RepoInOrg (repoid,orgid,CreateDate) VALUES (1,1,NOW());
 
 CREATE TABLE Area (id INT NOT NULL AUTO_INCREMENT, repoid INT NOT NULL, area VARCHAR(100), PRIMARY KEY ( id ));
 INSERT INTO Area (repoid,area) VALUES (1,'area01');
