@@ -1,11 +1,5 @@
 Database design introduction... will be coming later, currently only have Chinese introduction...
 
-CREATE TABLE Org (orgid INT NOT NULL AUTO_INCREMENT, orgname VARCHAR(300), adminid INT NOT NULL, RegisterDate DATETIME, PRIMARY KEY ( orgid ));
-Org
-orgname
-adminid
-RegisterDate
-
 CREATE TABLE Repo (repoid INT NOT NULL AUTO_INCREMENT, reponame VARCHAR(300), adminid INT NOT NULL,ishide CHAR(1), RegisterDate DATETIME, PRIMARY KEY ( repoid ));
 Repo
 reponame
