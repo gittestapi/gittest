@@ -2,53 +2,21 @@
 
 一、设计说明：
 1、每个用户可以注册，然后登录网站。
-2、一个用户可以创建组织，项目，测试用例，测试步骤，测试计划，测试用例结果，测试步骤结果
-3、一个用户可以加入其他组织和项目，但需要经过审批
-4、XXX一个组织下可以有多个项目，设计用“RepoInOrg组织中的项目表”存储，未确定是否合理？XXX--已删除该逻辑！
-关于项目和组织的关系，目前未完全理清楚。
-理论上，组织是一个特殊的用户，目前是存放在Org表里，组织和用户没有直接关系，组织通过其下的项目和用户产生关系，这一点我之前理解错了！
-team是一群用户的集合存储在JoinOrg表里，应该改为JoinTeam表，不过目前没有Team表，所有先不做？
-这是GitHub里的组织：https://github.com/gittestapi
-一个组织下可以有多个项目Repo。一个用户下也可以有多个项目Repo（意思是一个用户可以创建多个Repo）。
-这是GitHub里的team：https://github.com/orgs/gittestapi/teams/devs/members
-一个项目总是隶属与一个（且仅隶属一个）组织。且同时对应的表 Org和 Repo中字段的adminid的值相同（即项目和组织的创建者为同一用户）。
-创建项目有两种情况，
-一种是创建用户自己的项目，那么该项目和用户的关系通过Repo的adminid关联，这种情况下Repo表的orgid值为空。
-另一种是用户创建在自己创建的组织下的项目，那么该项目和组织存在Repo表的orgid里。
-
-总结：组织，用户，项目的表需要重新设计。
-Org组织表
-orgid组织编号
-orgname组织名称
-adminid组织管理员编号
-RegisterDate注册日期
-
-Repo仓库编号/项目编号
-reponame仓库名称/项目编号
-adminid项目管理员编号
-orgid所属的组织编号
-ishide是否隐藏（私有）
-RegisterDate注册日期
-
-User用户表
-uid用户编号
-uname用户名
-passwd密码
-email邮件
-RegisterDate注册日期
-
+2、一个用户可以创建项目，测试用例，测试步骤，测试计划，测试用例结果，测试步骤结果
+3、一个用户可以加入其他项目，但需要经过审批
+4、该条已删除
 5、一个项目下可以有很多个测试用例
 6、一个测试用例下可以有很多测试步骤
 7、针对一个项目下的所有测试用例，选出子集（可以是一个，也可以是全部，也可以根据Area，或者Category，Tag筛选出），基于这个子集，建立一个测试计划
 8、每个测试计划下很多个测试用例结果，每一个测试用例结果下有很多个测试步骤结果，这些数据都在测试计划被建立时存入数据库，后续的结果只需让用户更新表中的相应字段就可以。
 9、一个项目P1只能有一个创建者就是用户A，用户B加入项目P1，只能作为测试管理员和测试执行人员，并不具备对该项目表记录的权限，只知道项目的名称是P1，存储在JoinRepo。
 10、项目的属性ishide：项目隐藏之后，公众看不到，只有项目创建者和项目下的测试管理人员和项目下的测试执行人员看得到。隐藏的项目需要创建者邀请其他人加入，其他人加入后才能看到。
-11、表Org和Repo的字段adminid存储的是创建他的用户id。
+11、表Repo的字段adminid存储的是创建他的用户id。
 12、Role分为三种，项目创建者，测试管理员，测试执行人员。
 13、当一个用户加入一个项目后，他可以对此项目作测试操作。
-14、XXX当一个用户加入一个组织后，他可以对组织下的所有公开项目做测试操作。XXX用户不能加入组织！只能加入项目！已删除JoinOrg表。
+14、该条已删除。
 15、测试操作分为增删改查
-	1.创建者具有自己项目或者组织下所有实体的增删改查的操作权限
+	1.创建者具有自己项目下所有实体的增删改查的操作权限
 	2.而测试人员具有两类权限，
 		1）、一类是测试管理人员，具有权限，
 		测试用例和测试步骤：增删改查
@@ -65,11 +33,6 @@ TestExecution应该修改为TestPlan？
 用户权限未设计好！
 
 三、详细数据库表说明
-CREATE TABLE Org (orgid INT NOT NULL AUTO_INCREMENT, orgname VARCHAR(300), adminid INT NOT NULL, RegisterDate DATETIME, PRIMARY KEY ( orgid ));
-Org组织表
-orgname组织名称
-adminid组织管理员编号
-RegisterDate注册日期
 
 CREATE TABLE Repo (repoid INT NOT NULL AUTO_INCREMENT, reponame VARCHAR(300), adminid INT NOT NULL,ishide CHAR(1), RegisterDate DATETIME, PRIMARY KEY ( repoid ));
 Repo仓库编号/项目编号
