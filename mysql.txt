@@ -1,6 +1,3 @@
-
-CREATE TABLE Org (orgid INT NOT NULL AUTO_INCREMENT, orgname VARCHAR(300), adminid INT NOT NULL, RegisterDate DATETIME, PRIMARY KEY ( orgid ));
-INSERT INTO Org (orgname, adminid, RegisterDate) VALUES ('myorg001',1,NOW());
 CREATE TABLE Repo (repoid INT NOT NULL AUTO_INCREMENT, reponame VARCHAR(300), adminid INT NOT NULL,ishide CHAR(1), RegisterDate DATETIME, PRIMARY KEY ( repoid ));
 INSERT INTO Repo (reponame, adminid, ishide, RegisterDate) VALUES ('myrepo001',1,'n',NOW());
 CREATE TABLE User (uid INT NOT NULL AUTO_INCREMENT, uname VARCHAR(300), passwd VARCHAR(300), email VARCHAR(300), RegisterDate DATETIME, PRIMARY KEY ( uid ));
