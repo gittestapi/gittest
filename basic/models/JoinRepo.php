@@ -1,6 +1,7 @@
 <?php
 
 namespace app\models;
+use yii\db\Expression;
 
 use Yii;
 
@@ -33,6 +34,7 @@ class JoinRepo extends \yii\db\ActiveRecord
             [['uid', 'repoid'], 'integer'],
             [['JoinDate'], 'safe'],
             [['IsApproved'], 'string', 'max' => 1],
+            [['role'],'string','length'=>1],
         ];
     }
 
@@ -49,4 +51,15 @@ class JoinRepo extends \yii\db\ActiveRecord
             'JoinDate' => 'Join Date',
         ];
     }
+
+    public function beforeSave($insert) {   
+        if (parent::beforeSave($insert)) {
+            // Place your custom code here
+            
+            $this->JoinDate = new Expression('NOW()');
+            return true;
+        } else {
+            return false;
+        }
+    }    
 }

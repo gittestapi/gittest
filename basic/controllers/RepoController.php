@@ -6,6 +6,7 @@ use Yii;
 use app\models\Repo;
 use app\models\RepoSearch;
 use app\models\RepoSearch2;
+use app\models\JoinRepo;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -79,6 +80,14 @@ class RepoController extends Controller
 		$model->adminid=Yii::$app->user->id;
 		$model->ishide='n';
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $joinRepo = new JoinRepo();
+            $joinRepo->uid = Yii::$app->user->id;
+            $joinRepo->repoid = $model->repoid;
+            $joinRepo->IsApproved = 'y';
+            $joinRepo->role = 'M';
+            $joinRepo->save();
+
             return $this->redirect(['view', 'id' => $model->repoid]);
         } else {
             return $this->render('create', [
@@ -115,7 +124,6 @@ class RepoController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 
