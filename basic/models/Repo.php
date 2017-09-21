@@ -60,14 +60,4 @@ class Repo extends \yii\db\ActiveRecord
 			return false;
 		}
 	}
-
-    public function afterDelete()
-    {
-        // ...custom code here...
-        Yii::$app->db->createCommand("delete from joinrepo where repoid=:repoid")
-                ->bindValue(':repoid',$this->repoid)
-                ->execute();
-                   
-        parent::afterDelete();   
-    }
 }
