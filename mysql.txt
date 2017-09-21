@@ -1,29 +1,38 @@
-CREATE TABLE Repo (repoid INT NOT NULL AUTO_INCREMENT, reponame VARCHAR(300), adminid INT NOT NULL,ishide CHAR(1), RegisterDate DATETIME, PRIMARY KEY ( repoid ));
+CREATE TABLE Repo (repoid INT NOT NULL AUTO_INCREMENT, reponame VARCHAR(300), adminid INT NOT NULL,ishide CHAR(1), RegisterDate DATETIME, PRIMARY KEY ( repoid )) DEFAULT CHARACTER SET = utf8 ENGINE=Innodb;
 INSERT INTO Repo (reponame, adminid, ishide, RegisterDate) VALUES ('myrepo001',1,'n',NOW());
-CREATE TABLE User (uid INT NOT NULL AUTO_INCREMENT, uname VARCHAR(300), passwd VARCHAR(300), email VARCHAR(300), RegisterDate DATETIME, PRIMARY KEY ( uid ));
+
+CREATE TABLE User (uid INT NOT NULL AUTO_INCREMENT, uname VARCHAR(300), passwd VARCHAR(300), email VARCHAR(300), RegisterDate DATETIME, PRIMARY KEY ( uid )) DEFAULT CHARACTER SET = utf8 ENGINE=Innodb;
 INSERT INTO User (uname, passwd, email, RegisterDate) VALUES ('user001','pass','yzpcreate@qq.com',NOW());
-CREATE TABLE JoinRepo (id INT NOT NULL AUTO_INCREMENT, uid INT NOT NULL, repoid INT NOT NULL, IsApproved CHAR(1), JoinDate DATETIME, PRIMARY KEY ( id ));
+
+CREATE TABLE JoinRepo (id INT NOT NULL AUTO_INCREMENT, uid INT NOT NULL, repoid INT NOT NULL, IsApproved CHAR(1), JoinDate DATETIME, PRIMARY KEY ( id )) DEFAULT CHARACTER SET = utf8 ENGINE=Innodb;
 INSERT INTO JoinRepo (uid,repoid,IsApproved,JoinDate) VALUES (1,1,'y',NOW());
-CREATE TABLE TestCase (tcid INT NOT NULL AUTO_INCREMENT, tctitle VARCHAR(1000), priority INT NOT NULL, serverity INT NOT NULL, repoid INT NOT NULL, area VARCHAR(100), category VARCHAR(100), tag VARCHAR(100), CreateDate DATETIME, PRIMARY KEY ( tcid ));
+
+CREATE TABLE TestCase (tcid INT NOT NULL AUTO_INCREMENT, tctitle VARCHAR(1000), priority INT NOT NULL, serverity INT NOT NULL, repoid INT NOT NULL, area VARCHAR(100), category VARCHAR(100), tag VARCHAR(100), CreateDate DATETIME, PRIMARY KEY ( tcid )) DEFAULT CHARACTER SET = utf8 ENGINE=Innodb;
 INSERT INTO TestCase (tctitle,priority,serverity,repoid,area,category,tag,CreateDate) VALUES ('test title 001',1,1,1,'area01','category01','tag01',NOW());
-CREATE TABLE Steps (sid INT NOT NULL AUTO_INCREMENT, content VARCHAR(1000), tcid INT NOT NULL, PRIMARY KEY ( sid ));
+
+CREATE TABLE Steps (sid INT NOT NULL AUTO_INCREMENT, content VARCHAR(1000), tcid INT NOT NULL, PRIMARY KEY ( sid )) DEFAULT CHARACTER SET = utf8 ENGINE=Innodb;;
 INSERT INTO Steps (content,tcid) VALUES ('step001',1);
-CREATE TABLE TestExcution (teid INT NOT NULL AUTO_INCREMENT, tename VARCHAR(300),milestone VARCHAR(300), CreateDate DATETIME, PRIMARY KEY ( teid ));
+
+CREATE TABLE TestExcution (teid INT NOT NULL AUTO_INCREMENT, tename VARCHAR(300),milestone VARCHAR(300), CreateDate DATETIME, PRIMARY KEY ( teid ))DEFAULT CHARACTER SET = utf8 ENGINE=Innodb;
 INSERT INTO TestExcution (tename,milestone,CreateDate) VALUES ('test001','RC01',NOW());
-CREATE TABLE TestResult (trid INT NOT NULL AUTO_INCREMENT, tcid INT NOT NULL, tctitle VARCHAR(1000), status CHAR(4),whorun VARCHAR(300),teid INT NOT NULL,gitissuelink VARCHAR(1000),updatedate DATETIME, PRIMARY KEY ( trid ));
+
+CREATE TABLE TestResult (trid INT NOT NULL AUTO_INCREMENT, tcid INT NOT NULL, tctitle VARCHAR(1000), status CHAR(4),whorun VARCHAR(300),teid INT NOT NULL,gitissuelink VARCHAR(1000),updatedate DATETIME, PRIMARY KEY ( trid )) DEFAULT CHARACTER SET = utf8 ENGINE=Innodb;
 INSERT INTO TestResult (tcid,tctitle,status,whorun,teid,gitissuelink,updatedate) VALUES (1,'test title 001','Pass','user001',1,'http://github.com/PowerShell/issue/1',NOW());
-CREATE TABLE TestStepsResult (id INT NOT NULL AUTO_INCREMENT, sid INT NOT NULL, tcid INT NOT NULL, trid INT NOT NULL, content VARCHAR(1000), status CHAR(4),whorun VARCHAR(300),updatedate DATETIME, PRIMARY KEY ( id ));
+
+CREATE TABLE TestStepsResult (id INT NOT NULL AUTO_INCREMENT, sid INT NOT NULL, tcid INT NOT NULL, trid INT NOT NULL, content VARCHAR(1000), status CHAR(4),whorun VARCHAR(300),updatedate DATETIME, PRIMARY KEY ( id )) DEFAULT CHARACTER SET = utf8 ENGINE=Innodb;
 INSERT INTO TestStepsResult (sid,tcid,trid,content,status,whorun,updatedate) VALUES (1,1,1,'step001','Pass','user001',NOW());
 
-CREATE TABLE Area (id INT NOT NULL AUTO_INCREMENT, repoid INT NOT NULL, area VARCHAR(100), PRIMARY KEY ( id ));
+CREATE TABLE Area (id INT NOT NULL AUTO_INCREMENT, repoid INT NOT NULL, area VARCHAR(100), PRIMARY KEY ( id )) DEFAULT CHARACTER SET = utf8 ENGINE=Innodb;
 INSERT INTO Area (repoid,area) VALUES (1,'area01');
 INSERT INTO Area (repoid,area) VALUES (1,'area02');
 INSERT INTO Area (repoid,area) VALUES (1,'area03');
-CREATE TABLE Category (id INT NOT NULL AUTO_INCREMENT, repoid INT NOT NULL, category VARCHAR(100), PRIMARY KEY ( id ));
+
+CREATE TABLE Category (id INT NOT NULL AUTO_INCREMENT, repoid INT NOT NULL, category VARCHAR(100), PRIMARY KEY ( id )) DEFAULT CHARACTER SET = utf8 ENGINE=Innodb;
 INSERT INTO Category (repoid,category) VALUES (1,'category01');
 INSERT INTO Category (repoid,category) VALUES (1,'category02');
 INSERT INTO Category (repoid,category) VALUES (1,'category03');
-CREATE TABLE Tag (id INT NOT NULL AUTO_INCREMENT, repoid INT NOT NULL, tag VARCHAR(100), PRIMARY KEY ( id ));
+
+CREATE TABLE Tag (id INT NOT NULL AUTO_INCREMENT, repoid INT NOT NULL, tag VARCHAR(100), PRIMARY KEY ( id )) DEFAULT CHARACTER SET = utf8 ENGINE=Innodb;
 INSERT INTO Tag (repoid,tag) VALUES (1,'tag01');
 INSERT INTO Tag (repoid,tag) VALUES (1,'tag02');
 INSERT INTO Tag (repoid,tag) VALUES (1,'tag03');
