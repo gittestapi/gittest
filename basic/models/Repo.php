@@ -61,13 +61,8 @@ class Repo extends \yii\db\ActiveRecord
 		}
 	}
 
-    public function afterDelete()
+    public function getUser()
     {
-        // ...custom code here...
-        Yii::$app->db->createCommand("delete from joinrepo where repoid=:repoid")
-                ->bindValue(':repoid',$this->repoid)
-                ->execute();
-                   
-        parent::afterDelete();   
+        return $this->hasOne(User::className(),['uid'=>'adminid']);
     }
 }
