@@ -19,7 +19,7 @@ class RepoSearch extends Repo
     {
         return [
             [['repoid', 'adminid'], 'integer'],
-            [['reponame', 'ishide', 'RegisterDate'], 'safe'],
+            [['reponame', 'RegisterDate', 'ishide'], 'safe'],
         ];
     }
 
@@ -60,12 +60,12 @@ class RepoSearch extends Repo
         // grid filtering conditions
         $query->andFilterWhere([
             'repoid' => $this->repoid,
-            'adminid' => Yii::$app->user->id,
+            'adminid' => $this->adminid,
             'RegisterDate' => $this->RegisterDate,
         ]);
 
         $query->andFilterWhere(['like', 'reponame', $this->reponame])
-            ->andFilterWhere(['like', 'ishide', $this->ishide]);
+            ->andFilterWhere(['like','ishide',$this->ishide]);
 
         return $dataProvider;
     }

@@ -10,13 +10,8 @@ use app\models\Repo;
 /**
  * RepoSearch represents the model behind the search form about `app\models\Repo`.
  */
-class RepoSearch2 extends Repo
+class RepoSearch3 extends Repo
 {
-    public function attributes()
-    {
-        // add related fields to searchable attributes
-        return array_merge(parent::attributes(), ['user.uname']);
-    }
     /**
      * @inheritdoc
      */
@@ -24,7 +19,7 @@ class RepoSearch2 extends Repo
     {
         return [
             [['repoid', 'adminid'], 'integer'],
-            [['reponame','RegisterDate','user.uname'], 'safe'],
+            [['reponame', 'RegisterDate'], 'safe'],
         ];
     }
 
@@ -46,20 +41,14 @@ class RepoSearch2 extends Repo
      */
     public function search($params)
     {
-        $query = Repo::find()->where(['ishide'=>'n']);
+        $query = Repo::find()->where(['ishide'=>'n',
+            'adminid'=>$this->adminid]);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $query->joinWith('user as user');
-        $dataProvider->sort->attributes['user.uname'] = [
-            'asc' => ['user.uname' => SORT_ASC],
-            'desc' => ['user.uname' => SORT_DESC],
-            
-        ];
 
         $this->load($params);
 
@@ -74,8 +63,6 @@ class RepoSearch2 extends Repo
             'repoid' => $this->repoid,
             'RegisterDate' => $this->RegisterDate,
         ]);
-
-        $query->andFilterWhere(['LIKE', 'user.uname', $this->getAttribute('user.uname')]);
 
         $query->andFilterWhere(['like', 'reponame', $this->reponame]);
 
