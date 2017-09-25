@@ -79,6 +79,11 @@ class UserController extends Controller
         $model = new User();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
+            // Assign 'commonUser' role to current user
+            $auth = Yii::$app->authManager;
+            $commonUser = $auth->getRole("commonUser");
+            $auth->assign($commonUser,$model->uid);
+
             return $this->redirect(['user/success']);
         } else {
             return $this->render('create', [
