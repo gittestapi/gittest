@@ -109,10 +109,19 @@ class RepoController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Repo();
-		$model->adminid=Yii::$app->user->id;
-		$model->ishide='n';
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $model = new Repo([
+            'adminid' => Yii::$app->user->id,
+            'ishide' => 'n',
+            ]);
+        $request = Yii::$app->request;
+
+        if($request->isPost) { 
+            $post = $request->post();
+            // 确保ishide字段存储的为小写
+            $post['Repo']['ishide'] = strtolower($post['Repo']['ishide']);
+        }
+
+        if ($request->isPost && $model->load($post) && $model->save()) {
 
             $joinRepo = new JoinRepo();
             $joinRepo->uid = Yii::$app->user->id;

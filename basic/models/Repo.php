@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\db\Expression;
+use app\components\validators\YONValidator;
 
 /**
  * This is the model class for table "Repo".
@@ -31,9 +32,9 @@ class Repo extends \yii\db\ActiveRecord
     {
         return [
             ['reponame', 'unique', 'message' => "This org name already exists."],
-            [['RegisterDate'], 'safe'],
             [['reponame'], 'string', 'max' => 300],
-            [['ishide'], 'string', 'max' => 1],
+            [['reponame','ishide'],'required'],
+            [['ishide'], YONValidator::className()],
         ];
     }
 

@@ -14,9 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'reponame')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'ishide')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'RegisterDate')->textInput() ?>
+    <?= $form->field($model, 'ishide')->radioList(['y' => 'Yes','n' => 'Nope']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
