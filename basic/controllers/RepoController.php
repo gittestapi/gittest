@@ -97,9 +97,16 @@ class RepoController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        $model = $this->findModel($id);
+        if (\Yii::$app->user->can('viewRepo',['entity'=>$model])) {
+            return $this->render('view', [
+                'model' => $model,
+            ]);           
+        } else {
+            throw new \yii\web\ForbiddenHttpException;
+        }
+
+
     }
 
     /**
@@ -147,13 +154,16 @@ class RepoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->repoid]);
+        if (\Yii::$app->user->can('changeRepo',['entity'=>$model])) {         
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->repoid]);
+            } else {
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
         } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            throw new \yii\web\ForbiddenHttpException;
         }
     }
 
@@ -165,8 +175,14 @@ class RepoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-        return $this->redirect(['index']);
+        $model = $this->findModel($id);
+        if (\Yii::$app->user->can('changeRepo',['entity'=>$model])) {
+            $model->delete();
+            return $this->redirect(['index']);           
+        } else {
+            throw new \yii\web\ForbiddenHttpException;
+        }
+
     }
 
     /**
