@@ -66,4 +66,33 @@ class Repo extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(),['uid'=>'adminid']);
     }
+
+    public function getTestManagers()
+    {
+        $joinRepos = JoinRepo::find()->where([
+            'repoid'=>$this->repoid,
+            'role' => 'M'
+            ])->andWhere(['not',['uid'=>$this->adminid]])
+            ->all();
+
+        $managers = [];
+        foreach($joinRepos as $j) {
+            array_push($managers,$j->testUser);
+        }
+        return $managers;
+    }
+
+    public function getTestExecuters()
+    {
+        $joinRepos = JoinRepo::find()->where([
+            'repoid'=>$this->repoid,
+            'role' => 'E'
+            ])->all();
+
+        $executers = [];
+        foreach($joinRepos as $j) {
+            array_push($executers,$j->testUser);
+        }
+        return $executers;        
+    }
 }

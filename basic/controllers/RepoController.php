@@ -8,6 +8,7 @@ use app\models\RepoSearch;
 use app\models\RepoSearch2;
 use app\models\RepoSearch3;
 use app\models\JoinRepo;
+use app\models\RequestSearch;
 use app\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -54,9 +55,12 @@ class RepoController extends Controller
         $searchModel = new RepoSearch(['adminid'=>Yii::$app->user->id]);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $requestDataProvider = (new RequestSearch())->search();
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'requestDataProvider' => $requestDataProvider,
         ]);
     }
 
@@ -98,10 +102,14 @@ class RepoController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        if (\Yii::$app->user->can('viewRepo',['entity'=>$model])) {
+        if ($model->adminid == Yii::$app->user->id || strtolower($model->ishide) == 'n') {
+            $testManagers = $model->testManagers;
+            $testExecuters = $model->testExecuters;
             return $this->render('view', [
                 'model' => $model,
-            ]);           
+                'testManagers' => $testManagers,
+                'testExecuters' => $testExecuters
+            ]);                      
         } else {
             throw new \yii\web\ForbiddenHttpException;
         }

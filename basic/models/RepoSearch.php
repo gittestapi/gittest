@@ -41,7 +41,7 @@ class RepoSearch extends Repo
      */
     public function search($params)
     {
-        $query = Repo::find();
+        $query = Repo::find()->orderBy(['RegisterDate'=>SORT_DESC]);
 
         // add conditions that should always apply here
 
