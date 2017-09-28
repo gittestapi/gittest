@@ -9,6 +9,8 @@ use yii\grid\GridView;
 
 $this->title = 'My Projects';
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::className(),]]);
 ?>
 <div class="repo-index">
 
@@ -25,7 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'repoid',
-            'reponame',
+            [
+                'attribute' => 'reponame',
+                'content' => function($model,$key,$index,$column) {
+                    return Html::a($model->reponame,['repo/view','id'=>$model->repoid]);
+                }
+            ],
             'ishide',
             'RegisterDate',
 
@@ -37,7 +44,48 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
 				],//buttons
 			],//class
-            ['class' => 'yii\grid\ActionColumn', 'template' => '{view}{delete}'],//class
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{delete}'],//class
 		]//columns
     ]); ?>
+<?php if($requestDataProvider->count > 0) :?>
+    <h2>待处理请求</h2>
+    <?= GridView::widget([
+        'dataProvider' => $requestDataProvider,
+        'columns' => [
+            [   
+                'attribute' => 'mtID',
+                'class' => 'yii\grid\DataColumn',
+                'label' => '请求',
+                'enableSorting' => False,
+                'content' => function($model,$key,$index,$column) {
+                    return $model->requestMessage();
+                }
+            ],
+            'created_at', 
+            ['class' => 'yii\grid\ActionColumn', 
+            'template' => '{approve}{refuse}',
+            'buttons' => [
+                'approve' => function ($url,$model,$key) {
+                    $action = 'handle-join-in';
+                    $roleOptions = 'M,E';
+                    if($model->mtID > 0) {
+                        $action = 'handle-join-in2';
+                        $roleOptions = '';
+                    }
+                    return Html::a('approve', ['request/'.$action,'rid'=>$key,'approved'=>1],['class'=>'btn btn-success approve','data-roleoptions'=>$roleOptions]);
+                },
+                'refuse' => function ($url,$model,$key) {
+                    $action = 'handle-join-in';
+                    if($model->mtID > 0) {
+                        $action = 'handle-join-in2';
+                    }
+                    return Html::a('refuse',['request/'.$action,'rid'=>$key,'approved'=>0],['class'=>'btn btn-danger approve']);
+                }
+                ],//buttons
+            ],//class   
+        ]
+    ]) ?>
+
+<?php endif; ?>
+    <h2>消息</h2>
 </div>

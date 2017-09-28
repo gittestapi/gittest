@@ -22,7 +22,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'repoid',
-            'reponame',
+            [
+                'attribute' => 'reponame',
+                'content' => function($model,$key,$index,$column) {
+                    return Html::a($model->reponame,['repo/view','id'=>$model->repoid]);
+                }
+            ],
             [
                 'attribute' => 'user.uname',
                 'label' => 'Owner',
