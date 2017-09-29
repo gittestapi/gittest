@@ -43,7 +43,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
         ],
     ]) ?>
 <?php if($testManagers): ?>
-    <h3>测试管理人员</h3>
+    <h3>Test Manager</h3>
     <ul>
     <?php foreach($testManagers as $m): ?>
         <li><?= Html::a($m->uname,['repo/index-for-user','uid'=>$m->uid]) ?></li>
@@ -51,7 +51,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
     </ul>    
 <?php endif; ?>
 <?php if($testExecuters): ?>
-    <h3>测试执行人员</h3>
+    <h3>Tester</h3>
     <ul>
     <?php foreach($testExecuters as $e): ?>
         <li><?= Html::a($e->uname,['repo/index-for-user','uid'=>$e->uid]) ?></li>
