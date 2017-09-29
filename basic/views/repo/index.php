@@ -48,14 +48,14 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
 		]//columns
     ]); ?>
 <?php if($requestDataProvider->count > 0) :?>
-    <h2>待处理请求</h2>
+    <h2>Requests List</h2>
     <?= GridView::widget([
         'dataProvider' => $requestDataProvider,
         'columns' => [
             [   
                 'attribute' => 'mtID',
                 'class' => 'yii\grid\DataColumn',
-                'label' => '请求',
+                'label' => 'Request',
                 'enableSorting' => False,
                 'content' => function($model,$key,$index,$column) {
                     return $model->requestMessage();
@@ -87,5 +87,5 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
     ]) ?>
 
 <?php endif; ?>
-    <h2>消息</h2>
+    <h2>Message</h2>
 </div>
