@@ -6,7 +6,7 @@ $(function(){
 		var url = target.attr('href');
 		var isGuest = target.data('guest') ? true : false;
 		if (isGuest) {
-			alert('登陆呀');
+			alert('Please login');
 		} else {
 			$.ajax({
 				url: url,
@@ -30,7 +30,7 @@ $(function(){
 		if (roles) { // 如果需要设置role
 			roles = roles.split(',');
 			do {
-				var role = prompt("请输入角色，可取值为" + roles[0] + "和" + roles[1],"E");
+				var role = prompt("Please input values:" + roles[0] + "," + roles[1],"E");
 				var invalidValue = true;
 				for(var i = 0; i< roles.length; i++) {
 					if(roles[i].toUpperCase() == role.trim().toUpperCase()) {
