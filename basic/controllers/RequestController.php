@@ -48,7 +48,7 @@ class RequestController extends Controller
         if (\app\models\Request::findOne(['applicantID'=>Yii::$app->user->id,'repoID'=>$repoID])) {
             return [
                 'success' => False,
-                'message' => '已经申请过了'
+                'message' => 'Already submited request!'
             ];
         } else {
             $model = new \app\models\Request([
@@ -65,7 +65,7 @@ class RequestController extends Controller
         }
         return [
             'success' => False,
-            'message' => '其他错误'
+            'message' => 'other errors!'
         ];
 	}
 
@@ -83,16 +83,16 @@ class RequestController extends Controller
         if ($approved) {
             $request->role = $role;
             $request->isApproved = 'y';           
-            $data['message'] = sprintf('批准加入项目 %s，角色为 %s',$request->repo->reponame,$role);
+            $data['message'] = sprintf('Approve to join repo %s，its role is %s',$request->repo->reponame,$role);
         } else {
             $request->isApproved = 'n';
-            $data['message'] = sprintf('拒绝加入项目 %s',$request->repo->reponame);
+            $data['message'] = sprintf('Reject to join repo %s',$request->repo->reponame);
         }
 
         if($request->save()) {
             return $this->asJson($data);
         } else {
-            return $this->asJson(['success'=>False,'message'=>'内部错误']);
+            return $this->asJson(['success'=>False,'message'=>'internal join error!']);
         }       
     }    
 
@@ -105,16 +105,16 @@ class RequestController extends Controller
         $data = ['success'=>True];
         if ($approved) {
             $request->isApproved = 'y';
-            $data['message'] = '接受邀请';
+            $data['message'] = 'Accept invitation';
         } else {
             $request->isApproved = 'n';
-            $data['message'] = '拒绝邀请';
+            $data['message'] = 'Reject invitation';
         }
         
         if ($request->save()) {
             return $this->asJson($data);
         } else {
-            return $this->asJson(['success'=>False,'message'=>'内部错误']);
+            return $this->asJson(['success'=>False,'message'=>'internal invite error']);
         }
     }
 }
