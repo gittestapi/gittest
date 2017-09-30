@@ -49,6 +49,8 @@ $(function(){
 					],
 					callback: function (result) {
 						role = result;
+						if(String(role)=='M' || String(role)=='E')
+						{
 						for(var i = 0; i< roles.length; i++) {
 							if(roles[i].toUpperCase() == String(role).trim().toUpperCase()) {
 								url = url + '&role=' + role.toUpperCase(); // 将 role 的值添加到 url 中
@@ -65,6 +67,7 @@ $(function(){
 								alert(data.message);
 							}
 						});
+						}
 					}
 				});
 				
