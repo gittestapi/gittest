@@ -77,12 +77,12 @@ class Repo extends \yii\db\ActiveRecord
 
         $managers = [];
         foreach($joinRepos as $j) {
-            array_push($managers,$j->testUser);
+            array_push($managers,$j->tester);
         }
         return $managers;
     }
 
-    public function getTestExecuters()
+    public function getTesters()
     {
         $joinRepos = JoinRepo::find()->where([
             'repoid'=>$this->repoid,
@@ -91,8 +91,23 @@ class Repo extends \yii\db\ActiveRecord
 
         $executers = [];
         foreach($joinRepos as $j) {
-            array_push($executers,$j->testUser);
+            array_push($executers,$j->tester);
         }
         return $executers;        
+    }
+
+    /**
+     * 检查 Repo 是否与一个用户相关
+     * @param integer $uid 用户ID
+     * @return Boolean
+     */
+    public function isRelevantForUser($uid)
+    {
+        if ($this->adminid == $uid)
+            return True;
+        if (JoinRepo::findOne(['uid'=>$uid,'repoid'=>$this->repoid])) {
+            return True;
+        }
+        return False;
     }
 }

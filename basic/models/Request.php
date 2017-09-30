@@ -34,7 +34,7 @@ class Request extends \yii\db\ActiveRecord
     	// 项目
     	$repo = Repo::findOne($this->repoID);
 
-    	$message = MessageTemplate::RQTP[0];
+    	$message = MessageTemplate::RQTP[$this->mtID];
     	$message = str_replace(['{a}','{r}'],[$user->uname,$repo->reponame],$message);
 
     	return $message;
@@ -60,8 +60,10 @@ class Request extends \yii\db\ActiveRecord
                 ]);
             $joinRepo->save();
         } elseif(strtolower($this->isApproved) == 'n') { // 请求被否决
-            $this->delete(); // 删除请求，这样就可以重新发请求了
+            ;// 或许给请求的发送者回馈点信息，比较好
+            
         }
+        $this->delete(); // 删除请求信息
     }
 
     public function getRepo()

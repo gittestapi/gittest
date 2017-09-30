@@ -69,17 +69,23 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
                     $action = 'handle-join-in';
                     $roleOptions = 'M,E';
                     if($model->mtID > 0) {
-                        $action = 'handle-join-in2';
+                        $action = 'handle-invite';
                         $roleOptions = '';
                     }
-                    return Html::a('approve', ['request/'.$action,'rid'=>$key,'approved'=>1],['class'=>'btn btn-success approve','data-roleoptions'=>$roleOptions]);
+                    return Html::a('approve', ['request/'.$action,],
+                        ['class'=>'btn btn-success approve',
+                        'data'=>['roleoptions'=>$roleOptions,'rid'=>$key,'approved'=>1]
+                        ]);
                 },
                 'refuse' => function ($url,$model,$key) {
                     $action = 'handle-join-in';
                     if($model->mtID > 0) {
-                        $action = 'handle-join-in2';
+                        $action = 'handle-invite';
                     }
-                    return Html::a('refuse',['request/'.$action,'rid'=>$key,'approved'=>0],['class'=>'btn btn-danger approve']);
+                    return Html::a('refuse',['request/'.$action,],
+                        ['class'=>'btn btn-danger approve',
+                        'data'=>['rid'=>$key,'approved'=>0]
+                        ]);
                 }
                 ],//buttons
             ],//class   
