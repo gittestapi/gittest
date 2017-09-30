@@ -46,7 +46,7 @@ class RequestController extends Controller
         $yiiRequest = Yii::$app->request;
         $repoID = $yiiRequest->post('repoid');
         if (is_null($repoID)) {
-            $data['message'] = "缺少必要的变量";
+            $data['message'] = "require repoID!";
             return $this->asJson($data);
         }
         
@@ -54,18 +54,18 @@ class RequestController extends Controller
         $repo = Repo::findOne($repoID);
         // 如果 Repo 不存在或者私有，则不能申请
         if (is_null($repo) || strtolower($repo->ishide) == 'y') { 
-            $data['message'] = "项目不存在或者私有";
+            $data['message'] = "project do not exist or it is private!";
             return $this->asJson($data);
         }
 
         // 
         if ($repo->adminid == Yii::$app->user->id) {
-            $data['message'] = "当前项目的创建者即为当前用户，不可申请";
+            $data['message'] = "you are current project admin, can not apply!";
             return $this->asJson($data);
         }
 
         if (JoinRepo::findOne(['uid' => Yii::$app->user->id,'repoid' => $repoID])) {
-            $data['message'] = "当前用户已经加入了项目，不必申请";
+            $data['message'] = "current user is already in project!";
             return $this->asJson($data);
         }
 
@@ -82,7 +82,7 @@ class RequestController extends Controller
                 ]);
             if ($model->save()) {
                 $data['success'] = True;
-                $data['message'] = "成功发出请求";
+                $data['message'] = "sent request successfully!";
                 return $this->asJson($data);
             }                          
         }
@@ -107,7 +107,7 @@ class RequestController extends Controller
 
         if(is_null($rid) || is_null($approved)) {
             $data['success'] = False;
-            $data['message'] = "缺乏必要的变量";
+            $data['message'] = "require repoid and approved!";
             return $this->asJson($data);            
         }
              
@@ -146,7 +146,7 @@ class RequestController extends Controller
         $role = $yiiRequest->post('role');
 
         if(is_null($repoid) || is_null($uname) || is_null($role)) {
-            $data['message'] = "缺乏必要的变量";
+            $data['message'] = "require repoid,uname,role!";
             return $this->asJson($data);
         }
 
@@ -154,14 +154,14 @@ class RequestController extends Controller
         $uname = trim($uname);
         $user = User::findOne(['uname'=>$uname]);
         if (is_null($user)) { 
-            $data['message'] = sprintf('用户 %s 不存在！',$uname);
+            $data['message'] = sprintf('user %s does not exist!',$uname);
             return $this->asJson($data);
         }
 
         // 判断角色分配是否合规
         $role = strtoupper($role);
         if (!in_array($role,['M','E'])) {
-            $data['message'] = '角色不对，只能为 M 或者 E';
+            $data['message'] = 'role is incorrect, only M or E!';
             return $this->asJson($data);
         }
       
@@ -171,12 +171,12 @@ class RequestController extends Controller
         if (Yii::$app->user->id == $repo->adminid && Yii::$app->user->id != $uid) {
             // 已经是项目的测试人员了
             if (JoinRepo::findOne(['uid'=>$uid,'repoid'=>$repoid])) { 
-                $data['message'] = sprintf("%s 已经加入了 %s ",$uname,$repo->reponame);
+                $data['message'] = sprintf("%s already join %s ",$uname,$repo->reponame);
                 return $this->asJson($data);
             }
             // 已经发出了邀请
             if (Request::findOne(['applicantID'=>Yii::$app->user->id,'approverID'=>$uid,'repoID'=>$repoid])) {
-                $data['message'] =  sprintf("对 %s 已经发出了邀请", $uname);
+                $data['message'] =  sprintf("sent invitation to user: %s ", $uname);
                 return $this->asJson($data);
             }
             $request = new Request([
@@ -188,10 +188,10 @@ class RequestController extends Controller
                 ]);
             $request->save();
             $data['success'] = True;
-            $data['message'] = "发出了邀请，请等待处理"; 
+            $data['message'] = "sent invitation, please wait accept!"; 
             return $this->asJson($data);                                
         } else {
-            $data['message'] = sprintf("不可以邀请他人加入 %s，或者邀请的是自己",$repo->reponame);
+            $data['message'] = sprintf("you can not invite other to join %s, or invite yourself!",$repo->reponame);
             return $this->asJson($data);
         }
     }
@@ -209,7 +209,7 @@ class RequestController extends Controller
 
         if(is_null($rid) || is_null($approved)) {
             $data['success'] = False;
-            $data['message'] = "缺少必要的变量";
+            $data['message'] = "require rid or approved!";
             return $this->asJson($data);
         }
 
