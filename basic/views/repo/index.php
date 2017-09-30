@@ -11,6 +11,7 @@ $this->title = 'My Projects';
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::className(),]]);
+$this->registerJsFile('js/bootbox.min.js',['depends'=>[\yii\web\JqueryAsset::className(),]]);
 ?>
 <div class="repo-index">
 
