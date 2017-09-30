@@ -44,9 +44,9 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
         ],
     ]) ?>
 <?php if($model->adminid == \Yii::$app->user->id): ?>
-    <h3>邀请人员加入</h3>
-    <p>邀请<input>加入，成为 testManager <button class="invite" data-role="M" data-repoid="<?= $model->repoid ?>" data-url="<?= Url::to(["request/invite"]) ?>">确定</button></p>
-    <p>邀请<input>加入，成为 tester <button class="invite" data-role="E" data-repoid="<?= $model->repoid ?>" data-url="<?= Url::to(["request/invite"]) ?>">确定</button></p>
+    <h3>Invite other user to join this project</h3>
+    <p>invite <input>to join as a testManager <button class="invite" data-role="M" data-repoid="<?= $model->repoid ?>" data-url="<?= Url::to(["request/invite"]) ?>">OK</button></p>
+    <p>invite <input>to join as a tester <button class="invite" data-role="E" data-repoid="<?= $model->repoid ?>" data-url="<?= Url::to(["request/invite"]) ?>">OK</button></p>
 <?php endif; ?>
 <?php if($testManagers): ?>
     <h3>Test Manager</h3>
