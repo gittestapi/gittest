@@ -50,7 +50,7 @@ $(function(){
 					callback: function (result) {
 						role = result;
 						for(var i = 0; i< roles.length; i++) {
-							if(roles[i].toUpperCase() == role.trim().toUpperCase()) {
+							if(roles[i].toUpperCase() == String(role).trim().toUpperCase()) {
 								url = url + '&role=' + role.toUpperCase(); // 将 role 的值添加到 url 中
 							}
 						}
