@@ -61,7 +61,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
 
 <?php if($model->adminid != \Yii::$app->user->id && !\Yii::$app->user->isGuest): ?>
     <div>
-        <a id="apply" href="<?= Url::to(['request/apply-join-in','repoID'=>$model->repoid],true) ?>" class="btn btn-danger" data-repoid="<?= $model->repoid ?>" data-guest="<?= \Yii::$app->user->isGuest ?>">申请加入项目</a>
+        <a id="apply" href="<?= Url::to(['request/apply-join-in','repoID'=>$model->repoid],true) ?>" class="btn btn-danger" data-repoid="<?= $model->repoid ?>" data-guest="<?= \Yii::$app->user->isGuest ?>">I want to join this project.</a>
     </div>
 <?php endif; ?>
 
