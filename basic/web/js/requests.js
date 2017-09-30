@@ -6,7 +6,7 @@ $(function(){
 		var url = target.attr('href');
 		var isGuest = target.data('guest') ? true : false;
 		if (isGuest) {
-			alert('Please login');
+			alert('Please login first!');
 		} else {
 			$.ajax({
 				url: url,
@@ -15,6 +15,10 @@ $(function(){
 			}).done(function(data){
 				if (!data.success) {
 					alert(data.message);
+				}
+				else
+				{
+					alert('Submit successfully!');
 				}
 			})
 		}
