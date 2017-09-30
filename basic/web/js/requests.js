@@ -33,8 +33,7 @@ $(function(){
 		var roles = target.data('roleoptions');
 		if (roles) { // 如果需要设置role
 			roles = roles.split(',');
-			do {
-				var role = ''; //prompt("Please input role values:" + roles[0] + "," + roles[1],"E");
+				var role = '';
 				bootbox.prompt({
 					title: "Please select the role for the user!",
 					inputType: 'select',
@@ -52,15 +51,11 @@ $(function(){
 						role = result;
 					}
 				});
-				var invalidValue = true;
 				for(var i = 0; i< roles.length; i++) {
 					if(roles[i].toUpperCase() == role.trim().toUpperCase()) {
-						invalidValue = false;
 						url = url + '&role=' + role.toUpperCase(); // 将 role 的值添加到 url 中
-						break;
 					}						
 				}
-			} while(invalidValue)
 		}
 
 		$.ajax({
