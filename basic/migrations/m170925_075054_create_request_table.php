@@ -23,9 +23,9 @@ class m170925_075054_create_request_table extends Migration
             'created_at' => $this->datetime()
         ],"ENGINE=InnoDB DEFAULT CHARSET=utf8");
 
-        $this->addForeignKey("ref_user1",'request','applicantID','user','uid',"SET NULL");
-        $this->addForeignKey("ref_user2",'request','approverID','user','uid',"SET NULL");
-        $this->addForeignKey("f_repo","request","repoID","repo","repoid","SET NULL");
+        $this->addForeignKey("ref_user1",'request','applicantID','User','uid',"SET NULL");
+        $this->addForeignKey("ref_user2",'request','approverID','User','uid',"SET NULL");
+        $this->addForeignKey("f_repo","request","repoID","Repo","repoid","SET NULL");
     }
 
     /**
