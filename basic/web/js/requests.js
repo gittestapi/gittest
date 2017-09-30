@@ -1,6 +1,6 @@
 $(function(){
 	// 申请加入项目
-	$("#apply").click(function(e){
+	$("a.apply").click(function(e){
 		e.preventDefault();
 		var target = $(e.target);
 		var url = target.attr('href');
@@ -12,16 +12,41 @@ $(function(){
 				url: url,
 				type: "POST",
 				dataType : "json",
+				data: {repoid: target.data('repoid')}
 			}).done(function(data){
 				if (!data.success) {
 					alert(data.message);
-				}
-				else
-				{
+				} else {
 					alert('Submit successfully!');
 				}
 			})
 		}
+	});
+
+	// 邀请他人加入项目
+	$("button.invite").click(function(e){
+		var target = $(e.target);
+		var url = target.data('url');
+		var repoid = target.data('repoid');
+		var role = target.data('role');
+		var inputs = target.siblings('input');
+		var uname = target.siblings('input').eq(0).val();
+		$.ajax({
+			url : url,
+			type: "POST",
+			dataType: "json",
+			data: {
+				repoid: repoid,
+				role: role,
+				uname: uname,
+			}
+		}).done(function(data){
+			if(!data.success) {
+				alert(data.message);
+			} else {
+				alert(data.message);
+			}
+		})
 	});
 
 	// 处理请求（申请加入项目或邀请某某进入项目）
@@ -31,6 +56,10 @@ $(function(){
 		var url = target.attr('href');
 
 		var roles = target.data('roleoptions');
+		var data = {
+			rid: target.data('rid'),
+			approved: target.data('approved'),
+		};
 		if (roles) { // 如果需要设置role
 			roles = roles.split(',');
 				var role = '';
@@ -49,15 +78,18 @@ $(function(){
 					],
 					callback: function (result) {
 						role = result;
+						if(String(role)=='M' || String(role)=='E')
+						{
 						for(var i = 0; i< roles.length; i++) {
-							if(roles[i].toUpperCase() == role.trim().toUpperCase()) {
-								url = url + '&role=' + role.toUpperCase(); // 将 role 的值添加到 url 中
+							if(roles[i].toUpperCase() == String(role).trim().toUpperCase()) {
+								data.role = String(role).trim().toUpperCase();
 							}
 						}
 						$.ajax({
 							url: url,
 							type: "POST",
 							dataType : "json",
+							data: data,
 						}).done(function(data){
 							if(data.success) {
 								location.reload();
@@ -65,10 +97,24 @@ $(function(){
 								alert(data.message);
 							}
 						});
+						}
 					}
-				});
-				
+				});				
+		} else {
+			$.ajax({
+				url: url,
+				type: "POST",
+				dataType : "json",
+				data: data,
+			}).done(function(data){
+				if(data.success) {
+					location.reload();
+				} else {
+					alert(data.message);
+				}
+			});				
 		}
+	
 
 	})
 });

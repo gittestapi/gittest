@@ -11,8 +11,8 @@ $this->title = $model->reponame;
 $this->params['breadcrumbs'][] = ['label' => 'Repos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-$this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::className(),]]);
 $this->registerJsFile('js/bootbox.min.js',['depends'=>[\yii\web\JqueryAsset::className(),]]);
+$this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::className(),]]);
 ?>
 <div class="repo-view">
 
@@ -43,6 +43,11 @@ $this->registerJsFile('js/bootbox.min.js',['depends'=>[\yii\web\JqueryAsset::cla
             ],
         ],
     ]) ?>
+<?php if($model->adminid == \Yii::$app->user->id): ?>
+    <h3>邀请人员加入</h3>
+    <p>邀请<input>加入，成为 testManager <button class="invite" data-role="M" data-repoid="<?= $model->repoid ?>" data-url="<?= Url::to(["request/invite"]) ?>">确定</button></p>
+    <p>邀请<input>加入，成为 tester <button class="invite" data-role="E" data-repoid="<?= $model->repoid ?>" data-url="<?= Url::to(["request/invite"]) ?>">确定</button></p>
+<?php endif; ?>
 <?php if($testManagers): ?>
     <h3>Test Manager</h3>
     <ul>
@@ -51,18 +56,18 @@ $this->registerJsFile('js/bootbox.min.js',['depends'=>[\yii\web\JqueryAsset::cla
     <?php endforeach; ?>
     </ul>    
 <?php endif; ?>
-<?php if($testExecuters): ?>
+<?php if($testers): ?>
     <h3>Tester</h3>
     <ul>
-    <?php foreach($testExecuters as $e): ?>
-        <li><?= Html::a($e->uname,['repo/index-for-user','uid'=>$e->uid]) ?></li>
+    <?php foreach($testers as $t): ?>
+        <li><?= Html::a($t->uname,['repo/index-for-user','uid'=>$t->uid]) ?></li>
     <?php endforeach; ?>
     </ul>
 <?php endif; ?>
 
-<?php if($model->adminid != \Yii::$app->user->id && !\Yii::$app->user->isGuest): ?>
+<?php if(!\Yii::$app->user->isGuest && !$model->isRelevantForUser(\Yii::$app->user->id)): ?>
     <div>
-        <a id="apply" href="<?= Url::to(['request/apply-join-in','repoID'=>$model->repoid],true) ?>" class="btn btn-danger" data-repoid="<?= $model->repoid ?>" data-guest="<?= \Yii::$app->user->isGuest ?>">I want to join this project.</a>
+        <a href="<?= Url::to(['request/apply-join-in'],true) ?>" class="btn btn-danger apply" data-repoid="<?= $model->repoid ?>" data-guest="<?= \Yii::$app->user->isGuest ?>">I want to join this project.</a>
     </div>
 <?php endif; ?>
 

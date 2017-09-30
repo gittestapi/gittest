@@ -104,11 +104,11 @@ class RepoController extends Controller
         $model = $this->findModel($id);
         if ($model->adminid == Yii::$app->user->id || strtolower($model->ishide) == 'n') {
             $testManagers = $model->testManagers;
-            $testExecuters = $model->testExecuters;
+            $testers = $model->testers;
             return $this->render('view', [
                 'model' => $model,
                 'testManagers' => $testManagers,
-                'testExecuters' => $testExecuters
+                'testers' => $testers
             ]);                      
         } else {
             throw new \yii\web\ForbiddenHttpException;
