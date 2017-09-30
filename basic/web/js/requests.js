@@ -34,7 +34,24 @@ $(function(){
 		if (roles) { // 如果需要设置role
 			roles = roles.split(',');
 			do {
-				var role = prompt("Please input role values:" + roles[0] + "," + roles[1],"E");
+				var role = ''; //prompt("Please input role values:" + roles[0] + "," + roles[1],"E");
+				bootbox.prompt({
+					title: "Please select the role for the user!",
+					inputType: 'select',
+					inputOptions: [
+						{
+							text: 'Make it as Test Manager',
+							value: 'M',
+						},
+						{
+							text: 'Make it as Tester',
+							value: 'E',
+						}
+					],
+					callback: function (result) {
+						role = result;
+					}
+				});
 				var invalidValue = true;
 				for(var i = 0; i< roles.length; i++) {
 					if(roles[i].toUpperCase() == role.trim().toUpperCase()) {
