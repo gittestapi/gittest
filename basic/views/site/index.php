@@ -20,15 +20,6 @@ $this->title = 'GitTest.com -- Manage your tests in GitHub';
 
         <div class="row">
             <div class="col-lg-4">
-                <h2>Create Organization</h2>
-
-                <p>Now you can create organization in GitTest to manage your team's test, here we go!</p>
-
-                <p><a class="btn btn-default" href="/index.php?r=org%2Fcreate">New Organization &raquo;</a></p>
-				<p><a class="btn btn-default" href="/index.php?r=org%2Findex">My Organization &raquo;</a></p>
-				<p><a class="btn btn-default" href="/index.php?r=org%2Findexall">All Organization &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
                 <h2>Create Project/Repo</h2>
 
                 <p>Now you can create project/repo in GitTest to manage your team's test, here we go!</p>
