@@ -1,5 +1,7 @@
 <?php
 
+use app\models\JoinRepo;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -13,7 +15,15 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="test-case-index">
 
     <h1>Please select Test Cases into test plan!</h1>
-
+ <?php $joinrepos = JoinRepo::findAll([
+		'uid' => Yii::$app->user->id,
+	]);
+	$repoidlist = ArrayHelper::map($joinrepos, 'repoid', 'repoid');
+ ?>
+ <div>
+ <div style="float:left;"><span>Select Repo:</span><?= $form->field($model, 'reponame')->dropDownList($repoidlist) ?></div>
+ <div style="float:right;"><?= Html::a('Insert Test Case into current test plan', ['InsertTC2TP'], ['class' => 'btn btn-success']) ?></div>
+ </div>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
