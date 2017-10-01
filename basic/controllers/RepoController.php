@@ -53,12 +53,14 @@ class RepoController extends Controller
     public function actionIndex()
     {
         $searchModel = new RepoSearch(['adminid'=>Yii::$app->user->id]);
+	$searchModel2 = new RepoSearch(['in', 'repoid', (new Query())->select('repoid')->from('JoinRepo')->where(['uid' => Yii::$app->user->id])] );
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         $requestDataProvider = (new RequestSearch())->search();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
+	    'searchModel2' => $searchModel2,
             'dataProvider' => $dataProvider,
             'requestDataProvider' => $requestDataProvider,
         ]);
