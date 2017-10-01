@@ -19,9 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
  <?php $joinrepos = JoinRepo::findAll([
 		'uid' => Yii::$app->user->id,
 	]);
-	$repoidlist = ArrayHelper::map($joinrepos, 'repoid', 'repoid');
+	$repoidlist = $joinrepos->select(['repoid']);
 	$repos = Repo::findAll(['in', 'repoid',$repoidlist]);
-	$reponamelist = ArrayHelper::map($repos, 'reponame', 'reponame');
+	$reponamelist = ArrayHelper::map($repos, 'repoid', 'reponame');
  ?>
  <div>
  <div style="float:left;"><span>Select Repo:</span><? Html::dropDownList('reponame', null, $reponamelist); ?></div>
