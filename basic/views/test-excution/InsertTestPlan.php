@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	]);
 	$repoidlist = ArrayHelper::map($joinrepos, 'repoid', 'repoid');
 	$repos = Repo::findAll(['in', 'repoid',$repoidlist]);
-	$reponamelist = ArrayHelper::map($joinrepos, 'reponame', 'reponame');
+	$reponamelist = ArrayHelper::map($repos, 'reponame', 'reponame');
  ?>
  <div>
  <div style="float:left;"><span>Select Repo:</span><?= $form->field($model, 'reponame')->dropDownList($reponamelist) ?></div>
