@@ -17,13 +17,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1>Please select Test Cases into test plan!</h1>
  <?php $repoidlist = JoinRepo::find()->where([
-		'uid' => Yii::$app->user->id,
-	])->select('repoid')->all();
-	$repos = Repo::findAll(['in', 'repoid',$repoidlist]);
-	$reponamelist = ArrayHelper::map($repos, 'repoid', 'reponame');
+                'uid' => Yii::$app->user->id,
+        ])->select('repoid')->all();
+        $repoids=array();
+        foreach($repoidlist as $repoid)
+        {
+        array_push($repoids,$repoid->repoid);
+        }
+        $repos = Repo::find()->where(['in', 'repoid',$repoids])->all();
+        $reponamelist = ArrayHelper::map($repos, 'repoid', 'reponame');
  ?>
  <div>
- <div style="float:left;"><span>Select Repo:</span><? Html::dropDownList('reponame', null, $reponamelist); ?></div>
+ <div style="float:left;"><span>Select Repo:</span><?= Html::dropDownList('reponame', null, $reponamelist); ?></div>
  <div style="float:right;"><?= Html::a('Insert Test Case into current test plan', ['InsertTC2TP'], ['class' => 'btn btn-success']) ?></div>
  </div>
     <?= GridView::widget([
