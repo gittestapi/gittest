@@ -5,7 +5,6 @@ use app\models\Repo;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\TestCaseSearch */
@@ -25,10 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
 	$reponamelist = ArrayHelper::map($repos, 'reponame', 'reponame');
  ?>
  <div>
- <?php $form = ActiveForm::begin(); ?>
- <div style="float:left;"><span>Select Repo:</span><?= $form->field($model, 'reponame')->dropDownList($reponamelist) ?></div>
+ <div style="float:left;"><span>Select Repo:</span>Html::activeDropDownList('reponame', reponame, $reponamelist);</div>
  <div style="float:right;"><?= Html::a('Insert Test Case into current test plan', ['InsertTC2TP'], ['class' => 'btn btn-success']) ?></div>
- <?php ActiveForm::end(); ?>
  </div>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
