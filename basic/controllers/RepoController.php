@@ -10,7 +10,6 @@ use app\models\RepoSearch3;
 use app\models\JoinRepo;
 use app\models\RequestSearch;
 use app\models\User;
-use yii\db\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -54,8 +53,9 @@ class RepoController extends Controller
     public function actionIndex()
     {
         $searchModel = new RepoSearch(['adminid'=>Yii::$app->user->id]);
-	$searchModel2 = new RepoSearch(['in', 'repoid', (new Query())->select('repoid')->from('JoinRepo')->where(['uid' => Yii::$app->user->id])] );
+	$searchModel2 = new RepoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider2 = $searchModel2->searchMyJoinedProject(Yii::$app->request->queryParams);
 
         $requestDataProvider = (new RequestSearch())->search();
 
@@ -63,6 +63,7 @@ class RepoController extends Controller
             'searchModel' => $searchModel,
 	    'searchModel2' => $searchModel2,
             'dataProvider' => $dataProvider,
+            'dataProvider2' => $dataProvider2,
             'requestDataProvider' => $requestDataProvider,
         ]);
     }
