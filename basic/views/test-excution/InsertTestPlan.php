@@ -1,6 +1,7 @@
 <?php
 
 use app\models\JoinRepo;
+use app\models\Repo;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
