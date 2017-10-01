@@ -29,6 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'milestone',
             'CreateDate',
 
+            ['class' => 'yii\grid\ActionColumn', 
+			'template' => '{link}',
+			'buttons' => [
+                'link' => function ($url,$model,$key) {
+                                return Html::a('Insert Test Cases', 'index.php?r=test-excution%2FInsertTestPlan&id='.$key);
+                },
+				],//buttons
+			],//class
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
