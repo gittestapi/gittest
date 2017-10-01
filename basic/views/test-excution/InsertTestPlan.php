@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1>Please select Test Cases into test plan!</h1>
  <?php $repoidlist = JoinRepo::find()->where([
 		'uid' => Yii::$app->user->id,
-	])->select('repoid');
+	])->select('repoid')->all();
 	$repos = Repo::findAll(['in', 'repoid',$repoidlist]);
 	$reponamelist = ArrayHelper::map($repos, 'repoid', 'reponame');
  ?>
