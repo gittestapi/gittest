@@ -19,9 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
 		'uid' => Yii::$app->user->id,
 	]);
 	$repoidlist = ArrayHelper::map($joinrepos, 'repoid', 'repoid');
+	$repos = Repo::findAll(['in', 'repoid',$repoidlist]);
+	$reponamelist = ArrayHelper::map($joinrepos, 'reponame', 'reponame');
  ?>
  <div>
- <div style="float:left;"><span>Select Repo:</span><?= $form->field($model, 'reponame')->dropDownList($repoidlist) ?></div>
+ <div style="float:left;"><span>Select Repo:</span><?= $form->field($model, 'reponame')->dropDownList($reponamelist) ?></div>
  <div style="float:right;"><?= Html::a('Insert Test Case into current test plan', ['InsertTC2TP'], ['class' => 'btn btn-success']) ?></div>
  </div>
     <?= GridView::widget([
