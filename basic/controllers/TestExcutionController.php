@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\TestCaseSearch;
 use app\models\TestExcution;
 use app\models\TestExcutionSearch;
 use yii\web\Controller;
@@ -43,7 +44,16 @@ class TestExcutionController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
+    
+    public function actionInsertTestPlan()
+    {
+        $searchModel = new TestCaseSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('InsertTestPlan', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     /**
      * Displays a single TestExcution model.
      * @param integer $id
