@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	$reponamelist = ArrayHelper::map($repos, 'reponame', 'reponame');
  ?>
  <div>
- <div style="float:left;"><span>Select Repo:</span><? Html::activeDropDownList('reponame', reponame, $reponamelist); ?></div>
+ <div style="float:left;"><span>Select Repo:</span><? Html::dropDownList('reponame', null, $reponamelist); ?></div>
  <div style="float:right;"><?= Html::a('Insert Test Case into current test plan', ['InsertTC2TP'], ['class' => 'btn btn-success']) ?></div>
  </div>
     <?= GridView::widget([
