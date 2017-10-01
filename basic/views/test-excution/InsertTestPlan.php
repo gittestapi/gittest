@@ -4,6 +4,7 @@ use app\models\JoinRepo;
 use app\models\Repo;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\grid\CheckboxColumn;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -35,8 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
+            ['class' => CheckboxColumn::className()],
             'tcid',
             'tctitle',
             'priority',
