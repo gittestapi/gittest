@@ -28,9 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
         }
         $repos = Repo::find()->where(['in', 'repoid',$repoids])->all();
         $reponamelist = ArrayHelper::map($repos, 'repoid', 'reponame');
-	$tcids = TestResult::find()->where([
-                'teid' =>  Yii::app()->request->getQuery('id'),
+	$tcidlist= TestResult::find()->where([
+                'teid' =>  Yii::$app->getRequest()->getQueryParam('id'),
         ])->select('tcid')->all();
+        $tcids=array();
+        foreach($tcidlist as $tcid)
+        {
+        array_push($tcids,$tcid->tcid);
+        }
  ?>
  <div>
  <div style="float:left;"><span>Select Repo:</span><?= Html::dropDownList('reponame', null, $reponamelist); ?></div>
@@ -51,8 +56,9 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'tag',
             // 'CreateDate',
         ['class' => 'yii\grid\DataColumn', // can be omitted, as it is the default
-            'value' => function ($data) {
-                return $data->tcid; // $data['name'] for array data, e.g. using SqlDataProvider.
+            'label' => 'In current test plan?',
+            'value' => function ($data) use ($tcids){
+                return in_array($data->tcid,$tcids)?"yes":"no"; // $data['name'] for array data, e.g. using SqlDataProvider.
             },
         ],
 			['class' => 'yii\grid\ActionColumn', 
