@@ -48,6 +48,35 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
             ['class' => 'yii\grid\ActionColumn', 'template' => '{delete}'],//class
 		]//columns
     ]); ?>
+<h1>My joined Projects</h1>
+<?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'repoid',
+            [
+                'attribute' => 'reponame',
+                'content' => function($model,$key,$index,$column) {
+                    return Html::a($model->reponame,['repo/view','id'=>$model->repoid]);
+                }
+            ],
+            'ishide',
+            'RegisterDate',
+
+			['class' => 'yii\grid\ActionColumn', 
+			'template' => '{link}',
+			'buttons' => [
+                'link' => function ($url,$model,$key) {
+                                return Html::a('My Test Cases', 'index.php?r=test-case%2Findex&id='.$key);
+                },
+				],//buttons
+			],//class
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{delete}'],//class
+		]//columns
+    ]); ?>
+	
 <?php if($requestDataProvider->count > 0) :?>
     <h2>Requests List</h2>
     <?= GridView::widget([
