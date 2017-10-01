@@ -10,6 +10,7 @@ use app\models\RepoSearch3;
 use app\models\JoinRepo;
 use app\models\RequestSearch;
 use app\models\User;
+use yii\db\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
