@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'template' => '{link}',
 			'buttons' => [
                 'link' => function ($url,$model,$key) {
-                                return Html::a('Insert Test Cases', 'index.php?r=test-excution%2FInsertTestPlan&id='.$key);
+                                return Html::a('Insert Test Cases', 'index.php?r=test-excution%2Finsert-test-plan&id='.$key);
                 },
 				],//buttons
 			],//class
