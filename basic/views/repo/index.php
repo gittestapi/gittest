@@ -45,8 +45,8 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
                 },
 				],//buttons
 			],//class
-            //['class' => 'yii\grid\ActionColumn', 'template' => '{leave project}'],//class
-		]//columns
+             ['class' => 'yii\grid\ActionColumn', 'template' => '{delete}'],//class
+	]//columns
     ]); ?>
 <h1>My joined Projects</h1>
 <?= GridView::widget([
@@ -73,7 +73,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
                 },
 				],//buttons
 			],//class
-            ['class' => 'yii\grid\ActionColumn', 'template' => '{delete}'],//class
+            //['class' => 'yii\grid\ActionColumn', 'template' => '{leave project}'],//class
 		]//columns
     ]); ?>
 	
