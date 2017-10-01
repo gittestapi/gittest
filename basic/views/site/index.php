@@ -25,15 +25,24 @@ $this->title = 'GitTest.com -- Manage your tests in GitHub';
                 <p>Now you can create project/repo in GitTest to manage your team's test, here we go!</p>
 
                 <p><a class="btn btn-default" href="/index.php?r=repo%2Fcreate">New Project/Repo &raquo;</a></p>
-				<p><a class="btn btn-default" href="/index.php?r=repo%2Findex">My Project/Repo &raquo;</a></p>
-				<p><a class="btn btn-default" href="/index.php?r=repo%2Findexall">All Project/Repo &raquo;</a></p>
+		<p><a class="btn btn-default" href="/index.php?r=repo%2Findex">My Project/Repo &raquo;</a></p>
+		<p><a class="btn btn-default" href="/index.php?r=repo%2Findexall">All Project/Repo &raquo;</a></p>
             </div>
             <div class="col-lg-4">
-                <h2>Create Test Cases</h2>
+                <h2>Create Test Case</h2>
 
                 <p>Now you can create test cases in GitTest to manage your team's test, here we go!</p>
 
                 <p><a class="btn btn-default" href="/index.php?r=test-case%2Fcreate">New Test Cases &raquo;</a></p>
+		<p><a class="btn btn-default" href="/index.php?r=test-case%2Findex">My Test Cases &raquo;</a></p>
+            </div>
+	    <div class="col-lg-4">
+                <h2>Create Test Plan</h2>
+
+                <p>Now you can create test plan in GitTest to manage your team's test, here we go!</p>
+
+                <p><a class="btn btn-default" href="/index.php?r=test-excution%2Fcreate">New Test Plan &raquo;</a></p>
+		<p><a class="btn btn-default" href="/index.php?r=test-excution%2Findex">My Test Plan &raquo;</a></p>
             </div>
         </div>
 
