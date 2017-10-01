@@ -50,7 +50,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
     ]); ?>
 <h1>My joined Projects</h1>
 <?= GridView::widget([
-        'dataProvider' => $dataProvider,
+        'dataProvider' => $dataProvider2,
         'filterModel' => $searchModel2,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
