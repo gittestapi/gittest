@@ -2,6 +2,7 @@
 
 use app\models\JoinRepo;
 use app\models\Repo;
+use app\models\TestResult;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\CheckboxColumn;
@@ -27,6 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
         }
         $repos = Repo::find()->where(['in', 'repoid',$repoids])->all();
         $reponamelist = ArrayHelper::map($repos, 'repoid', 'reponame');
+	$tcids = TestResult::find()->where([
+                'teid' =>  Yii::app()->request->getQuery('id'),
+        ])->select('tcid')->all();
  ?>
  <div>
  <div style="float:left;"><span>Select Repo:</span><?= Html::dropDownList('reponame', null, $reponamelist); ?></div>
@@ -46,7 +50,11 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'category',
             // 'tag',
             // 'CreateDate',
-
+        ['class' => 'yii\grid\DataColumn', // can be omitted, as it is the default
+            'value' => function ($data) {
+                return $data->tcid; // $data['name'] for array data, e.g. using SqlDataProvider.
+            },
+        ],
 			['class' => 'yii\grid\ActionColumn', 
 			'template' => '{view}',
 			'buttons' => [
