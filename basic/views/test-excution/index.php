@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'template' => '{link}',
 			'buttons' => [
                 'link' => function ($url,$model,$key) {
-                                return Html::a('Insert Test Cases', 'index.php?r=test-excution%2Finsert-test-plan&id='.$key);
+                                return Html::button('Insert Test Cases', [ 'class' => 'btn btn-primary', 'onclick' => "window.open('index.php?r=test-excution%2Finsert-test-plan&id=$key','_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=60,left=350,width=800, height=600');" ]);
                 },
 				],//buttons
 	    ],//class
@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'template' => '{link}',
 			'buttons' => [
                 'link' => function ($url,$model,$key) {
-                                return Html::a("Get this test plan's Test Cases", 'index.php?r=test-excution%2Fget-test-cases&id='.$key);
+                                return Html::button("Get this test plan's Test Cases", [ 'class' => 'btn btn-primary', 'onclick' => "window.open('index.php?r=test-excution%2Fget-test-case&id=$key','_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=60,left=350,width=800, height=600');" ]);
                 },
 				],//buttons
 	    ],//class
@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'template' => '{link}',
 			'buttons' => [
                 'link' => function ($url,$model,$key) {
-                                return Html::a("Get this test plan's Test Results", 'index.php?r=test-excution%2Fget-test-results&id='.$key);
+                                return Html::button("Get this test plan's Test Results", [ 'class' => 'btn btn-primary', 'onclick' => "window.open('index.php?r=test-excution%2Fget-test-results&id=$key','_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=60,left=350,width=800, height=600');" ]);
                 },
 				],//buttons
 	    ],//class
