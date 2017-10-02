@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
  <div>
  <div style="float:left;"><span>Select Repo:</span>
 <?php $actual_link="http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";$rid=isset($_GET["repoid"]) ? $_GET["repoid"] : '';$myurl=isset($_GET['repoid']) ? str_replace('&repoid='.$rid,'',$actual_link) : ($actual_link);$myurl="'".$myurl."&repoid='";?>
-<?= Html::dropDownList('reponame', null, $reponamelist,['onchange' => 'if(!this.value) window.location.href = '.$myurl.'+this.value','prompt' => '---Select a repo---',
+<?= Html::dropDownList('reponame', null, $reponamelist,['onchange' => 'if(this.value) window.location.href = '.$myurl.'+this.value','prompt' => '---Select a repo---',
           'options' =>
                     [                        
                       $rid => ['selected' => true]
