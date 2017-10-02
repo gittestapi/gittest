@@ -70,4 +70,9 @@ class TestCase extends \yii\db\ActiveRecord
 			return false;
 		}
 	}
+
+    public function getRepo()
+    {
+        return $this->hasOne(Repo::className(),['repoid'=>'repoid']);
+    }
 }

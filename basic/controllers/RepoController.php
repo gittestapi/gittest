@@ -53,7 +53,7 @@ class RepoController extends Controller
     public function actionIndex()
     {
         $searchModel = new RepoSearch(['adminid'=>Yii::$app->user->id]);
-	$searchModel2 = new RepoSearch();
+	    $searchModel2 = new RepoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider2 = $searchModel2->searchMyJoinedProject(Yii::$app->request->queryParams);
 

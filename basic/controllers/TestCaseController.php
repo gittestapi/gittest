@@ -32,13 +32,13 @@ class TestCaseController extends Controller
     }
 
     /**
-     * Lists all TestCase models.
+     * 列出当前用户参与的 repo 下的所有 TestCase （且当前用户对于 repo 的身份为测试管理员）
      * @return mixed
      */
     public function actionIndex()
     {
         $searchModel = new TestCaseSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->searchRelevantTestCase(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
