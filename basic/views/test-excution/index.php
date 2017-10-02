@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TestExcutionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Test Excutions';
+$this->title = 'My Test Plans';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="test-excution-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Test Excution', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Test Plan', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -36,7 +36,23 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return Html::a('Insert Test Cases', 'index.php?r=test-excution%2Finsert-test-plan&id='.$key);
                 },
 				],//buttons
-			],//class
+	    ],//class
+	    ['class' => 'yii\grid\ActionColumn', 
+			'template' => '{link}',
+			'buttons' => [
+                'link' => function ($url,$model,$key) {
+                                return Html::a("Get this test plan's Test Cases", 'index.php?r=test-excution%2Fget-test-cases&id='.$key);
+                },
+				],//buttons
+	    ],//class
+	    ['class' => 'yii\grid\ActionColumn', 
+			'template' => '{link}',
+			'buttons' => [
+                'link' => function ($url,$model,$key) {
+                                return Html::a("Get this test plan's Test Results", 'index.php?r=test-excution%2Fget-test-results&id='.$key);
+                },
+				],//buttons
+	    ],//class
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
