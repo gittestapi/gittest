@@ -47,7 +47,8 @@ class TestExcutionController extends Controller
     
     public function actionInsertTestPlan()
     {
-        $searchModel = new TestCaseSearch();
+        $repoid =Yii::$app->getRequest()->getQueryParam('repoid');
+        $searchModel = (is_null($repoid)||empty($repoid)) ?  (new TestCaseSearch(['tcid' => -1])): (new TestCaseSearch(['repoid'=>$repoid]));
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('InsertTestPlan', [
             'searchModel' => $searchModel,
