@@ -110,4 +110,21 @@ class Repo extends \yii\db\ActiveRecord
         }
         return False;
     }
+
+    /**
+     * 判断一个用户是否是 repo 的测试管理员
+     */
+    public function isTestManagerForUser($uid)
+    {
+        if (JoinRepo::findOne(['uid'=>$uid,'repoid'=>$this->repoid,'role'=>'M']))
+            return True;
+        return False;
+    }
+
+    public function isTesterForUser($uid)
+    {
+        if (JoinRepo::findOne(['uid'=>$uid,'repoid'=>$this->repoid,'role'=>'M']))
+            return True;
+        return False;
+    }
 }

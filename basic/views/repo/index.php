@@ -41,7 +41,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
 			'template' => '{link}',
 			'buttons' => [
                 'link' => function ($url,$model,$key) {
-                                return Html::a('My Test Cases', 'index.php?r=test-case%2Findex&id='.$key);
+                                return Html::a('Test Cases', ['test-case/gettestcasesbyrepoid','id'=>$key]);
                 },
 				],//buttons
 			],//class
@@ -69,7 +69,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
 			'template' => '{link}',
 			'buttons' => [
                 'link' => function ($url,$model,$key) {
-                                return Html::a('My Test Cases', 'index.php?r=test-case%2Findex&id='.$key);
+                                return Html::a('Test Cases', ['test-case/gettestcasesbyrepoid','id'=>$key]);
                 },
 				],//buttons
 			],//class

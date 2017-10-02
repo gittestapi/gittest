@@ -50,9 +50,15 @@ class TestCaseController extends Controller
     {
         $searchModel = new TestCaseSearch2();
         $dataProvider = $searchModel->search2($id,Yii::$app->request->queryParams);
+        $repo = $this->findRepoModel($id);
 
-        return $this->render('gettestcasesbyrepoid', [
-			'model' => $this->findRepoModel($id),
+        $viewTemplate = 'gettestcasesbyrepoid';
+        if(!Yii::$app->user->isGuest && $repo->isTestManagerForUser(Yii::$app->user->id)) {
+            $viewTemplate = 'gettestcasesbyrepoid2';
+        }
+
+        return $this->render($viewTemplate, [
+			'model' => $repo,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
