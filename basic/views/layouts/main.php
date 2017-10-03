@@ -67,7 +67,7 @@ AppAsset::register($this);
 							. Html::beginForm(['/site/logout'], 'post')
 							. Html::submitButton(
 							'>>> Sign out >>>',
-							['class' => 'btn btn-link logout']
+							['class' => 'btn btn-info btn-lg']
 							)
 							. Html::endForm()
 							. '</li>'
