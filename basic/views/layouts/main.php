@@ -53,14 +53,26 @@ AppAsset::register($this);
 						['label' => 'Home', 'url' => ['/site/index']],
 						['label' => 'About', 'url' => ['/site/about']],
 						['label' => 'Contact', 'url' => ['/site/contact']],
-						'<li>'
-						. Html::beginForm(['/site/logout'], 'post')
-						. Html::submitButton(
-						'Logout (' . Yii::$app->user->identity->uname . ')',
-						['class' => 'btn btn-link logout']
-						)
-						. Html::endForm()
-						. '</li>'
+						[
+						'label' => 'More ('.Yii::$app->user->identity->uname.')',
+						'items' => [
+							['label' => 'New Project/Repo »', 'url' => ['/repo/create']],
+							['label' => 'My Project/Repo »', 'url' => ['/repo/index']],
+							['label' => 'All Project/Repo »', 'url' => ['/repo/indexall']],
+							['label' => 'New Test Cases »', 'url' => ['/test-case/create']],
+							['label' => 'My Test Cases »', 'url' => ['/test-case/index']],
+							['label' => 'New Test Plan »', 'url' => ['/test-excution/create']],
+							['label' => 'My Test Plan »', 'url' => ['/test-excution/index']],
+							'<li>'
+							. Html::beginForm(['/site/logout'], 'post')
+							. Html::submitButton(
+							'>>> Sign out >>>',
+							['class' => 'btn btn-link logout']
+							)
+							. Html::endForm()
+							. '</li>'
+						        ],
+						],
 					],
 			]);
 	}
