@@ -71,6 +71,39 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
     </div>
 <?php endif; ?>
 
-
+<?php if($model->adminid == \Yii::$app->user->id): ?>
+    <p>
+        <?= Html::a('Create Area', ['createarea', 'id' => $model->repoid], [
+            'class' => 'btn btn-success',
+            'onclick' => 'bootbox.prompt("Please input Area to be created:", function(result){ alert("Area:"+result); });',
+            'data' => [
+                'method' => 'post',
+            ],
+        ]) ?>
+    </p>
+    <h2>Area list</h2>
+    
+    <p>
+        <?= Html::a('Create Category', ['createcategory', 'id' => $model->repoid], [
+            'class' => 'btn btn-success',
+            'onclick' => 'bootbox.prompt("Please input Category to be created:", function(result){ alert("Category:"+result); });',
+            'data' => [
+                'method' => 'post',
+            ],
+        ]) ?>
+    </p>
+    <h2>Category list</h2>
+    
+    <p>
+        <?= Html::a('Create Tag', ['createtag', 'id' => $model->repoid], [
+            'class' => 'btn btn-success',
+            'onclick' => 'bootbox.prompt("Please input Tag to be created:", function(result){ alert("Tag:"+result); });',
+            'data' => [
+                'method' => 'post',
+            ],
+        ]) ?>
+    </p>
+    <h2>Tag list</h2>
+<?php endif; ?>
 
 </div>
