@@ -52,7 +52,7 @@ class TestCase extends \yii\db\ActiveRecord
             'tctitle' => 'Tctitle',
             'priority' => 'Priority',
             'serverity' => 'Serverity',
-            'repoid' => 'Repoid',
+            'repoid' => 'Repo',
             'area' => 'Area',
             'category' => 'Category',
             'tag' => 'Tag',

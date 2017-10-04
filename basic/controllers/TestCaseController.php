@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Repo;
 use app\models\TestCase;
+use app\models\Steps;
 use app\models\TestCaseSearch;
 use app\models\TestCaseSearch2;
 use yii\web\Controller;
@@ -106,6 +107,16 @@ class TestCaseController extends Controller
         $model = new TestCase();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $contents = Yii::$app->request->post('steps');
+            $contents = $contents['contents'];
+            foreach($contents as $c) {
+                $step = new Steps();
+                $step->content = trim($c);
+                $step->tcid = $model->tcid;                   
+                if($step->validate()){
+                    $step->save(false);
+                }                    
+            }
             return $this->redirect(['view', 'id' => $model->tcid]);
         } else {
             return $this->render('create', [

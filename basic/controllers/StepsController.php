@@ -111,7 +111,7 @@ class StepsController extends Controller
 		$model->tcid = $id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->sid]);
+            return $this->redirect(['steps/index', 'id' => $model->tcid]);
         } else {
             return $this->render('create', [
                 'model' => $model,
