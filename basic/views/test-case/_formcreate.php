@@ -4,6 +4,7 @@ use app\models\Area;
 use app\models\Category;
 use app\models\JoinRepo;
 use app\models\Tag;
+use app\models\Repo;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
@@ -18,8 +19,13 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); 
 	$joinrepos = JoinRepo::findAll([
 		'uid' => Yii::$app->user->id,
+		'role' => 'M'
 	]);
-	$repoidlist = ArrayHelper::map($joinrepos, 'repoid', 'repoid');
+	$repoidlist = ArrayHelper::getColumn($joinrepos, 'repoid');
+	$repoList = [];
+	foreach($repoidlist as $id) {
+		$repolist[$id] = Repo::findOne($id)->reponame;
+	}
 	?>
 
     <?= $form->field($model, 'tctitle')->textInput(['maxlength' => true]) ?>
@@ -28,7 +34,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'serverity')->dropDownList(array('0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4'), array('options' => array('0'=>array('selected'=>true)))) ?>
 
-    <?= $form->field($model, 'repoid')->dropDownList($repoidlist) ?>
+    <?= $form->field($model, 'repoid')->dropDownList($repolist) ?>
 
 	<?php 
 	$areas = Area::find()->where(['in','repoid',$repoidlist])->all();
@@ -51,6 +57,17 @@ use yii\widgets\ActiveForm;
 	
     <?= $form->field($model, 'tag')->dropDownList($taglist) ?>
 
+<?php if($model->isNewRecord): ?> 
+    <h2>steps</h2>
+    <div class="form-group">
+	    <h3>step 1</h3>
+	    <input class="form-control" name="steps[contents][0]" type="text">    	
+	</div>
+	<div>
+	    <h3>step 2</h3>
+	    <input class="form-control" name="steps[contents][1]" type="text">
+	</div>
+<?php endif; ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

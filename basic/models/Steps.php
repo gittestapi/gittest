@@ -27,7 +27,7 @@ class Steps extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tcid'], 'required'],
+            [['tcid','content'], 'required'],
             [['tcid'], 'integer'],
             [['content'], 'string', 'max' => 1000],
         ];
