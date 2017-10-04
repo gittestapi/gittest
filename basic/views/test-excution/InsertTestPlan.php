@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1>Please select Test Cases into test plan!</h1>
  <?php $repoidlist = JoinRepo::find()->where([
-                'uid' => Yii::$app->user->id,
+                'uid' => Yii::$app->user->id,'role' => 'M'
         ])->select('repoid')->all();
         $repoids=array();
         foreach($repoidlist as $repoid)
