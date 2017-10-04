@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\TestCase;
 use app\models\TestCaseSearch;
 use app\models\TestExcution;
 use app\models\TestExcutionSearch;
@@ -48,11 +49,13 @@ class TestExcutionController extends Controller
     public function actionInsertTestPlan()
     {
         $repoid =Yii::$app->getRequest()->getQueryParam('repoid');
+        $tpid = Yii::$app->getRequest()->get('id');
         $searchModel = (is_null($repoid)||empty($repoid)) ?  (new TestCaseSearch(['tcid' => -1])): (new TestCaseSearch(['repoid'=>$repoid]));
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('InsertTestPlan', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'tpid' => $tpid,
         ]);
     }
     /**
@@ -115,6 +118,17 @@ class TestExcutionController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionInsertTC2TP()
+    {
+        $tpid = Yii::$app->request->post('tpid');
+        $tcids = Yii::$app->request->post('tcids');
+        foreach($tcids as $tcid) {
+            $tc = TestCase::findOne($tcid);
+            $tc->initTestResult($tpid);
+        }
+        return $this->asJson(['success'=>True]);
     }
 
     /**

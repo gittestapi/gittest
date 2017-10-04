@@ -14,6 +14,8 @@ use yii\grid\GridView;
 
 $this->title = 'Please select Test Cases into test plan!';
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerJsFile('js/inserttc2tp.js',['depends'=>[\yii\grid\GridViewAsset::className(),]]);
 ?>
 <div class="test-case-index">
 
@@ -46,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                       $rid => ['selected' => true]
                     ]
           ]); ?></div>
- <div style="float:right;"><?= Html::a('Insert Test Case into current test plan', ['InsertTC2TP'], ['class' => 'btn btn-success']) ?></div>
+ <div style="float:right;"><?= Html::a('Insert Test Case into current test plan', ['insert-t-c2-t-p'], ['class' => 'btn btn-success','id'=>'inserttc2tp','data'=>['tpid'=>$tpid]]) ?></div>
  </div>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

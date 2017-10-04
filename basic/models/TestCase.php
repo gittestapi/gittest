@@ -75,4 +75,56 @@ class TestCase extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Repo::className(),['repoid'=>'repoid']);
     }
+
+
+    /**
+     *
+     */
+    protected function getStepIDS()
+    {
+        $rows =  Steps::find()->select(['sid'])
+                    ->where(['tcid'=>$this->tcid])
+                    ->asArray()
+                    ->all();  
+        $ids = [];
+        foreach($rows as $r){
+            array_push($ids,$r['sid']);
+        }
+        return $ids;       
+    }
+
+    /**
+     * 为测试计划生成对应的 TestResult 和 TestStepResult
+     * @param integer $teid 测试计划 ID
+     */
+    public function initTestResult($teid)
+    {
+        $testResult = new TestResult([
+            'tcid' => $this->tcid,
+            'tctitle' => $this->tctitle,
+            'status' => '',
+            'teid' => $teid,
+            ]);
+        if($testResult->validate()) {
+            $testResult->save(false);
+        }else{
+            Yii::warning($testResult->errors);
+        }
+
+        $stepids = $this->getStepIDS();
+        foreach($stepids as $sid) {
+            $tsr = new TestStepsResult([
+                'sid' => $sid, // 测试步骤编号
+                'tcid' => $this->tcid,
+                'trid' => $testResult->trid,
+                'status' => '',
+                ]);
+            if($tsr->validate()){
+                $tsr->save(false);
+            }else{
+                Yii::warning($tsr->errors);
+            }
+            
+        }
+    }
 }
