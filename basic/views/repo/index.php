@@ -36,6 +36,15 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
             ],
             'ishide',
             'RegisterDate',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{link}',
+                'buttons' => [
+                    'link' => function($url,$model,$key) {
+                        return Html::a('Add Test Case',['test-case/create-for-repo','repoid'=>$key]);
+                    },
+                ],
+            ],
 
 			['class' => 'yii\grid\ActionColumn', 
 			'template' => '{link}',
@@ -65,6 +74,17 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
             'ishide',
             'RegisterDate',
 
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{link}',
+                'buttons' => [
+                    'link' => function($url,$model,$key) {
+                        if($model->isTestManagerForUser(\Yii::$app->user->id)){
+                            return Html::a('Add Test Case',['test-case/create-for-repo','repoid'=>$key]);
+                        }                       
+                    },
+                ],
+            ],
 			['class' => 'yii\grid\ActionColumn', 
 			'template' => '{link}',
 			'buttons' => [

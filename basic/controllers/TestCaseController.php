@@ -125,6 +125,29 @@ class TestCaseController extends Controller
         }
     }
 
+    public function actionCreateForRepo($repoid)
+    {
+        $model = new TestCase(['repoid' => $repoid]);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $contents = Yii::$app->request->post('steps');
+            $contents = $contents['contents'];
+            foreach($contents as $c) {
+                $step = new Steps();
+                $step->content = trim($c);
+                $step->tcid = $model->tcid;                   
+                if($step->validate()){
+                    $step->save(false);
+                }                    
+            }
+            return $this->redirect(['view', 'id' => $model->tcid]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }        
+    }
+
     /**
      * Updates an existing TestCase model.
      * If update is successful, the browser will be redirected to the 'view' page.
