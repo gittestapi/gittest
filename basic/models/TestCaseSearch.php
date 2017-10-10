@@ -19,8 +19,8 @@ class TestCaseSearch extends TestCase
     public function rules()
     {
         return [
-            [['tcid', 'priority', 'serverity', 'repoid'], 'integer'],
-            [['tctitle', 'area', 'category', 'tag', 'CreateDate'], 'safe'],
+            [['id', 'priority', 'serverity', 'repoid'], 'integer'],
+            [['title', 'area', 'category', 'tag', 'CreateDate'], 'safe'],
         ];
     }
 
@@ -61,14 +61,14 @@ class TestCaseSearch extends TestCase
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'tcid' => $this->tcid,
+            'id' => $this->id,
             'priority' => $this->priority,
             'serverity' => $this->serverity,
             'repoid' => $this->repoid,
             'CreateDate' => $this->CreateDate,
         ]);
 
-        $query->andFilterWhere(['like', 'tctitle', $this->tctitle])
+        $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'area', $this->area])
             ->andFilterWhere(['like', 'category', $this->category])
             ->andFilterWhere(['like', 'tag', $this->tag]);
@@ -108,14 +108,14 @@ class TestCaseSearch extends TestCase
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'tcid' => $this->tcid,
+            'id' => $this->id,
             'priority' => $this->priority,
             'serverity' => $this->serverity,
             'repoid' => $this->repoid,
             'CreateDate' => $this->CreateDate,
         ]);
 
-        $query->andFilterWhere(['like', 'tctitle', $this->tctitle])
+        $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'area', $this->area])
             ->andFilterWhere(['like', 'category', $this->category])
             ->andFilterWhere(['like', 'tag', $this->tag]);

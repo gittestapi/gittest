@@ -37,7 +37,7 @@ class TestCase extends \yii\db\ActiveRecord
             [['priority', 'serverity', 'repoid'], 'required'],
             [['priority', 'serverity', 'repoid'], 'integer'],
             [['CreateDate'], 'safe'],
-            [['tctitle'], 'string', 'max' => 1000],
+            [['title'], 'string', 'max' => 1000],
             [['area', 'category', 'tag'], 'string', 'max' => 100],
         ];
     }
@@ -48,8 +48,8 @@ class TestCase extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'tcid' => 'Tcid',
-            'tctitle' => 'Tctitle',
+            'id' => 'Tcid',
+            'title' => 'Tctitle',
             'priority' => 'Priority',
             'serverity' => 'Serverity',
             'repoid' => 'Repo',

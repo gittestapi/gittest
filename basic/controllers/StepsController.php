@@ -39,7 +39,6 @@ class StepsController extends Controller
     {
         $searchModel = new StepsSearch2();
         $dataProvider = $searchModel->search2($id,Yii::$app->request->queryParams);
-
         return $this->render('index', [
 			'model' => $this->findTCModel($id),
             'searchModel' => $searchModel,

@@ -112,12 +112,12 @@ class TestCaseController extends Controller
             foreach($contents as $c) {
                 $step = new Steps();
                 $step->content = trim($c);
-                $step->tcid = $model->tcid;                   
+                $step->tcid = $model->id;                   
                 if($step->validate()){
                     $step->save(false);
                 }                    
             }
-            return $this->redirect(['view', 'id' => $model->tcid]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -135,12 +135,12 @@ class TestCaseController extends Controller
             foreach($contents as $c) {
                 $step = new Steps();
                 $step->content = trim($c);
-                $step->tcid = $model->tcid;                   
+                $step->tcid = $model->id;                   
                 if($step->validate()){
                     $step->save(false);
                 }                    
             }
-            return $this->redirect(['view', 'id' => $model->tcid]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -159,7 +159,7 @@ class TestCaseController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->tcid]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,

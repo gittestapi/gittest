@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
 	}
 	?>
 
-    <?= $form->field($model, 'tctitle')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'priority')->dropDownList(array('0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4'), array('options' => array('0'=>array('selected'=>true)))) ?>
 

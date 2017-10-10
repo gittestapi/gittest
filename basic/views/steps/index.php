@@ -14,8 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'tcid',
-            'tctitle',
+            'id',
+            'title',
             'priority',
             'serverity',
             'repoid',
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Steps', '/index.php?r=steps/create&id='.$model->tcid, ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Steps', '/index.php?r=steps/create&id='.$model->id, ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
