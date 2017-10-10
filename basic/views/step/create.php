@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Steps */
 
 $this->title = 'Create Steps';
-$this->params['breadcrumbs'][] = ['label' => 'Steps', 'url' => 'index.php?r=steps%2Findex&id='.$model->tcid];
+$this->params['breadcrumbs'][] = ['label' => 'Steps', 'url' => 'index.php?r=step%2Findex&tcid='.$model->tcid];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="steps-create">

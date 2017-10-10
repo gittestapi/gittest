@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Steps', '/index.php?r=steps/create&id='.$model->id, ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Step', '/index.php?r=step/create&tcid='.$model->id, ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
