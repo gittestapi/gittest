@@ -27,11 +27,11 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'repoid',
+            'id',
             [
-                'attribute' => 'reponame',
+                'attribute' => 'name',
                 'content' => function($model,$key,$index,$column) {
-                    return Html::a($model->reponame,['repo/view','id'=>$model->repoid]);
+                    return Html::a($model->name,['repo/view','id'=>$model->id]);
                 }
             ],
             'ishide',
@@ -64,11 +64,11 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'repoid',
+            'id',
             [
-                'attribute' => 'reponame',
+                'attribute' => 'name',
                 'content' => function($model,$key,$index,$column) {
-                    return Html::a($model->reponame,['repo/view','id'=>$model->repoid]);
+                    return Html::a($model->name,['repo/view','id'=>$model->id]);
                 }
             ],
             'ishide',
@@ -89,7 +89,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
 			'template' => '{link}',
 			'buttons' => [
                 'link' => function ($url,$model,$key) {
-                                return Html::a('Test Cases', ['test-case/gettestcasesbyrepoid','id'=>$key]);
+                                return Html::a('Test Cases', ['test-case/gettestcasesbyrepoid','repoid'=>$key]);
                 },
 				],//buttons
 			],//class

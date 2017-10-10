@@ -24,7 +24,7 @@ use yii\widgets\ActiveForm;
 	$repoidlist = ArrayHelper::getColumn($joinrepos, 'repoid');
 	$repolist = [];
 	foreach($repoidlist as $id) {
-		$repolist[$id] = Repo::findOne($id)->reponame;
+		$repolist[$id] = Repo::findOne($id)->name;
 	}
 	?>
 

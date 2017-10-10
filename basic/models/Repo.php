@@ -31,9 +31,9 @@ class Repo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            ['reponame', 'unique', 'message' => "This org name already exists."],
-            [['reponame'], 'string', 'max' => 300],
-            [['reponame','ishide'],'required'],
+            ['name', 'unique', 'message' => "This org name already exists."],
+            [['name'], 'string', 'max' => 300],
+            [['name','ishide'],'required'],
             [['ishide'], YONValidator::className()],
         ];
     }
@@ -44,8 +44,8 @@ class Repo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'repoid' => 'Repoid',
-            'reponame' => 'Reponame',
+            'id' => 'Repoid',
+            'name' => 'Reponame',
             'ishide' => 'Ishide',
             'RegisterDate' => 'Register Date',
         ];
@@ -70,7 +70,7 @@ class Repo extends \yii\db\ActiveRecord
     public function getTestManagers()
     {
         $joinRepos = JoinRepo::find()->where([
-            'repoid'=>$this->repoid,
+            'repoid'=>$this->id,
             'role' => 'M'
             ])->andWhere(['not',['uid'=>$this->adminid]])
             ->all();
@@ -85,7 +85,7 @@ class Repo extends \yii\db\ActiveRecord
     public function getTesters()
     {
         $joinRepos = JoinRepo::find()->where([
-            'repoid'=>$this->repoid,
+            'repoid'=>$this->id,
             'role' => 'E'
             ])->all();
 
@@ -105,7 +105,7 @@ class Repo extends \yii\db\ActiveRecord
     {
         if ($this->adminid == $uid)
             return True;
-        if (JoinRepo::findOne(['uid'=>$uid,'repoid'=>$this->repoid])) {
+        if (JoinRepo::findOne(['uid'=>$uid,'repoid'=>$this->id])) {
             return True;
         }
         return False;
@@ -116,14 +116,14 @@ class Repo extends \yii\db\ActiveRecord
      */
     public function isTestManagerForUser($uid)
     {
-        if (JoinRepo::findOne(['uid'=>$uid,'repoid'=>$this->repoid,'role'=>'M']))
+        if (JoinRepo::findOne(['uid'=>$uid,'repoid'=>$this->id,'role'=>'M']))
             return True;
         return False;
     }
 
     public function isTesterForUser($uid)
     {
-        if (JoinRepo::findOne(['uid'=>$uid,'repoid'=>$this->repoid,'role'=>'M']))
+        if (JoinRepo::findOne(['uid'=>$uid,'repoid'=>$this->id,'role'=>'M']))
             return True;
         return False;
     }

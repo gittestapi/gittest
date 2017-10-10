@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'repoid',
+            'id',
             [
                 'attribute' => 'reponame',
                 'content' => function($model,$key,$index,$column) {

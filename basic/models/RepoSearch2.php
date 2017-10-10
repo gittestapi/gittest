@@ -23,8 +23,8 @@ class RepoSearch2 extends Repo
     public function rules()
     {
         return [
-            [['repoid', 'adminid'], 'integer'],
-            [['reponame','RegisterDate','user.name'], 'safe'],
+            [['id', 'adminid'], 'integer'],
+            [['name','RegisterDate','user.name'], 'safe'],
         ];
     }
 
@@ -71,13 +71,13 @@ class RepoSearch2 extends Repo
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'repoid' => $this->repoid,
+            'id' => $this->id,
             'RegisterDate' => $this->RegisterDate,
         ]);
 
         $query->andFilterWhere(['LIKE', 'user.name', $this->getAttribute('user.name')]);
 
-        $query->andFilterWhere(['like', 'reponame', $this->reponame]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

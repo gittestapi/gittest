@@ -53,15 +53,13 @@ class RepoController extends Controller
     public function actionIndex()
     {
         $searchModel = new RepoSearch(['adminid'=>Yii::$app->user->id]);
-	    $searchModel2 = new RepoSearch();
+	    $searchModel2 = new RepoSearch();       
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider2 = $searchModel2->searchMyJoinedProject(Yii::$app->request->queryParams);
-
+        $dataProvider2 = $searchModel2->searchMyJoinedProject(Yii::$app->request->queryParams);      
         $requestDataProvider = (new RequestSearch())->search();
-
         return $this->render('index', [
             'searchModel' => $searchModel,
-	    'searchModel2' => $searchModel2,
+            'searchModel2' => $searchModel2,
             'dataProvider' => $dataProvider,
             'dataProvider2' => $dataProvider2,
             'requestDataProvider' => $requestDataProvider,
@@ -91,7 +89,6 @@ class RepoController extends Controller
     {
         $searchModel = new RepoSearch2();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('indexall', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -144,12 +141,12 @@ class RepoController extends Controller
 
             $joinRepo = new JoinRepo();
             $joinRepo->uid = Yii::$app->user->id;
-            $joinRepo->repoid = $model->repoid;
+            $joinRepo->repoid = $model->id;
             $joinRepo->IsApproved = 'y';
             $joinRepo->role = 'M';
             $joinRepo->save();
 
-            return $this->redirect(['view', 'id' => $model->repoid]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Repo */
 
-$this->title = $model->reponame;
+$this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Repos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -20,7 +20,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
 
 <?php if($model->adminid == \Yii::$app->user->id): ?>
     <p>
-        <?= Html::a('Delete', ['delete', 'id' => $model->repoid], [
+        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -33,7 +33,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'repoid',
+            'id',
             'ishide',
             'RegisterDate',
             [
@@ -45,8 +45,8 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
     ]) ?>
 <?php if($model->adminid == \Yii::$app->user->id): ?>
     <h3>Invite other user to join this project</h3>
-    <p>invite <input>to join as a testManager <button class="invite" data-role="M" data-repoid="<?= $model->repoid ?>" data-url="<?= Url::to(["request/invite"]) ?>">OK</button></p>
-    <p>invite <input>to join as a tester <button class="invite" data-role="E" data-repoid="<?= $model->repoid ?>" data-url="<?= Url::to(["request/invite"]) ?>">OK</button></p>
+    <p>invite <input>to join as a testManager <button class="invite" data-role="M" data-repoid="<?= $model->id ?>" data-url="<?= Url::to(["request/invite"]) ?>">OK</button></p>
+    <p>invite <input>to join as a tester <button class="invite" data-role="E" data-repoid="<?= $model->id ?>" data-url="<?= Url::to(["request/invite"]) ?>">OK</button></p>
 <?php endif; ?>
 <?php if($testManagers): ?>
     <h3>Test Manager</h3>
@@ -73,7 +73,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
 
 <?php if($model->adminid == \Yii::$app->user->id): ?>
     <p>
-        <?= Html::a('Create Area', ['createarea', 'id' => $model->repoid], [
+        <?= Html::a('Create Area', ['createarea', 'id' => $model->id], [
             'class' => 'btn btn-success',
             'onclick' => 'bootbox.prompt("Please input Area to be created:", function(result){ alert("Area:"+result); });',
         ]) ?>
@@ -81,7 +81,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
     <h2>Area list</h2>
     
     <p>
-        <?= Html::a('Create Category', ['createcategory', 'id' => $model->repoid], [
+        <?= Html::a('Create Category', ['createcategory', 'id' => $model->id], [
             'class' => 'btn btn-success',
             'onclick' => 'bootbox.prompt("Please input Category to be created:", function(result){ alert("Category:"+result); });',
         ]) ?>
@@ -89,7 +89,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
     <h2>Category list</h2>
     
     <p>
-        <?= Html::a('Create Tag', ['createtag', 'id' => $model->repoid], [
+        <?= Html::a('Create Tag', ['createtag', 'id' => $model->id], [
             'class' => 'btn btn-success',
             'onclick' => 'bootbox.prompt("Please input Tag to be created:", function(result){ alert("Tag:"+result); });',
         ]) ?>

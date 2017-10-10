@@ -19,8 +19,8 @@ class RepoSearch extends Repo
     public function rules()
     {
         return [
-            [['repoid', 'adminid'], 'integer'],
-            [['reponame', 'RegisterDate', 'ishide'], 'safe'],
+            [['id', 'adminid'], 'integer'],
+            [['name', 'RegisterDate', 'ishide'], 'safe'],
         ];
     }
 
@@ -60,12 +60,12 @@ class RepoSearch extends Repo
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'repoid' => $this->repoid,
+            'id' => $this->id,
             'adminid' => $this->adminid,
             'RegisterDate' => $this->RegisterDate,
         ]);
 
-        $query->andFilterWhere(['like', 'reponame', $this->reponame])
+        $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like','ishide',$this->ishide]);
 
         return $dataProvider;
@@ -73,7 +73,7 @@ class RepoSearch extends Repo
     
     public function searchMyJoinedProject($params)
     {
-        $cond = ['in', 'repoid', (new Query())->select('repoid')->from('JoinRepo')->where(['uid' => Yii::$app->user->id])];
+        $cond = ['in', 'id', (new Query())->select('repoid')->from('JoinRepo')->where(['uid' => Yii::$app->user->id])];
         $query = Repo::find()->where($cond)
             ->andWhere(['not in','adminid',[Yii::$app->user->id]])
             ->orderBy(['RegisterDate'=>SORT_DESC]);
@@ -94,12 +94,12 @@ class RepoSearch extends Repo
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'repoid' => $this->repoid,
+            'id' => $this->id,
             'adminid' => $this->adminid,
             'RegisterDate' => $this->RegisterDate,
         ]);
 
-        $query->andFilterWhere(['like', 'reponame', $this->reponame])
+        $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like','ishide',$this->ishide]);
 
         return $dataProvider;
