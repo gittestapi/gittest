@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'template' => '{view}',
 			'buttons' => [
                 'view' => function ($url,$model,$key) {
-                                return Html::a('Detail', 'index.php?r=step%2Findex&tcid='.$key);
+                    return Html::a('Detail', 'index.php?r=step%2Findex&tcid='.$key);
                 },
 				],//buttons
 			],//class
