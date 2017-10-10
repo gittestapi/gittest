@@ -10,7 +10,7 @@ use app\models\Steps;
 /**
  * StepsSearch represents the model behind the search form about `app\models\Steps`.
  */
-class StepsSearch2 extends Steps
+class StepSearch2 extends Step
 {
     /**
      * @inheritdoc
@@ -18,7 +18,7 @@ class StepsSearch2 extends Steps
     public function rules()
     {
         return [
-            [['sid', 'tcid'], 'integer'],
+            [['id', 'tcid'], 'integer'],
             [['content'], 'safe'],
         ];
     }
@@ -41,7 +41,7 @@ class StepsSearch2 extends Steps
      */
     public function search($params)
     {
-        $query = Steps::find();
+        $query = Step::find();
 
         // add conditions that should always apply here
 
@@ -59,7 +59,7 @@ class StepsSearch2 extends Steps
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'sid' => $this->sid,
+            'id' => $this->id,
             'tcid' => $this->tcid,
         ]);
 
@@ -77,7 +77,7 @@ class StepsSearch2 extends Steps
      */
     public function search2($id, $params)
     {
-        $query = Steps::find();
+        $query = Step::find();
 
         // add conditions that should always apply here
 
@@ -95,7 +95,7 @@ class StepsSearch2 extends Steps
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'sid' => $this->sid,
+            'id' => $this->id,
             'tcid' => $id,
         ]);
 

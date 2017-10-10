@@ -11,14 +11,14 @@ use Yii;
  * @property string $content
  * @property integer $tcid
  */
-class Steps extends \yii\db\ActiveRecord
+class Step extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'Steps';
+        return 'Step';
     }
 
     /**

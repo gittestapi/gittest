@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Steps */
 
-$this->title = $model->sid;
-$this->params['breadcrumbs'][] = ['label' => 'Steps', 'url' => 'index.php?r=steps%2Findex&id='.$model->tcid];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Steps', 'url' => 'index.php?r=step%2Findex&tcid='.$model->tcid];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="steps-view">
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->sid], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->sid], [
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'sid',
+            'id',
             'content',
             'tcid',
         ],

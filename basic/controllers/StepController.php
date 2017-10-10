@@ -3,9 +3,9 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Steps;
-use app\models\StepsSearch;
-use app\models\StepsSearch2;
+use app\models\Step;
+use app\models\StepSearch;
+use app\models\StepSearch2;
 use app\models\TestCase;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -14,7 +14,7 @@ use yii\filters\VerbFilter;
 /**
  * StepsController implements the CRUD actions for Steps model.
  */
-class StepsController extends Controller
+class StepController extends Controller
 {
     /**
      * @inheritdoc
@@ -35,12 +35,12 @@ class StepsController extends Controller
      * Lists all Steps models.
      * @return mixed
      */
-    public function actionIndex($id)
+    public function actionIndex($tcid)
     {
-        $searchModel = new StepsSearch2();
-        $dataProvider = $searchModel->search2($id,Yii::$app->request->queryParams);
+        $searchModel = new StepSearch2();
+        $dataProvider = $searchModel->search2($tcid,Yii::$app->request->queryParams);
         return $this->render('index', [
-			'model' => $this->findTCModel($id),
+			'model' => $this->findTCModel($tcid),
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -104,13 +104,13 @@ class StepsController extends Controller
         // }
     // }
 	
-	public function actionCreate($id)
+	public function actionCreate($tcid)
     {
-        $model = new Steps();
-		$model->tcid = $id;
+        $model = new Step();
+		$model->tcid = $tcid;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['steps/index', 'id' => $model->tcid]);
+            return $this->redirect(['step/index', 'tcid' => $model->tcid]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -129,7 +129,7 @@ class StepsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->sid]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -145,9 +145,10 @@ class StepsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        $model = $this->findModel($id);
+        $tcid = $model->tcid;
+        $model->delete();
+        return $this->redirect(['index','tcid'=>$tcid]);
     }
 
     /**
@@ -159,7 +160,7 @@ class StepsController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Steps::findOne($id)) !== null) {
+        if (($model = Step::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

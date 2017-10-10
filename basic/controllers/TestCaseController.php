@@ -5,7 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Repo;
 use app\models\TestCase;
-use app\models\Steps;
+use app\models\Step;
 use app\models\TestCaseSearch;
 use app\models\TestCaseSearch2;
 use yii\web\Controller;
@@ -110,7 +110,7 @@ class TestCaseController extends Controller
             $contents = Yii::$app->request->post('steps');
             $contents = $contents['contents'];
             foreach($contents as $c) {
-                $step = new Steps();
+                $step = new Step();
                 $step->content = trim($c);
                 $step->tcid = $model->id;                   
                 if($step->validate()){

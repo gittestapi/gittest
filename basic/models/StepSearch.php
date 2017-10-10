@@ -10,7 +10,7 @@ use app\models\Steps;
 /**
  * StepsSearch represents the model behind the search form about `app\models\Steps`.
  */
-class StepsSearch extends Steps
+class StepSearch extends Step
 {
     /**
      * @inheritdoc
