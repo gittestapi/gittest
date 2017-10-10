@@ -35,7 +35,7 @@ class Request extends \yii\db\ActiveRecord
     	$repo = Repo::findOne($this->repoID);
 
     	$message = MessageTemplate::RQTP[$this->mtID];
-    	$message = str_replace(['{a}','{r}'],[$user->uname,$repo->reponame],$message);
+    	$message = str_replace(['{a}','{r}'],[$user->name,$repo->name],$message);
 
     	return $message;
     }
@@ -68,6 +68,6 @@ class Request extends \yii\db\ActiveRecord
 
     public function getRepo()
     {
-        return $this->hasOne(Repo::className(),['repoid'=>'repoID']);
+        return $this->hasOne(Repo::className(),['id'=>'repoID']);
     }	
 }

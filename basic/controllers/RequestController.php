@@ -116,10 +116,10 @@ class RequestController extends Controller
         if ($approved) {
             $request->role = $role;
             $request->isApproved = 'y';           
-            $data['message'] = sprintf('Approve to join repo %s，its role is %s',$request->repo->reponame,$role);
+            $data['message'] = sprintf('Approve to join repo %s，its role is %s',$request->repo->name,$role);
         } else {
             $request->isApproved = 'n';
-            $data['message'] = sprintf('Reject to join repo %s',$request->repo->reponame);
+            $data['message'] = sprintf('Reject to join repo %s',$request->repo->name);
         }
 
         if($request->save()) {
@@ -152,7 +152,7 @@ class RequestController extends Controller
 
         // 判断邀请的用户是否存在
         $uname = trim($uname);
-        $user = User::findOne(['uname'=>$uname]);
+        $user = User::findOne(['name'=>$uname]);
         if (is_null($user)) { 
             $data['message'] = sprintf('user %s does not exist!',$uname);
             return $this->asJson($data);
@@ -165,13 +165,13 @@ class RequestController extends Controller
             return $this->asJson($data);
         }
       
-        $uid = $user->uid;
+        $uid = $user->id;
         $repo = Repo::findOne($repoid);
         // 当前用户即为相关 repo 的所有者，且邀请的不是自己
         if (Yii::$app->user->id == $repo->adminid && Yii::$app->user->id != $uid) {
             // 已经是项目的测试人员了
             if (JoinRepo::findOne(['uid'=>$uid,'repoid'=>$repoid])) { 
-                $data['message'] = sprintf("%s already join %s ",$uname,$repo->reponame);
+                $data['message'] = sprintf("%s already join %s ",$uname,$repo->name);
                 return $this->asJson($data);
             }
             // 已经发出了邀请
@@ -191,7 +191,7 @@ class RequestController extends Controller
             $data['message'] = "sent invitation, please wait accept!"; 
             return $this->asJson($data);                                
         } else {
-            $data['message'] = sprintf("you can not invite other to join %s, or invite yourself!",$repo->reponame);
+            $data['message'] = sprintf("you can not invite other to join %s, or invite yourself!",$repo->name);
             return $this->asJson($data);
         }
     }
