@@ -30,10 +30,10 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-		    ['uname', 'unique', 'message' => "This user's name already exists."],
+		    ['name', 'unique', 'message' => "This user's name already exists."],
 			['email', 'unique', 'message' => "This user's email already exists."],
-		    [['uname', 'passwd', 'email'], 'required'],
-            [['uname', 'passwd', 'email'], 'string', 'max' => 300],
+		    [['name', 'passwd', 'email'], 'required'],
+            [['name', 'passwd', 'email'], 'string', 'max' => 300],
 			['email', 'email'],
 			[['uname', 'email'], 'trim'],
         ];
@@ -45,8 +45,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function attributeLabels()
     {
         return [
-            'uid' => 'Userid',
-            'uname' => 'Username',
+            'id' => 'Userid',
+            'name' => 'Username',
             'passwd' => 'Password',
             'email' => 'Email Address',
             'RegisterDate' => 'Register Date',
@@ -78,7 +78,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function getId()
     {
-        return $this->uid;
+        return $this->id;
     }
 
     /**
@@ -86,7 +86,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->uid;
+        return $this->id;
     }
 
     /**
@@ -94,7 +94,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function validateAuthKey($authKey)
     {
-        return $this->uid === $authKey;
+        return $this->id === $authKey;
     }
 	
 	public function validatePassword($password)

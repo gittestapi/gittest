@@ -82,7 +82,7 @@ class UserController extends Controller
             // Assign 'commonUser' role to current user
             $auth = Yii::$app->authManager;
             $commonUser = $auth->getRole("commonUser");
-            $auth->assign($commonUser,$model->uid);
+            $auth->assign($commonUser,$model->id);
 
             return $this->redirect(['user/success']);
         } else {

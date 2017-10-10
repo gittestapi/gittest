@@ -65,6 +65,6 @@ class JoinRepo extends \yii\db\ActiveRecord
 
     public function getTester()
     {
-        return $this->hasOne(User::className(),['uid'=>'uid']);
+        return $this->hasOne(User::className(),['id'=>'uid']);
     }   
 }

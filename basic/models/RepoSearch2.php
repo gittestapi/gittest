@@ -15,7 +15,7 @@ class RepoSearch2 extends Repo
     public function attributes()
     {
         // add related fields to searchable attributes
-        return array_merge(parent::attributes(), ['user.uname']);
+        return array_merge(parent::attributes(), ['user.name']);
     }
     /**
      * @inheritdoc
@@ -24,7 +24,7 @@ class RepoSearch2 extends Repo
     {
         return [
             [['repoid', 'adminid'], 'integer'],
-            [['reponame','RegisterDate','user.uname'], 'safe'],
+            [['reponame','RegisterDate','user.name'], 'safe'],
         ];
     }
 
@@ -55,9 +55,9 @@ class RepoSearch2 extends Repo
         ]);
 
         $query->joinWith('user as user');
-        $dataProvider->sort->attributes['user.uname'] = [
-            'asc' => ['user.uname' => SORT_ASC],
-            'desc' => ['user.uname' => SORT_DESC],
+        $dataProvider->sort->attributes['user.name'] = [
+            'asc' => ['user.name' => SORT_ASC],
+            'desc' => ['user.name' => SORT_DESC],
             
         ];
 
@@ -75,7 +75,7 @@ class RepoSearch2 extends Repo
             'RegisterDate' => $this->RegisterDate,
         ]);
 
-        $query->andFilterWhere(['LIKE', 'user.uname', $this->getAttribute('user.uname')]);
+        $query->andFilterWhere(['LIKE', 'user.name', $this->getAttribute('user.name')]);
 
         $query->andFilterWhere(['like', 'reponame', $this->reponame]);
 

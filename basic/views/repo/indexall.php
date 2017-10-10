@@ -29,10 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
-                'attribute' => 'user.uname',
+                'attribute' => 'user.name',
                 'label' => 'Owner',
                 'content' => function($model, $key, $index, $column) {
-                    return Html::a($model->user->uname,['repo/index-for-user','uid'=>$model->user->uid]);
+                    return Html::a($model->user->name,['repo/index-for-user','uid'=>$model->user->id]);
                 }
             ],
             'RegisterDate',

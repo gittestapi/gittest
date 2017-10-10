@@ -64,7 +64,7 @@ class Repo extends \yii\db\ActiveRecord
 
     public function getUser()
     {
-        return $this->hasOne(User::className(),['uid'=>'adminid']);
+        return $this->hasOne(User::className(),['id'=>'adminid']);
     }
 
     public function getTestManagers()

@@ -38,7 +38,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
             'RegisterDate',
             [
                 'label' => 'Owner',
-                'value' => Html::a($model->user->uname,['repo/index-for-user','uid'=>$model->user->uid]),
+                'value' => Html::a($model->user->name,['repo/index-for-user','uid'=>$model->user->id]),
                 'format' => 'html',
             ],
         ],
@@ -52,7 +52,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
     <h3>Test Manager</h3>
     <ul>
     <?php foreach($testManagers as $m): ?>
-        <li><?= Html::a($m->uname,['repo/index-for-user','uid'=>$m->uid]) ?></li>
+        <li><?= Html::a($m->name,['repo/index-for-user','uid'=>$m->id]) ?></li>
     <?php endforeach; ?>
     </ul>    
 <?php endif; ?>
@@ -60,7 +60,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
     <h3>Tester</h3>
     <ul>
     <?php foreach($testers as $t): ?>
-        <li><?= Html::a($t->uname,['repo/index-for-user','uid'=>$t->uid]) ?></li>
+        <li><?= Html::a($t->name,['repo/index-for-user','uid'=>$t->id]) ?></li>
     <?php endforeach; ?>
     </ul>
 <?php endif; ?>

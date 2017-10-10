@@ -54,7 +54,7 @@ AppAsset::register($this);
 						['label' => 'About', 'url' => ['/site/about']],
 						['label' => 'Contact', 'url' => ['/site/contact']],
 						[
-						'label' => 'More ('.Yii::$app->user->identity->uname.')',
+						'label' => 'More ('.Yii::$app->user->identity->name.')',
 						'items' => [
 							['label' => 'New Project/Repo »', 'url' => ['/repo/create']],
 							['label' => 'My Project/Repo »', 'url' => ['/repo/index']],

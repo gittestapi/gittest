@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\RepoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = $user->uname . "'s Projects";
+$this->title = $user->name . "'s Projects";
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="repo-index">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php 
-        if(\Yii::$app->user->id == $user->uid) {
+        if(\Yii::$app->user->id == $user->id) {
             echo Html::a('Create Project', ['create'], ['class' => 'btn btn-success']);
         }
         ?>
