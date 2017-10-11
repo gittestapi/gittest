@@ -1,6 +1,8 @@
 # gittest
 an implementation for gittest api
 
+Donate us 1$ if you like this project, thanks! [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/jumpingyang/1)
+
 Our Official site is http://GitTest.com, currently it is only a demo site!
 
 This is open souce project, I want to do a service like GitHub.Com, but it is for testing management.
