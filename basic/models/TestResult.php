@@ -24,7 +24,7 @@ class TestResult extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'TestResult';
+        return 'testresult';
     }
 
     /**

@@ -18,7 +18,7 @@ class Step extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'Step';
+        return 'step';
     }
 
     /**

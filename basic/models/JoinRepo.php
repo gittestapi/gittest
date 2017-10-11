@@ -21,7 +21,7 @@ class JoinRepo extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'JoinRepo';
+        return 'joinrepo';
     }
 
     /**

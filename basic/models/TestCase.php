@@ -25,7 +25,7 @@ class TestCase extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'TestCase';
+        return 'testcase';
     }
 
     /**

@@ -73,7 +73,7 @@ class RepoSearch extends Repo
     
     public function searchMyJoinedProject($params)
     {
-        $cond = ['in', 'id', (new Query())->select('repoid')->from('JoinRepo')->where(['uid' => Yii::$app->user->id])];
+        $cond = ['in', 'id', (new Query())->select('repoid')->from('joinrepo')->where(['uid' => Yii::$app->user->id])];
         $query = Repo::find()->where($cond)
             ->andWhere(['not in','adminid',[Yii::$app->user->id]])
             ->orderBy(['RegisterDate'=>SORT_DESC]);

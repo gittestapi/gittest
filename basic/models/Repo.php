@@ -22,7 +22,7 @@ class Repo extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'Repo';
+        return 'repo';
     }
 
     /**

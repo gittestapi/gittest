@@ -18,7 +18,7 @@ class Tag extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'Tag';
+        return 'tag';
     }
 
     /**

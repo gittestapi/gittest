@@ -19,7 +19,7 @@ class TestExcution extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'TestExcution';
+        return 'testexcution';
     }
 
     /**
