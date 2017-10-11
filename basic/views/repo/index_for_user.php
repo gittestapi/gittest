@@ -30,9 +30,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             [
-                'attribute' => 'reponame',
+                'attribute' => 'name',
                 'content' => function($model,$key,$index,$column) {
-                    return Html::a($model->reponame,['repo/view','id'=>$model->repoid]);
+                    return Html::a($model->name,['repo/view','id'=>$model->id]);
                 }
             ],
             'RegisterDate',

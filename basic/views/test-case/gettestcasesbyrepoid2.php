@@ -14,8 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'repoid',
-            'reponame',
+            'id',
+            'name',
             'ishide',
             'RegisterDate',
         ],
@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'tcid',
-            'tctitle',
+            'id',
+            'title',
             'priority',
             'serverity',
             'repoid',
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'template' => '{view} {update} {delete}',
             'buttons' => [
                 'view' => function ($url,$model,$key) {
-                                return Html::a('Detail', 'index.php?r=steps%2Fgetstepsbycaseid&id='.$key);
+                                return Html::a('Detail', 'index.php?r=step%2Fgetstepsbycaseid&id='.$key);
                 },
                 ],//buttons            
 			],//class

@@ -50,7 +50,7 @@ class TestExcutionController extends Controller
     {
         $repoid =Yii::$app->getRequest()->getQueryParam('repoid');
         $tpid = Yii::$app->getRequest()->get('id');
-        $searchModel = (is_null($repoid)||empty($repoid)) ?  (new TestCaseSearch(['tcid' => -1])): (new TestCaseSearch(['repoid'=>$repoid]));
+        $searchModel = (is_null($repoid)||empty($repoid)) ?  (new TestCaseSearch(['id' => -1])): (new TestCaseSearch(['repoid'=>$repoid]));
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('InsertTestPlan', [
             'searchModel' => $searchModel,
@@ -80,7 +80,7 @@ class TestExcutionController extends Controller
         $model = new TestExcution();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->teid]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,

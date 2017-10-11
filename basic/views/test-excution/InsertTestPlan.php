@@ -28,8 +28,8 @@ $this->registerJsFile('js/inserttc2tp.js',['depends'=>[\yii\grid\GridViewAsset::
         {
         array_push($repoids,$repoid->repoid);
         }
-        $repos = Repo::find()->where(['in', 'repoid',$repoids])->all();
-        $reponamelist = ArrayHelper::map($repos, 'repoid', 'reponame');
+        $repos = Repo::find()->where(['in', 'id',$repoids])->all();
+        $reponamelist = ArrayHelper::map($repos, 'id', 'name');
 	$tcidlist= TestResult::find()->where([
                 'teid' =>  Yii::$app->getRequest()->getQueryParam('id'),
         ])->select('tcid')->all();
@@ -55,8 +55,8 @@ $this->registerJsFile('js/inserttc2tp.js',['depends'=>[\yii\grid\GridViewAsset::
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => CheckboxColumn::className()],
-            'tcid',
-            'tctitle',
+            'id',
+            'title',
             'priority',
             'serverity',
             'repoid',
@@ -67,14 +67,14 @@ $this->registerJsFile('js/inserttc2tp.js',['depends'=>[\yii\grid\GridViewAsset::
         ['class' => 'yii\grid\DataColumn', // can be omitted, as it is the default
             'label' => 'In current test plan?',
             'value' => function ($data) use ($tcids){
-                return in_array($data->tcid,$tcids)?"yes":"no"; // $data['name'] for array data, e.g. using SqlDataProvider.
+                return in_array($data->id,$tcids)?"yes":"no"; // $data['name'] for array data, e.g. using SqlDataProvider.
             },
         ],
 			['class' => 'yii\grid\ActionColumn', 
 			'template' => '{view}',
 			'buttons' => [
                 'view' => function ($url,$model,$key) {
-                                return Html::a('Detail', 'index.php?r=steps%2Findex&id='.$key);
+                                return Html::a('Detail', 'index.php?r=step%2Findex&tcid='.$key);
                 },
 				],//buttons
 			],//class

@@ -48,7 +48,7 @@ class StepController extends Controller
 	
 	public function actionGetstepsbycaseid($id)
     {
-        $searchModel = new StepsSearch2();
+        $searchModel = new StepSearch2();
         $dataProvider = $searchModel->search2($id,Yii::$app->request->queryParams);
 
         return $this->render('getstepsbycaseid', [

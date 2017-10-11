@@ -26,6 +26,6 @@ class RbacController extends Controller
 		$auth->addChild($commonUser,$changeRepo);
 
 		// 将默认的账号user001添加到角色commonUser中
-		$auth->assign($commonUser,1);
+		//$auth->assign($commonUser,1);
 	}
 }

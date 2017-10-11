@@ -133,7 +133,7 @@ class TestCaseController extends Controller
             $contents = Yii::$app->request->post('steps');
             $contents = $contents['contents'];
             foreach($contents as $c) {
-                $step = new Steps();
+                $step = new Step();
                 $step->content = trim($c);
                 $step->tcid = $model->id;                   
                 if($step->validate()){

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "TestResult".
@@ -35,7 +36,7 @@ class TestResult extends \yii\db\ActiveRecord
             [['tcid', 'teid'], 'required'],
             [['tcid', 'teid'], 'integer'],
             [['updatedate'], 'safe'],
-            [['tctitle', 'gitissuelink'], 'string', 'max' => 1000],
+            [['gitissuelink'], 'string', 'max' => 1000],
             [['status'], 'string', 'max' => 4],
             [['whorun'], 'string', 'max' => 300],
         ];
@@ -47,9 +48,8 @@ class TestResult extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'trid' => 'Trid',
+            'id' => 'Trid',
             'tcid' => 'Tcid',
-            'tctitle' => 'Tctitle',
             'status' => 'Status',
             'whorun' => 'Whorun',
             'teid' => 'Teid',
@@ -57,4 +57,15 @@ class TestResult extends \yii\db\ActiveRecord
             'updatedate' => 'Updatedate',
         ];
     }
+
+    public function beforeSave($insert) {   
+        if (parent::beforeSave($insert)) {
+            // Place your custom code here
+            
+            $this->updatedate = new Expression('NOW()');
+            return true;
+        } else {
+            return false;
+        }
+    }    
 }

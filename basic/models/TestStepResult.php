@@ -16,14 +16,14 @@ use Yii;
  * @property string $whorun
  * @property string $updatedate
  */
-class TestStepsResult extends \yii\db\ActiveRecord
+class TestStepResult extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'TestStepsResult';
+        return 'TestStepResult';
     }
 
     /**
@@ -32,8 +32,8 @@ class TestStepsResult extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['sid', 'tcid', 'trid'], 'required'],
-            [['sid', 'tcid', 'trid'], 'integer'],
+            [['sid', 'trid'], 'required'],
+            [['sid', 'trid'], 'integer'],
             [['updatedate'], 'safe'],
             [['content'], 'string', 'max' => 1000],
             [['status'], 'string', 'max' => 4],
@@ -49,7 +49,6 @@ class TestStepsResult extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'sid' => 'Sid',
-            'tcid' => 'Tcid',
             'trid' => 'Trid',
             'content' => 'Content',
             'status' => 'Status',

@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\TestExcution */
 
-$this->title = 'Update Test Excution: ' . $model->teid;
+$this->title = 'Update Test Excution: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Test Excutions', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->teid, 'url' => ['view', 'id' => $model->teid]];
+$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="test-excution-update">

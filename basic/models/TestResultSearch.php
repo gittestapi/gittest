@@ -18,8 +18,8 @@ class TestResultSearch extends TestResult
     public function rules()
     {
         return [
-            [['trid', 'tcid', 'teid'], 'integer'],
-            [['tctitle', 'status', 'whorun', 'gitissuelink', 'updatedate'], 'safe'],
+            [['id', 'tcid', 'teid'], 'integer'],
+            [['status', 'whorun', 'gitissuelink', 'updatedate'], 'safe'],
         ];
     }
 
@@ -59,14 +59,13 @@ class TestResultSearch extends TestResult
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'trid' => $this->trid,
+            'id' => $this->id,
             'tcid' => $this->tcid,
             'teid' => $this->teid,
             'updatedate' => $this->updatedate,
         ]);
 
-        $query->andFilterWhere(['like', 'tctitle', $this->tctitle])
-            ->andFilterWhere(['like', 'status', $this->status])
+        $query->andFilterWhere(['like', 'status', $this->status])
             ->andFilterWhere(['like', 'whorun', $this->whorun])
             ->andFilterWhere(['like', 'gitissuelink', $this->gitissuelink]);
 

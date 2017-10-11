@@ -18,8 +18,8 @@ class TestExcutionSearch extends TestExcution
     public function rules()
     {
         return [
-            [['teid'], 'integer'],
-            [['tename', 'milestone', 'CreateDate'], 'safe'],
+            [['id'], 'integer'],
+            [['name', 'milestone', 'CreateDate'], 'safe'],
         ];
     }
 
@@ -59,11 +59,11 @@ class TestExcutionSearch extends TestExcution
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'teid' => $this->teid,
+            'id' => $this->id,
             'CreateDate' => $this->CreateDate,
         ]);
 
-        $query->andFilterWhere(['like', 'tename', $this->tename])
+        $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'milestone', $this->milestone]);
 
         return $dataProvider;

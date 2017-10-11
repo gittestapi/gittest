@@ -29,7 +29,7 @@ class TestExcution extends \yii\db\ActiveRecord
     {
         return [
             [['CreateDate'], 'safe'],
-            [['tename', 'milestone'], 'string', 'max' => 300],
+            [['name', 'milestone'], 'string', 'max' => 300],
         ];
     }
 
@@ -39,8 +39,8 @@ class TestExcution extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'teid' => 'Teid',
-            'tename' => 'Tename',
+            'id' => 'Teid',
+            'name' => 'Tename',
             'milestone' => 'Milestone',
             'CreateDate' => 'Create Date',
         ];

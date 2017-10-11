@@ -10,7 +10,7 @@ use app\models\TestStepsResult;
 /**
  * TestStepsResultSearch represents the model behind the search form about `app\models\TestStepsResult`.
  */
-class TestStepsResultSearch extends TestStepsResult
+class TestStepResultSearch extends TestStepResult
 {
     /**
      * @inheritdoc
@@ -18,7 +18,7 @@ class TestStepsResultSearch extends TestStepsResult
     public function rules()
     {
         return [
-            [['id', 'sid', 'tcid', 'trid'], 'integer'],
+            [['id', 'sid', 'trid'], 'integer'],
             [['content', 'status', 'whorun', 'updatedate'], 'safe'],
         ];
     }
@@ -61,7 +61,6 @@ class TestStepsResultSearch extends TestStepsResult
         $query->andFilterWhere([
             'id' => $this->id,
             'sid' => $this->sid,
-            'tcid' => $this->tcid,
             'trid' => $this->trid,
             'updatedate' => $this->updatedate,
         ]);

@@ -82,13 +82,13 @@ class TestCase extends \yii\db\ActiveRecord
      */
     protected function getStepIDS()
     {
-        $rows =  Steps::find()->select(['sid'])
-                    ->where(['tcid'=>$this->tcid])
+        $rows =  Step::find()->select(['id'])
+                    ->where(['tcid'=>$this->id])
                     ->asArray()
                     ->all();  
         $ids = [];
         foreach($rows as $r){
-            array_push($ids,$r['sid']);
+            array_push($ids,$r['id']);
         }
         return $ids;       
     }
@@ -100,9 +100,7 @@ class TestCase extends \yii\db\ActiveRecord
     public function initTestResult($teid)
     {
         $testResult = new TestResult([
-            'tcid' => $this->tcid,
-            'tctitle' => $this->tctitle,
-            'status' => '',
+            'tcid' => $this->id,
             'teid' => $teid,
             ]);
         if($testResult->validate()) {
@@ -113,18 +111,16 @@ class TestCase extends \yii\db\ActiveRecord
 
         $stepids = $this->getStepIDS();
         foreach($stepids as $sid) {
-            $tsr = new TestStepsResult([
+            $tsr = new TestStepResult([
                 'sid' => $sid, // 测试步骤编号
-                'tcid' => $this->tcid,
-                'trid' => $testResult->trid,
+                'trid' => $testResult->id,
                 'status' => '',
                 ]);
             if($tsr->validate()){
                 $tsr->save(false);
             }else{
                 Yii::warning($tsr->errors);
-            }
-            
+            }            
         }
     }
 }
