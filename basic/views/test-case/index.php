@@ -28,7 +28,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'priority',
             'serverity',
-            'repoid',
+            [
+                'attribute' => 'repo.name',
+                'label' => 'Repo',
+                'content' => function($model, $key, $index, $column) {
+                    return Html::a($model->repo->name,['test-case/gettestcasesbyrepoid','id'=>$model->repo->id]);
+                }
+            ],
             // 'area',
             // 'category',
             // 'tag',

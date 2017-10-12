@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $searchModel app\models\TestCaseSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'All Test Cases';
+$this->title = 'All Test Cases For ' . $model->name;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?= DetailView::widget([
@@ -21,7 +21,9 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 <div class="test-case-index">
-
+    <?= 
+    Html::a('Add New TestCase for This Repo',
+    ['test-case/create-for-repo','repoid'=>$model->id],['class'=>'btn btn-success']) ?>
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 

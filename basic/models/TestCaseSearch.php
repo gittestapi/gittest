@@ -19,9 +19,14 @@ class TestCaseSearch extends TestCase
     public function rules()
     {
         return [
-            [['id', 'priority', 'serverity', 'repoid'], 'integer'],
-            [['title', 'area', 'category', 'tag', 'CreateDate'], 'safe'],
+            [['id', 'priority', 'serverity'], 'integer'],
+            [['title', 'area', 'category', 'tag', 'CreateDate','repo.name'], 'safe'],
         ];
+    }
+
+    public function attributes()
+    {
+        return array_merge(parent::attributes(),['repo.name']);
     }
 
     /**
@@ -91,12 +96,13 @@ class TestCaseSearch extends TestCase
             'query' => $query,
             'pagination' => [ 'pageSize' => 10 ],
         ]);
-/*
-        $dataProvider->sort->attributes['repo.reponame'] = [
-            'asc' => ['repo.reponame'  => SORT_ASC],
-            'desc' => ['repo.reponame' => SORT_DESC],
+
+        $query->joinWith('repo as repo');
+
+        $dataProvider->sort->attributes['repo.name'] = [
+            'asc' => ['repo.name'  => SORT_ASC],
+            'desc' => ['repo.name' => SORT_DESC],
         ];
-*/
 
         $this->load($params);
 
@@ -111,14 +117,14 @@ class TestCaseSearch extends TestCase
             'id' => $this->id,
             'priority' => $this->priority,
             'serverity' => $this->serverity,
-            'repoid' => $this->repoid,
             'CreateDate' => $this->CreateDate,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'area', $this->area])
             ->andFilterWhere(['like', 'category', $this->category])
-            ->andFilterWhere(['like', 'tag', $this->tag]);
+            ->andFilterWhere(['like', 'tag', $this->tag])
+            ->andFilterWhere(['like','repo.name',$this->getAttribute('repo.name')]);
 
         return $dataProvider;
     }
