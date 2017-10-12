@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "TestExcution".
@@ -45,4 +46,16 @@ class TestExcution extends \yii\db\ActiveRecord
             'CreateDate' => 'Create Date',
         ];
     }
+
+    public function beforeSave($insert)
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+
+        // ...custom code here...
+        $this->CreateDate = new Expression('NOW()');
+
+        return true;        
+    }    
 }
