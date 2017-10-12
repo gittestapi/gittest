@@ -89,7 +89,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
 			'template' => '{link}',
 			'buttons' => [
                 'link' => function ($url,$model,$key) {
-                                return Html::a('Test Cases', ['test-case/gettestcasesbyrepoid','repoid'=>$key]);
+                                return Html::a('Test Cases', ['test-case/gettestcasesbyrepoid','id'=>$key]);
                 },
 				],//buttons
 			],//class

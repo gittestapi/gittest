@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'priority',
             'serverity',
-            'repoid',
+            'repo.name',
             'area',
             'category',
             'tag',
@@ -28,7 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="steps-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <p>
+        <?= Html::a('Create Step', '/index.php?r=step/create&tcid='.$model->id, ['class' => 'btn btn-success']) ?>
+    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

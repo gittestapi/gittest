@@ -18,7 +18,7 @@ class TestCaseSearch2 extends TestCase
     public function rules()
     {
         return [
-            [['id', 'priority', 'serverity', 'repoid'], 'integer'],
+            [['id', 'priority', 'serverity'], 'integer'],
             [['title', 'area', 'category', 'tag', 'CreateDate'], 'safe'],
         ];
     }
@@ -63,7 +63,6 @@ class TestCaseSearch2 extends TestCase
             'id' => $this->id,
             'priority' => $this->priority,
             'serverity' => $this->serverity,
-            'repoid' => $this->repoid,
             'CreateDate' => $this->CreateDate,
         ]);
 
@@ -99,7 +98,6 @@ class TestCaseSearch2 extends TestCase
             'id' => $this->id,
             'priority' => $this->priority,
             'serverity' => $this->serverity,
-            'repoid' => $id,
             'CreateDate' => $this->CreateDate,
         ]);
 

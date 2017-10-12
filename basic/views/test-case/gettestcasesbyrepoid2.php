@@ -37,7 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'priority',
             'serverity',
-            'repoid',
             // 'area',
             // 'category',
             // 'tag',

@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'priority',
             'serverity',
-            'repoid',
+            'repo.name',
             'area',
             'category',
             'tag',

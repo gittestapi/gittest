@@ -37,6 +37,7 @@ class StepController extends Controller
      */
     public function actionIndex($tcid)
     {
+        //return $this->runAction('getstepsbycaseid',['id'=>$tcid]);
         $searchModel = new StepSearch2();
         $dataProvider = $searchModel->search2($tcid,Yii::$app->request->queryParams);
         return $this->render('index', [
