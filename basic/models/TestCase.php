@@ -93,34 +93,44 @@ class TestCase extends \yii\db\ActiveRecord
         return $ids;       
     }
 
+    public function isInTestExcution($teid)
+    {
+        if(TestResult::findOne(['teid'=>$teid,'tcid'=>$this->id])) {
+            return True;
+        }
+        return False;
+    }
+
     /**
      * 为测试计划生成对应的 TestResult 和 TestStepResult
      * @param integer $teid 测试计划 ID
      */
     public function initTestResult($teid)
     {
-        $testResult = new TestResult([
-            'tcid' => $this->id,
-            'teid' => $teid,
-            ]);
-        if($testResult->validate()) {
-            $testResult->save(false);
-        }else{
-            Yii::warning($testResult->errors);
-        }
-
-        $stepids = $this->getStepIDS();
-        foreach($stepids as $sid) {
-            $tsr = new TestStepResult([
-                'sid' => $sid, // 测试步骤编号
-                'trid' => $testResult->id,
-                'status' => '',
+        if (!$this->isInTestExcution($teid)) {
+            $testResult = new TestResult([
+                'tcid' => $this->id,
+                'teid' => $teid,
                 ]);
-            if($tsr->validate()){
-                $tsr->save(false);
+            if($testResult->validate()) {
+                $testResult->save(false);
             }else{
-                Yii::warning($tsr->errors);
-            }            
+                Yii::warning($testResult->errors);
+            }
+
+            $stepids = $this->getStepIDS();
+            foreach($stepids as $sid) {
+                $tsr = new TestStepResult([
+                    'sid' => $sid, // 测试步骤编号
+                    'trid' => $testResult->id,
+                    'status' => '',
+                    ]);
+                if($tsr->validate()){
+                    $tsr->save(false);
+                }else{
+                    Yii::warning($tsr->errors);
+                }            
+            }
         }
     }
 }

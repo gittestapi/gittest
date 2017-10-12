@@ -101,4 +101,26 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return $this->passwd === $password;
     }
+
+    /**
+     * 返回用户参与的 repos
+     * @return array 键为 repo 的 id，值为 repo 的 name
+     */
+    public function getRepos($role=null)
+    {
+        $cond = ['uid'=>$this->id];
+        if (!is_null($role) && in_array(strtoupper($role),['M','E'])) {
+            $cond['role'] = strtoupper($role);
+        }
+        $joinrepos = JoinRepo::find()->where($cond)
+                    ->select(['repoid'])->all();
+        $reponames = [];
+        foreach($joinrepos as $item) {
+            $repo = Repo::findOne($item->repoid);
+            if ($repo) {
+                $reponames[$repo->id] = $repo->name;
+            }          
+        }
+        return $reponames;     
+    }
 }

@@ -16,28 +16,14 @@ $this->title = 'Please select Test Cases into test plan!';
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerJsFile('js/inserttc2tp.js',['depends'=>[\yii\grid\GridViewAsset::className(),]]);
+
+$reponamelist = \Yii::$app->user->identity->getRepos('M');
 ?>
 <div class="test-case-index">
 
     <h1>Please select Test Cases into test plan!</h1>
- <?php $repoidlist = JoinRepo::find()->where([
-                'uid' => Yii::$app->user->id,'role' => 'M'
-        ])->select('repoid')->all();
-        $repoids=array();
-        foreach($repoidlist as $repoid)
-        {
-        array_push($repoids,$repoid->repoid);
-        }
-        $repos = Repo::find()->where(['in', 'id',$repoids])->all();
-        $reponamelist = ArrayHelper::map($repos, 'id', 'name');
-	$tcidlist= TestResult::find()->where([
-                'teid' =>  Yii::$app->getRequest()->getQueryParam('id'),
-        ])->select('tcid')->all();
-        $tcids=array();
-        foreach($tcidlist as $tcid)
-        {
-        array_push($tcids,$tcid->tcid);
-        }
+ <?php 
+        
  ?>
  <div>
  <div style="float:left;"><span>Select Repo:</span>
@@ -66,8 +52,8 @@ $this->registerJsFile('js/inserttc2tp.js',['depends'=>[\yii\grid\GridViewAsset::
             // 'CreateDate',
         ['class' => 'yii\grid\DataColumn', // can be omitted, as it is the default
             'label' => 'In current test plan?',
-            'value' => function ($data) use ($tcids){
-                return in_array($data->id,$tcids)?"yes":"no"; // $data['name'] for array data, e.g. using SqlDataProvider.
+            'value' => function ($data) use ($tpid){
+                return $data->isInTestExcution($tpid)?"yes":"no"; // $data['name'] for array data, e.g. using SqlDataProvider.
             },
         ],
 			['class' => 'yii\grid\ActionColumn', 
