@@ -2,7 +2,6 @@ $(function(){
 	$('#inserttc2tp').click(function(e){
 		e.preventDefault();
 		var keys = $('#w0').yiiGridView('getSelectedRows');
-		alert(keys);
 		if (keys.length > 0) {
 			var target = $(e.target);
 			var url =target.attr('href');
@@ -15,7 +14,9 @@ $(function(){
 					tpid:target.data('tpid')
 				}
 			}).done(function(data){
-				;
+				if(data.success) {
+					location.reload();
+				}				
 			});		
 		}
 	});	

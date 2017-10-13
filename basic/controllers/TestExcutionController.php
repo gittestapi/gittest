@@ -7,9 +7,11 @@ use app\models\TestCase;
 use app\models\TestCaseSearch;
 use app\models\TestExcution;
 use app\models\TestExcutionSearch;
+use app\models\TestResult;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\Helpers\ArrayHelper;
 
 /**
  * TestExcutionController implements the CRUD actions for TestExcution model.
@@ -50,12 +52,16 @@ class TestExcutionController extends Controller
     {
         $repoid =Yii::$app->getRequest()->getQueryParam('repoid');
         $tpid = Yii::$app->getRequest()->get('id');
+        $trs = TestResult::find()->select('tcid')->where(['teid'=>$tpid])->asArray()->all();
+        // 已经存在于测试计划下的测试案例id
+        $tcids = ArrayHelper::getColumn($trs,'tcid');
         $searchModel = (is_null($repoid)||empty($repoid)) ?  (new TestCaseSearch(['id' => -1])): (new TestCaseSearch(['repoid'=>$repoid]));
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('InsertTestPlan', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'tpid' => $tpid,
+            'tcids' => $tcids
         ]);
     }
     /**

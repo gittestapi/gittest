@@ -1,8 +1,5 @@
 <?php
 
-use app\models\JoinRepo;
-use app\models\Repo;
-use app\models\TestResult;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\CheckboxColumn;
@@ -17,6 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerJsFile('js/inserttc2tp.js',['depends'=>[\yii\grid\GridViewAsset::className(),]]);
 
+// 获取当前用户所参与的项目（其为项目的测试管理人员 ）
 $reponamelist = \Yii::$app->user->identity->getRepos('M');
 ?>
 <div class="test-case-index">
@@ -40,7 +38,14 @@ $reponamelist = \Yii::$app->user->identity->getRepos('M');
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => CheckboxColumn::className()],
+            [
+                'class' => CheckboxColumn::className(),
+                'checkboxOptions' => function($model, $key, $index, $column) use ($tcids) {
+                    if(in_array($model->id.'',$tcids)) {
+                        return ['disabled'=> true];
+                    }
+                }
+            ],
             'id',
             'title',
             'priority',
@@ -52,8 +57,8 @@ $reponamelist = \Yii::$app->user->identity->getRepos('M');
             // 'CreateDate',
         ['class' => 'yii\grid\DataColumn', // can be omitted, as it is the default
             'label' => 'In current test plan?',
-            'value' => function ($data) use ($tpid){
-                return $data->isInTestExcution($tpid)?"yes":"no"; // $data['name'] for array data, e.g. using SqlDataProvider.
+            'value' => function ($data) use ($tcids){
+                return in_array($data->id.'', $tcids)?"yes":"no"; // $data['name'] for array data, e.g. using SqlDataProvider.
             },
         ],
 			['class' => 'yii\grid\ActionColumn', 
