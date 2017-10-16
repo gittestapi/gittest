@@ -58,7 +58,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'tag')->dropDownList($taglist) ?>
 
 <?php if($model->isNewRecord): ?> 
-    <h2>steps</h2>
+    <h2>steps (Please keep empty for step 1 and step 2 if you want to add steps later.)</h2>
     <div class="form-group">
 	    <h3>step 1</h3>
 	    <input class="form-control" name="steps[contents][0]" type="text">    	
