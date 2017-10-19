@@ -137,6 +137,17 @@ class TestExcutionController extends Controller
         return $this->asJson(['success'=>True]);
     }
 
+    // 
+    public function actionGettestcasesbytestexcution($teid=-1)
+    {
+        $searchModel = new TestCaseSearch();
+        $dataProvider = $searchModel->searchTestCaseByTestExcution(Yii::$app->request->queryParams);
+        return $this->render('gettestcasebytestexcution',[
+            'dataProvider' => $dataProvider,
+            'testExcution' => $this->findModel($teid),
+        ]);
+    }    
+
     /**
      * Finds the TestExcution model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
