@@ -1,0 +1,250 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Name>gittest</Name>
+    <ProjectGuid>62fa5e3e-dd19-4bb5-95c8-99103433dd39</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>
+    </RootNamespace>
+    <ProjectTypeGuids>{A0786B88-2ADB-4C21-ABE8-AA2D79766269}</ProjectTypeGuids>
+    <AssemblyName>gittest</AssemblyName>
+    <Runtime>PHP</Runtime>
+    <RuntimeVersion>5.6</RuntimeVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <IncludeDebugInformation>true</IncludeDebugInformation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <IncludeDebugInformation>false</IncludeDebugInformation>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="basic\" />
+    <Folder Include="basic\assets\" />
+    <Folder Include="basic\commands\" />
+    <Folder Include="basic\components\" />
+    <Folder Include="basic\components\validators\" />
+    <Folder Include="basic\config\" />
+    <Folder Include="basic\controllers\" />
+    <Folder Include="basic\mail\" />
+    <Folder Include="basic\mail\layouts\" />
+    <Folder Include="basic\models\" />
+    <Folder Include="basic\rbac\" />
+    <Folder Include="basic\runtime\" />
+    <Folder Include="basic\runtime\debug\" />
+    <Folder Include="basic\runtime\logs\" />
+    <Folder Include="basic\tests\" />
+    <Folder Include="basic\tests\acceptance\" />
+    <Folder Include="basic\tests\bin\" />
+    <Folder Include="basic\tests\functional\" />
+    <Folder Include="basic\tests\unit\" />
+    <Folder Include="basic\tests\unit\models\" />
+    <Folder Include="basic\tests\_data\" />
+    <Folder Include="basic\tests\_output\" />
+    <Folder Include="basic\tests\_support\" />
+    <Folder Include="basic\views\" />
+    <Folder Include="basic\views\area\" />
+    <Folder Include="basic\views\category\" />
+    <Folder Include="basic\views\join-repo\" />
+    <Folder Include="basic\views\layouts\" />
+    <Folder Include="basic\views\repo\" />
+    <Folder Include="basic\views\site\" />
+    <Folder Include="basic\views\step\" />
+    <Folder Include="basic\views\tag\" />
+    <Folder Include="basic\views\test-case\" />
+    <Folder Include="basic\views\test-excution\" />
+    <Folder Include="basic\views\test-result\" />
+    <Folder Include="basic\views\test-steps-result\" />
+    <Folder Include="basic\views\user\" />
+    <Folder Include="basic\web\" />
+    <Folder Include="basic\web\assets\" />
+    <Folder Include="basic\web\css\" />
+    <Folder Include="basic\web\js\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="basic\runtime\.gitignore" />
+    <Content Include="basic\runtime\debug\59f01787d8746.data" />
+    <Content Include="basic\runtime\debug\59f017a4b78ab.data" />
+    <Content Include="basic\runtime\debug\59f017a693f74.data" />
+    <Content Include="basic\runtime\debug\59f017a71a7ac.data" />
+    <Content Include="basic\runtime\debug\59f017a81124b.data" />
+    <Content Include="basic\runtime\debug\59f017a9b76d3.data" />
+    <Content Include="basic\runtime\debug\index.data" />
+    <Content Include="basic\runtime\logs\app.log" />
+    <Content Include="basic\tests\acceptance.suite.yml.example" />
+    <Content Include="basic\tests\bin\yii" />
+    <Content Include="basic\tests\bin\yii.bat" />
+    <Content Include="basic\tests\functional.suite.yml" />
+    <Content Include="basic\tests\unit.suite.yml" />
+    <Content Include="basic\tests\_data\.gitignore" />
+    <Content Include="basic\tests\_output\.gitignore" />
+    <Content Include="basic\web\assets\.gitignore" />
+    <Content Include="basic\web\css\site.css" />
+    <Content Include="basic\web\favicon.ico" />
+    <Content Include="basic\web\js\bootbox.min.js" />
+    <Content Include="basic\web\js\inserttc2tp.js" />
+    <Content Include="basic\web\js\requests.js" />
+    <Content Include="basic\web\robots.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="basic\assets\AppAsset.php" />
+    <Compile Include="basic\commands\HelloController.php" />
+    <Compile Include="basic\commands\RbacController.php" />
+    <Compile Include="basic\components\validators\YONValidator.php" />
+    <Compile Include="basic\config\console.php" />
+    <Compile Include="basic\config\db.php" />
+    <Compile Include="basic\config\params.php" />
+    <Compile Include="basic\config\test.php" />
+    <Compile Include="basic\config\test_db.php" />
+    <Compile Include="basic\config\web.php" />
+    <Compile Include="basic\controllers\AreaController.php" />
+    <Compile Include="basic\controllers\CategoryController.php" />
+    <Compile Include="basic\controllers\JoinRepoController.php" />
+    <Compile Include="basic\controllers\RepoController.php" />
+    <Compile Include="basic\controllers\RequestController.php" />
+    <Compile Include="basic\controllers\SiteController.php" />
+    <Compile Include="basic\controllers\StepController.php" />
+    <Compile Include="basic\controllers\TagController.php" />
+    <Compile Include="basic\controllers\TestCaseController.php" />
+    <Compile Include="basic\controllers\TestExcutionController.php" />
+    <Compile Include="basic\controllers\TestResultController.php" />
+    <Compile Include="basic\controllers\TestStepsResultController.php" />
+    <Compile Include="basic\controllers\UserController.php" />
+    <Compile Include="basic\mail\layouts\html.php" />
+    <Compile Include="basic\models\Area.php" />
+    <Compile Include="basic\models\AreaSearch.php" />
+    <Compile Include="basic\models\Category.php" />
+    <Compile Include="basic\models\CategorySearch.php" />
+    <Compile Include="basic\models\ContactForm.php" />
+    <Compile Include="basic\models\JoinRepo.php" />
+    <Compile Include="basic\models\JoinRepoSearch.php" />
+    <Compile Include="basic\models\LoginForm.php" />
+    <Compile Include="basic\models\MessageTemplate.php" />
+    <Compile Include="basic\models\Repo.php" />
+    <Compile Include="basic\models\RepoSearch.php" />
+    <Compile Include="basic\models\RepoSearch2.php" />
+    <Compile Include="basic\models\RepoSearch3.php" />
+    <Compile Include="basic\models\Request.php" />
+    <Compile Include="basic\models\RequestSearch.php" />
+    <Compile Include="basic\models\Step.php" />
+    <Compile Include="basic\models\StepSearch.php" />
+    <Compile Include="basic\models\StepSearch2.php" />
+    <Compile Include="basic\models\Tag.php" />
+    <Compile Include="basic\models\TagSearch.php" />
+    <Compile Include="basic\models\TestCase.php" />
+    <Compile Include="basic\models\TestCaseSearch.php" />
+    <Compile Include="basic\models\TestCaseSearch2.php" />
+    <Compile Include="basic\models\TestExcution.php" />
+    <Compile Include="basic\models\TestExcutionSearch.php" />
+    <Compile Include="basic\models\TestResult.php" />
+    <Compile Include="basic\models\TestResultSearch.php" />
+    <Compile Include="basic\models\TestStepResult.php" />
+    <Compile Include="basic\models\TestStepResultSearch.php" />
+    <Compile Include="basic\models\User.php" />
+    <Compile Include="basic\models\UserSearch.php" />
+    <Compile Include="basic\rbac\RepoAuthorRule.php" />
+    <Compile Include="basic\rbac\RepoViewRule.php" />
+    <Compile Include="basic\tests\acceptance\AboutCest.php" />
+    <Compile Include="basic\tests\acceptance\ContactCest.php" />
+    <Compile Include="basic\tests\acceptance\HomeCest.php" />
+    <Compile Include="basic\tests\acceptance\LoginCest.php" />
+    <Compile Include="basic\tests\acceptance\_bootstrap.php" />
+    <Compile Include="basic\tests\functional\ContactFormCest.php" />
+    <Compile Include="basic\tests\functional\LoginFormCest.php" />
+    <Compile Include="basic\tests\functional\_bootstrap.php" />
+    <Compile Include="basic\tests\unit\models\ContactFormTest.php" />
+    <Compile Include="basic\tests\unit\models\LoginFormTest.php" />
+    <Compile Include="basic\tests\unit\models\UserTest.php" />
+    <Compile Include="basic\tests\unit\_bootstrap.php" />
+    <Compile Include="basic\tests\_bootstrap.php" />
+    <Compile Include="basic\tests\_support\AcceptanceTester.php" />
+    <Compile Include="basic\tests\_support\FunctionalTester.php" />
+    <Compile Include="basic\tests\_support\UnitTester.php" />
+    <Compile Include="basic\views\area\create.php" />
+    <Compile Include="basic\views\area\index.php" />
+    <Compile Include="basic\views\area\update.php" />
+    <Compile Include="basic\views\area\view.php" />
+    <Compile Include="basic\views\area\_form.php" />
+    <Compile Include="basic\views\area\_search.php" />
+    <Compile Include="basic\views\category\create.php" />
+    <Compile Include="basic\views\category\index.php" />
+    <Compile Include="basic\views\category\update.php" />
+    <Compile Include="basic\views\category\view.php" />
+    <Compile Include="basic\views\category\_form.php" />
+    <Compile Include="basic\views\category\_search.php" />
+    <Compile Include="basic\views\join-repo\create.php" />
+    <Compile Include="basic\views\join-repo\index.php" />
+    <Compile Include="basic\views\join-repo\update.php" />
+    <Compile Include="basic\views\join-repo\view.php" />
+    <Compile Include="basic\views\join-repo\_form.php" />
+    <Compile Include="basic\views\join-repo\_search.php" />
+    <Compile Include="basic\views\layouts\main.php" />
+    <Compile Include="basic\views\repo\create.php" />
+    <Compile Include="basic\views\repo\index.php" />
+    <Compile Include="basic\views\repo\indexall.php" />
+    <Compile Include="basic\views\repo\index_for_user.php" />
+    <Compile Include="basic\views\repo\update.php" />
+    <Compile Include="basic\views\repo\view.php" />
+    <Compile Include="basic\views\repo\_form.php" />
+    <Compile Include="basic\views\repo\_formcreate.php" />
+    <Compile Include="basic\views\repo\_search.php" />
+    <Compile Include="basic\views\site\about.php" />
+    <Compile Include="basic\views\site\contact.php" />
+    <Compile Include="basic\views\site\error.php" />
+    <Compile Include="basic\views\site\index.php" />
+    <Compile Include="basic\views\site\login.php" />
+    <Compile Include="basic\views\step\create.php" />
+    <Compile Include="basic\views\step\getstepsbycaseid.php" />
+    <Compile Include="basic\views\step\index.php" />
+    <Compile Include="basic\views\step\update.php" />
+    <Compile Include="basic\views\step\view.php" />
+    <Compile Include="basic\views\step\viewonly.php" />
+    <Compile Include="basic\views\step\_form.php" />
+    <Compile Include="basic\views\step\_search.php" />
+    <Compile Include="basic\views\tag\create.php" />
+    <Compile Include="basic\views\tag\index.php" />
+    <Compile Include="basic\views\tag\update.php" />
+    <Compile Include="basic\views\tag\view.php" />
+    <Compile Include="basic\views\tag\_form.php" />
+    <Compile Include="basic\views\tag\_search.php" />
+    <Compile Include="basic\views\test-case\create.php" />
+    <Compile Include="basic\views\test-case\gettestcasesbyrepoid.php" />
+    <Compile Include="basic\views\test-case\gettestcasesbyrepoid2.php" />
+    <Compile Include="basic\views\test-case\index.php" />
+    <Compile Include="basic\views\test-case\indexall.php" />
+    <Compile Include="basic\views\test-case\update.php" />
+    <Compile Include="basic\views\test-case\view.php" />
+    <Compile Include="basic\views\test-case\_form.php" />
+    <Compile Include="basic\views\test-case\_formcreate.php" />
+    <Compile Include="basic\views\test-case\_search.php" />
+    <Compile Include="basic\views\test-excution\create.php" />
+    <Compile Include="basic\views\test-excution\gettestcasebytestexcution.php" />
+    <Compile Include="basic\views\test-excution\index.php" />
+    <Compile Include="basic\views\test-excution\InsertTestPlan.php" />
+    <Compile Include="basic\views\test-excution\update.php" />
+    <Compile Include="basic\views\test-excution\view.php" />
+    <Compile Include="basic\views\test-excution\_form.php" />
+    <Compile Include="basic\views\test-excution\_search.php" />
+    <Compile Include="basic\views\test-result\create.php" />
+    <Compile Include="basic\views\test-result\index.php" />
+    <Compile Include="basic\views\test-result\update.php" />
+    <Compile Include="basic\views\test-result\view.php" />
+    <Compile Include="basic\views\test-result\_form.php" />
+    <Compile Include="basic\views\test-result\_search.php" />
+    <Compile Include="basic\views\test-steps-result\create.php" />
+    <Compile Include="basic\views\test-steps-result\index.php" />
+    <Compile Include="basic\views\test-steps-result\update.php" />
+    <Compile Include="basic\views\test-steps-result\view.php" />
+    <Compile Include="basic\views\test-steps-result\_form.php" />
+    <Compile Include="basic\views\test-steps-result\_search.php" />
+    <Compile Include="basic\views\user\create.php" />
+    <Compile Include="basic\views\user\index.php" />
+    <Compile Include="basic\views\user\success.php" />
+    <Compile Include="basic\views\user\update.php" />
+    <Compile Include="basic\views\user\view.php" />
+    <Compile Include="basic\views\user\_form.php" />
+    <Compile Include="basic\views\user\_formedit.php" />
+    <Compile Include="basic\views\user\_search.php" />
+    <Compile Include="basic\web\index-test.php" />
+    <Compile Include="basic\web\index.php" />
+  </ItemGroup>
+</Project>

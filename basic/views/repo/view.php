@@ -73,7 +73,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
 
 <?php if($model->adminid == \Yii::$app->user->id): ?>
     <p>
-        <?= Html::a('Create Area', ['createarea', 'id' => $model->id], [
+        <?= Html::a('Create Area', ['area/create', 'repoid' => $model->id], [
             'class' => 'btn btn-success',
             'onclick' => 'bootbox.prompt("Please input Area to be created:", function(result){ alert("Area:"+result); });',
         ]) ?>
