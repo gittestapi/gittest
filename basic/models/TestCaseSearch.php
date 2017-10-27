@@ -87,7 +87,7 @@ class TestCaseSearch extends TestCase
     public function searchRelevantTestCase($params)
     {
         // 当前用户参与的项目，且用户在项目中的 role 为 'M'
-        $cond = ['in', 'repoid', (new Query())->select('repoid')->from('JoinRepo')->where(['uid' => Yii::$app->user->id,'role' => 'M'])];
+        $cond = ['in', 'repoid', (new Query())->select('repoid')->from('joinrepo')->where(['uid' => Yii::$app->user->id,'role' => 'M'])];
         $query = TestCase::find()->where($cond);
 
         // add conditions that should always apply here
