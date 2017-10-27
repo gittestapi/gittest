@@ -73,25 +73,25 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
 
 <?php if($model->adminid == \Yii::$app->user->id): ?>
     <p>
-        <?= Html::a('Create Area', ['area/create', 'repoid' => $model->id], [
+        <?= Html::a('Create Area', '#', [
             'class' => 'btn btn-success',
-            'onclick' => 'bootbox.prompt("Please input Area to be created:", function(result){ alert("Area:"+result); });',
+            'onclick' => 'bootbox.prompt("Please input Area to be created:", function(result){ alert("Area:"+result+",repoid:'.$model->id.'"); });',
         ]) ?>
     </p>
     <h2>Area list</h2>
     
     <p>
-        <?= Html::a('Create Category', ['createcategory', 'id' => $model->id], [
+        <?= Html::a('Create Category', '#', [
             'class' => 'btn btn-success',
-            'onclick' => 'bootbox.prompt("Please input Category to be created:", function(result){ alert("Category:"+result); });',
+            'onclick' => 'bootbox.prompt("Please input Category to be created:", function(result){ alert("Category:"+result+",repoid:'.$model->id.'"); });',
         ]) ?>
     </p>
     <h2>Category list</h2>
     
     <p>
-        <?= Html::a('Create Tag', ['createtag', 'id' => $model->id], [
+        <?= Html::a('Create Tag', '#', [
             'class' => 'btn btn-success',
-            'onclick' => 'bootbox.prompt("Please input Tag to be created:", function(result){ alert("Tag:"+result); });',
+            'onclick' => 'bootbox.prompt("Please input Tag to be created:", function(result){ alert("Tag:"+result+",repoid:'.$model->id.'"); });',
         ]) ?>
     </p>
     <h2>Tag list</h2>
