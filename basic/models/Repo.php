@@ -104,7 +104,7 @@ class Repo extends \yii\db\ActiveRecord
 
         $areas = [];
         foreach($area as $a) {
-            array_push($areas,$a->area);
+            array_push($areas,$a);
         }
         return $areas;
     }
