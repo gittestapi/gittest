@@ -95,6 +95,19 @@ class Repo extends \yii\db\ActiveRecord
         }
         return $executers;        
     }
+	
+    public function getAreas()
+    {
+        $area = Area::find()->where([
+            'repoid'=>$this->id
+            ])->all();
+
+        $areas = [];
+        foreach($area as $a) {
+            array_push($areas,$a->area);
+        }
+        return $areas;
+    }
 
     /**
      * 检查 Repo 是否与一个用户相关
