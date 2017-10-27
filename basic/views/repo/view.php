@@ -80,7 +80,7 @@ $this->registerJsFile('js/requests.js',['depends'=>[\yii\web\JqueryAsset::classN
     </p>
     <h2>Area list</h2>
     <?php foreach($areas as $a): ?>
-        <li><?= Html::label($a->area,$a->area) ?></li>
+        <li><?= Html::label($a,$a) ?></li>
     <?php endforeach; ?>
     <p>
         <?= Html::a('Create Category', '#', [
