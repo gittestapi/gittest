@@ -1,6 +1,6 @@
 # 项目介绍
 
-[GitTest.com](http://gittest.com)是一个基于MIT开源协议的管理测试流程的服务，我们主要针对欧美客户，用户可以把测试过程和测试内容以及测试的结果记录在gittest.com网站上（网站目前只是一个demo演示，后期实现好之后将上线运营），同时gittest.com提供rest api供用户自动化调用（api接口已经设计好，还未实现）。
+[GitTest.com](http://gittest.com)是一个基于MIT开源协议的管理测试流程的服务，我们主要针对欧美客户，用户可以把测试过程和测试内容以及测试的结果记录在gittest.com网站上（网站目前只是一个demo演示，后期实现好之后将上线运营），同时gittest.com提供rest api供用户自动化调用（[rest api接口](https://github.com/gittestapi/gittestapi)已经设计好，还未实现）。
 我们欢迎各支持开源的公司，组织和个人能支持我们的项目，赞助商将在网站赞助商页面http://gittest.com 和GitHub社区首页展示：https://github.com/gittestapi/gittest ，另外在各种开源大会和一些开源培训中我们会展示赞助商。
 **如果您想赞助我们项目，请加我的微信lowversion，备注”赞助GitTest“，个人100块起，公司或者组织500块起。所有捐赠的收入和支出将在GitHub社区公示。**
 
