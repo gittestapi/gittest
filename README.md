@@ -1,4 +1,4 @@
-# gittest
+# GitTest
 an implementation for gittest api
 
 Donate us 1$ if you like this project, thanks! [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/jumpingyang/1)
@@ -11,11 +11,11 @@ It should include test plan, test case, test step, test result, test case result
 
 Since I don't have ability to make this come ture, so I create this open source project here and I am hoping that anyone who is interesting with this can help improve this demo, thanks very much for help!
 
-# Sponsor
-## Organization
+# Sponsor(赞助商)
+## Organization(公司/组织)
 will coming soon to support our project, will list here.
 
-## Personal
+## Personal(个人)
 will coming soon to support our project, will list here.
 
 # Screenshots:
