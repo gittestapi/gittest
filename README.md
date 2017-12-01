@@ -11,6 +11,13 @@ It should include test plan, test case, test step, test result, test case result
 
 Since I don't have ability to make this come ture, so I create this open source project here and I am hoping that anyone who is interesting with this can help improve this demo, thanks very much for help!
 
+# Sponsor
+## Organization
+will coming soon to support our project, will list here.
+
+## Personal
+will coming soon to support our project, will list here.
+
 # Screenshots:
 ## Architecture Desgin
 ![Alt text](https://github.com/gittestapi/gittest/raw/master/dev-docs/architecture%20desgin.png "ArchitectureDesgin")
