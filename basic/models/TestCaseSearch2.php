@@ -73,7 +73,7 @@ class TestCaseSearch2 extends TestCase
 
         return $dataProvider;
     }
-	
+
 	public function search2($id, $params)
     {
         $query = TestCase::find();
@@ -99,6 +99,7 @@ class TestCaseSearch2 extends TestCase
             'priority' => $this->priority,
             'serverity' => $this->serverity,
             'CreateDate' => $this->CreateDate,
+            'repoid' => Yii::$app->request->get('id'),
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
