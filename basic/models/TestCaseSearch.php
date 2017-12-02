@@ -86,8 +86,8 @@ class TestCaseSearch extends TestCase
      */
     public function searchRelevantTestCase($params)
     {
-        // 当前用户参与的项目，且用户在项目中的 role 为 'M'
-        $cond = ['in', 'repoid', (new Query())->select('repoid')->from('joinrepo')->where(['uid' => Yii::$app->user->id,'role' => 'M'])];
+        // 当前用户参与的项目
+        $cond = ['in', 'repoid', (new Query())->select('repoid')->from('joinrepo')->where(['uid' => Yii::$app->user->id])];
         $query = TestCase::find()->where($cond);
 
         // add conditions that should always apply here
@@ -171,6 +171,6 @@ class TestCaseSearch extends TestCase
             ->andFilterWhere(['like', 'tag', $this->tag])
             ->andFilterWhere(['like','repo.name',$this->getAttribute('repo.name')]);
 
-        return $dataProvider;        
+        return $dataProvider;
     }
 }
