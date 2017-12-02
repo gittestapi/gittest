@@ -76,14 +76,16 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
+        $auth = Yii::$app->authManager;
+        $roleCommonUser = $auth->getRole("commonUser");
+        if (is_null($roleCommonUser)) {
+            return "You should first execute command: yii rbac/init!";
+        }
+
         $model = new User();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
             // Assign 'commonUser' role to current user
-            $auth = Yii::$app->authManager;
-            $commonUser = $auth->getRole("commonUser");
-            $auth->assign($commonUser,$model->id);
-
+            $auth->assign($roleCommonUser,$model->id);
             return $this->redirect(['user/success']);
         } else {
             return $this->render('create', [
