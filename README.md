@@ -13,7 +13,7 @@ Since I don't have ability to make this come ture, so I create this open source 
 
 # Sponsor(赞助商)
 ## Organization(公司/组织)
-will coming soon to support our project, will list here.
+福建雪峰教育科技有限公司
 
 ## Personal(个人)
 will coming soon to support our project, will list here.
