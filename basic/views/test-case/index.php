@@ -40,12 +40,22 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'tag',
             // 'CreateDate',
 
-            ['class' => 'yii\grid\ActionColumn'],
-			['class' => 'yii\grid\ActionColumn', 
+            [
+              'class' => 'yii\grid\ActionColumn',
+              'visibleButtons' => [
+                  'update' => function ($model, $key, $index) {
+                      return $model->repo->isTestManagerForUser(\Yii::$app->user->id);
+                  },
+                  'delete' => function ($model, $key, $index) {
+                      return $model->repo->isTestManagerForUser(\Yii::$app->user->id);
+                  },                       
+              ]
+            ],
+			['class' => 'yii\grid\ActionColumn',
 			'template' => '{view}',
 			'buttons' => [
                 'view' => function ($url,$model,$key) {
-                    return Html::a('Detail', 'index.php?r=step%2Findex&tcid='.$key);
+                    return $model->repo->isTestManagerForUser(\Yii::$app->user->id)?Html::a('Detail', 'index.php?r=step%2Findex&tcid='.$key):null;
                 },
 				],//buttons
 			],//class
