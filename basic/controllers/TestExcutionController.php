@@ -7,7 +7,7 @@ use app\models\TestCase;
 use app\models\TestCaseSearch;
 use app\models\TestExcution;
 use app\models\TestExcutionSearch;
-use app\models\TestResult;
+use app\models\TestCaseResult;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -47,12 +47,12 @@ class TestExcutionController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-    
+
     public function actionInsertTestPlan()
     {
         $repoid =Yii::$app->getRequest()->getQueryParam('repoid');
         $tpid = Yii::$app->getRequest()->get('id');
-        $trs = TestResult::find()->select('tcid')->where(['teid'=>$tpid])->asArray()->all();
+        $trs = TestCaseResult::find()->select('tcid')->where(['teid'=>$tpid])->asArray()->all();
         // 已经存在于测试计划下的测试案例id
         $tcids = ArrayHelper::getColumn($trs,'tcid');
         $searchModel = (is_null($repoid)||empty($repoid)) ?  (new TestCaseSearch(['id' => -1])): (new TestCaseSearch(['repoid'=>$repoid]));
@@ -137,7 +137,7 @@ class TestExcutionController extends Controller
         return $this->asJson(['success'=>True]);
     }
 
-    // 
+    //
     public function actionGettestcasesbytestexcution($teid=-1)
     {
         $searchModel = new TestCaseSearch();
@@ -146,7 +146,7 @@ class TestExcutionController extends Controller
             'dataProvider' => $dataProvider,
             'testExcution' => $this->findModel($teid),
         ]);
-    }    
+    }
 
     /**
      * Finds the TestExcution model based on its primary key value.
