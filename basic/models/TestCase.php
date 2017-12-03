@@ -59,11 +59,11 @@ class TestCase extends \yii\db\ActiveRecord
             'CreateDate' => 'Create Date',
         ];
     }
-	
-	public function beforeSave($insert) {	
+
+	public function beforeSave($insert) {
 		if (parent::beforeSave($insert)) {
 			// Place your custom code here
-			
+
 			$this->CreateDate = new Expression('NOW()');
 			return true;
 		} else {
@@ -85,17 +85,17 @@ class TestCase extends \yii\db\ActiveRecord
         $rows =  Step::find()->select(['id'])
                     ->where(['tcid'=>$this->id])
                     ->asArray()
-                    ->all();  
+                    ->all();
         $ids = [];
         foreach($rows as $r){
             array_push($ids,$r['id']);
         }
-        return $ids;       
+        return $ids;
     }
 
     public function isInTestExcution($teid)
     {
-        if(TestResult::findOne(['teid'=>$teid,'tcid'=>$this->id])) {
+        if(TestCaseResult::findOne(['teid'=>$teid,'tcid'=>$this->id])) {
             return True;
         }
         return False;
@@ -108,28 +108,28 @@ class TestCase extends \yii\db\ActiveRecord
     public function initTestResult($teid)
     {
         if (!$this->isInTestExcution($teid)) {
-            $testResult = new TestResult([
+            $testCaseResult = new TestCaseResult([
                 'tcid' => $this->id,
                 'teid' => $teid,
                 ]);
-            if($testResult->validate()) {
-                $testResult->save(false);
+            if($testCaseResult->validate()) {
+                $testCaseResult->save(false);
             }else{
-                Yii::warning($testResult->errors);
+                Yii::warning($testCaseResult->errors);
             }
 
             $stepids = $this->getStepIDS();
             foreach($stepids as $sid) {
                 $tsr = new TestStepResult([
                     'sid' => $sid, // 测试步骤编号
-                    'trid' => $testResult->id,
+                    'trid' => $testCaseResult->id,
                     'status' => '',
                     ]);
                 if($tsr->validate()){
                     $tsr->save(false);
                 }else{
                     Yii::warning($tsr->errors);
-                }            
+                }
             }
         }
     }

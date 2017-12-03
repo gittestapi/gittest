@@ -17,7 +17,7 @@ use yii\db\Expression;
  * @property string $gitissuelink
  * @property string $updatedate
  */
-class TestResult extends \yii\db\ActiveRecord
+class TestCaseResult extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -58,14 +58,14 @@ class TestResult extends \yii\db\ActiveRecord
         ];
     }
 
-    public function beforeSave($insert) {   
+    public function beforeSave($insert) {
         if (parent::beforeSave($insert)) {
             // Place your custom code here
-            
+
             $this->updatedate = new Expression('NOW()');
             return true;
         } else {
             return false;
         }
-    }    
+    }
 }
