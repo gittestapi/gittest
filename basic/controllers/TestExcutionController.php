@@ -52,6 +52,7 @@ class TestExcutionController extends Controller
     {
         $repoid =Yii::$app->getRequest()->getQueryParam('repoid');
         $tpid = Yii::$app->getRequest()->get('id');
+        $trs = TestCaseResult::find()->select('tcid')->where(['teid'=>$tpid])->asArray()->all();
         // 已经存在于测试计划下的测试案例id
         $tcids = json_decode(TestExcution::findOne($tpid)->tcids);
         if (is_null($tcids) || empty($tcids)) {
