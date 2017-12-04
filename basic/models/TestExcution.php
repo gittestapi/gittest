@@ -31,6 +31,9 @@ class TestExcution extends \yii\db\ActiveRecord
         return [
             [['CreateDate'], 'safe'],
             [['name', 'milestone'], 'string', 'max' => 300],
+            ['uid','integer'],
+            ['designCompleted','boolean'],
+            ['tcids','string']
         ];
     }
 
@@ -56,6 +59,30 @@ class TestExcution extends \yii\db\ActiveRecord
         // ...custom code here...
         $this->CreateDate = new Expression('NOW()');
 
-        return true;        
-    }    
+        return true;
+    }
+
+    /**
+    * 返回当前的 TestCase ids 数组
+    */
+    public function getTCIDs()
+    {
+        $tcidArray = json_decode($this->tcids);
+        if (is_null($tcidArray) || empty($tcidArray)) {
+            $tcidArray = array();
+        }
+        return $tcidArray;
+    }
+
+    public function insertTCs($tcids)
+    {
+        $tcidArray = $this->TCIDs;
+        foreach($tcids as $tcid) {
+            if (!in_array($tcid,$tcidArray)) {
+                array_push($tcidArray,$tcid);
+            }
+        }
+        $this->tcids = json_encode($tcidArray);
+        $this->save();
+    }
 }

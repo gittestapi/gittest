@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -29,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'milestone',
             'CreateDate',
 
-            ['class' => 'yii\grid\ActionColumn', 
+            ['class' => 'yii\grid\ActionColumn',
 			'template' => '{link}',
 			'buttons' => [
                 'link' => function ($url,$model,$key) {
@@ -37,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
 				],//buttons
 	    ],//class
-	    ['class' => 'yii\grid\ActionColumn', 
+	    ['class' => 'yii\grid\ActionColumn',
 			'template' => '{link}',
 			'buttons' => [
                 'link' => function ($url,$model,$key) {
@@ -45,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
 				],//buttons
 	    ],//class
-	    ['class' => 'yii\grid\ActionColumn', 
+	    ['class' => 'yii\grid\ActionColumn',
 			'template' => '{link}',
 			'buttons' => [
                 'link' => function ($url,$model,$key) {
@@ -54,6 +55,18 @@ $this->params['breadcrumbs'][] = $this->title;
 				],//buttons
 	    ],//class
             ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{link}',
+                'buttons' => [
+                    'link' => function($url,$model,$key) {
+                        if (is_null($model->designCompleted) || empty($model->designCompleted)) {
+                            $handlerUrl = Url::to(['test-excution/confirm-complete','teid'=>$key]);
+                            return Html::button("确认此测试计划设计完成",[ 'class' => 'btn btn-primary','onclick' => "var r = confirm('确定计划设计完成'); if (r==true) {window.location.href='".$handlerUrl."'}"]);
+                        }
+                    }
+                ],
+            ]
         ],
     ]); ?>
 </div>

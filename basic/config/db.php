@@ -2,8 +2,8 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=gitlab.anymes.com;dbname=gittest',
+    'dsn' => 'mysql:host=127.0.0.1;dbname=gittest',
     'username' => 'gittest',
-    'password' => '3ZjNa0UjVg8SsNcT',
+    'password' => 'pass',
     'charset' => 'utf8',
 ];

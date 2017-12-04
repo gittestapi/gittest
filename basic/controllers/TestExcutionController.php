@@ -54,7 +54,10 @@ class TestExcutionController extends Controller
         $tpid = Yii::$app->getRequest()->get('id');
         $trs = TestCaseResult::find()->select('tcid')->where(['teid'=>$tpid])->asArray()->all();
         // 已经存在于测试计划下的测试案例id
-        $tcids = ArrayHelper::getColumn($trs,'tcid');
+        $tcids = json_decode(TestExcution::findOne($tpid)->tcids);
+        if (is_null($tcids) || empty($tcids)) {
+            $tcids = array();
+        }
         $searchModel = (is_null($repoid)||empty($repoid)) ?  (new TestCaseSearch(['id' => -1])): (new TestCaseSearch(['repoid'=>$repoid]));
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('InsertTestPlan', [
@@ -86,6 +89,9 @@ class TestExcutionController extends Controller
         $model = new TestExcution();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->uid = Yii::$app->user->id;
+            $model->designCompleted = False;
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -130,10 +136,13 @@ class TestExcutionController extends Controller
     {
         $tpid = Yii::$app->request->post('tpid');
         $tcids = Yii::$app->request->post('tcids');
+        /*
         foreach($tcids as $tcid) {
             $tc = TestCase::findOne($tcid);
             $tc->initTestResult($tpid);
-        }
+        }*/
+        $tp = TestExcution::findOne($tpid);
+        $tp->insertTCs($tcids);
         return $this->asJson(['success'=>True]);
     }
 
@@ -146,6 +155,38 @@ class TestExcutionController extends Controller
             'dataProvider' => $dataProvider,
             'testExcution' => $this->findModel($teid),
         ]);
+    }
+
+    public function actionDeleteTestCase($teid,$tcid)
+    {
+        $model = $this->findModel($teid);
+        $tcids = $model->TCIDs;
+        if ($key = array_search($tcid,$tcids) != false) {
+            \yii\helpers\ArrayHelper::removeValue($tcids,$tcid);
+        }
+        $model->tcids = json_encode($tcids);
+        $model->save();
+        return $this->redirect(['gettestcasesbytestexcution','teid'=>$teid]);
+    }
+
+    public function actionConfirmComplete($teid)
+    {
+        $model = $this->findModel($teid);
+        if (empty($model->TCIDs) || $model->designCompleted){ //测试计划不包含 TestCase 或者已经被标记过
+            return "此测试计划不包含 TestCase，无法标记为已完成，或者已经标记过了";
+        } else {
+            $designCompletedOldVal = $model->designCompleted;
+            $model->designCompleted = true;
+            $model->save();
+
+            // 创建此测试计划下相关的 testresult 和 teststepresult 表数据
+            foreach($model->TCIDs as $tcid) {
+                $tc = TestCase::findOne($tcid);
+                $tc->initTestResult($teid);
+            }
+            return $this->redirect(['index']);
+        }
+
     }
 
     /**

@@ -41,7 +41,7 @@ class TestExcutionSearch extends TestExcution
      */
     public function search($params)
     {
-        $query = TestExcution::find();
+        $query = TestExcution::find()->where(['uid'=>Yii::$app->user->id]);
 
         // add conditions that should always apply here
 
