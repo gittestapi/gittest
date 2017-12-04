@@ -132,7 +132,7 @@ class TestCaseSearch extends TestCase
     public function searchTestCaseByTestExcution($params)
     {
         $teid = Yii::$app->request->get('teid',-1);
-        $cond = ['in', 'testcase.id', (new Query())->select('tcid')->from('testresult')->where(['teid' => $teid])];
+        $cond = ['in', 'testcase.id', TestExcution::findOne($teid)->TCIDs];
         $query = TestCase::find()->where($cond);
 
         // add conditions that should always apply here
