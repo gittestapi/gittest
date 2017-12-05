@@ -184,22 +184,31 @@ class TestExcutionController extends Controller
 
     public function actionConfirmComplete($teid)
     {
-        $model = $this->findModel($teid);
-        if (empty($model->TCIDs) || $model->designCompleted){ //测试计划不包含 TestCase 或者已经被标记过
-            return "此测试计划不包含 TestCase，无法标记为已完成，或者已经标记过了";
-        } else {
-            $designCompletedOldVal = $model->designCompleted;
-            $model->designCompleted = true;
-            $model->save();
+        $request = Yii::$app->request;
+        if ($request->isAjax && $request->isPost) {
+            $result = new \stdClass;
+            $result->success = False;
 
-            // 创建此测试计划下相关的 testresult 和 teststepresult 表数据
-            foreach($model->TCIDs as $tcid) {
-                $tc = TestCase::findOne($tcid);
-                $tc->initTestResult($teid);
+            $model = $this->findModel($teid);
+            if (empty($model->TCIDs) || $model->designCompleted) {
+                $result->message='此测试计划不包含 TestCase，无法标记为已完成，或者已经标记过了';
+            } else {
+                $model->designCompleted = True;
+                if ($model->save()) {
+                    // 创建此测试计划下相关的 testresult 和 teststepresult 表数据
+                    foreach($model->TCIDs as $tcid) {
+                        $tc = TestCase::findOne($tcid);
+                        $tc->initTestResult($teid);
+                    }
+                    $result->success = True;
+                } else {
+                    $result->message = "数据库操作错误";
+                }
             }
-            return $this->redirect(['index']);
+            return $this->asJson($result);
+        } else {
+            return "非 Post ,非 ajax, 不处理！";
         }
-
     }
 
     /**
