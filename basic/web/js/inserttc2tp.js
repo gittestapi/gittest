@@ -16,8 +16,10 @@ $(function(){
 			}).done(function(data){
 				if(data.success) {
 					location.reload();
-				}				
-			});		
+				} else {
+					alert(data.message);
+				}
+			});
 		}
-	});	
+	});
 })

@@ -132,12 +132,10 @@ class TestExcutionController extends Controller
     {
         $tpid = Yii::$app->request->post('tpid');
         $tcids = Yii::$app->request->post('tcids');
-        /*
-        foreach($tcids as $tcid) {
-            $tc = TestCase::findOne($tcid);
-            $tc->initTestResult($tpid);
-        }*/
         $tp = TestExcution::findOne($tpid);
+        if ($tp->designCompleted) {
+            return $this->asJson(['success'=>False,'message'=>"当前测试计划已经设计完成，不能更改其下的 TestCases 了"]);
+        }
         $tp->insertTCs($tcids);
         return $this->asJson(['success'=>True]);
     }
