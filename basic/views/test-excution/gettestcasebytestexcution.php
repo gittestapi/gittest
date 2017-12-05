@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 $this->title = $testExcution->name .'下的 test case';
 $this->params['breadcrumbs'][] = $this->title;
-
+$this->registerJsFile('js/deletetcfromtp.js',['depends'=>[\yii\web\JqueryAsset::className(),]]);
 echo GridView::widget([
 	'dataProvider' => $dataProvider,
 	'columns' => [
@@ -26,7 +26,7 @@ echo GridView::widget([
 			'template' => '{link}',
 			'buttons' => [
 				'link' => function($url,$model,$key) {
-					return Html::a('Remove This From The TestPlan',['test-excution/delete-test-case','teid'=>\Yii::$app->request->get('teid'),'tcid'=>$key]);
+					return Html::a('Remove This From The TestPlan',['test-excution/delete-test-case','teid'=>\Yii::$app->request->get('teid'),'tcid'=>$key],['class'=>'dtc']);
 				},
 			],
 		],

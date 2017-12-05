@@ -153,14 +153,33 @@ class TestExcutionController extends Controller
 
     public function actionDeleteTestCase($teid,$tcid)
     {
-        $model = $this->findModel($teid);
-        $tcids = $model->TCIDs;
-        if ($key = array_search($tcid,$tcids) != false) {
-            \yii\helpers\ArrayHelper::removeValue($tcids,$tcid);
+        $request = Yii::$app->request;
+        if ($request->isAjax && $request->isPost) {
+            $result = new \stdClass;
+            $result->success = False;
+
+            $model = $this->findModel($teid);
+            if ($model->designCompleted) { // 测试计划已经完成，不许再删除其下的案例
+                $result->message='测试计划已经完成，不许再删除其下的案例';
+            } else {
+                $tcids = $model->TCIDs;
+                $key = array_search($tcid,$tcids);
+                if ($key !== false) {
+                    \yii\helpers\ArrayHelper::removeValue($tcids,$tcid);
+                    $model->tcids = json_encode(array_values($tcids));
+                    if($model->save()) {
+                        $result->success = True;
+                    } else {
+                        $result->message ='数据库操作错误';
+                    }
+                } else {
+                    $result->message = '测试案例不在当前的测试计划中';
+                }
+            }
+            return $this->asJson($result);
+        } else {
+            return "非 Post ,非 ajax, 不处理！";
         }
-        $model->tcids = json_encode($tcids);
-        $model->save();
-        return $this->redirect(['gettestcasesbytestexcution','teid'=>$teid]);
     }
 
     public function actionConfirmComplete($teid)
