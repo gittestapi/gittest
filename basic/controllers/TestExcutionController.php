@@ -53,10 +53,7 @@ class TestExcutionController extends Controller
         $repoid =Yii::$app->getRequest()->getQueryParam('repoid');
         $tpid = Yii::$app->getRequest()->get('id');
         // 已经存在于测试计划下的测试案例id
-        $tcids = json_decode(TestExcution::findOne($tpid)->tcids);
-        if (is_null($tcids) || empty($tcids)) {
-            $tcids = array();
-        }
+        $tcids = TestExcution::findOne($tpid)->TCIDs;
         $searchModel = (is_null($repoid)||empty($repoid)) ?  (new TestCaseSearch(['id' => -1])): (new TestCaseSearch(['repoid'=>$repoid]));
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('InsertTestPlan', [
