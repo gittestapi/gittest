@@ -52,12 +52,8 @@ class TestExcutionController extends Controller
     {
         $repoid =Yii::$app->getRequest()->getQueryParam('repoid');
         $tpid = Yii::$app->getRequest()->get('id');
-        $trs = TestCaseResult::find()->select('tcid')->where(['teid'=>$tpid])->asArray()->all();
         // 已经存在于测试计划下的测试案例id
-        $tcids = json_decode(TestExcution::findOne($tpid)->tcids);
-        if (is_null($tcids) || empty($tcids)) {
-            $tcids = array();
-        }
+        $tcids = TestExcution::findOne($tpid)->TCIDs;
         $searchModel = (is_null($repoid)||empty($repoid)) ?  (new TestCaseSearch(['id' => -1])): (new TestCaseSearch(['repoid'=>$repoid]));
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('InsertTestPlan', [
@@ -136,12 +132,10 @@ class TestExcutionController extends Controller
     {
         $tpid = Yii::$app->request->post('tpid');
         $tcids = Yii::$app->request->post('tcids');
-        /*
-        foreach($tcids as $tcid) {
-            $tc = TestCase::findOne($tcid);
-            $tc->initTestResult($tpid);
-        }*/
         $tp = TestExcution::findOne($tpid);
+        if ($tp->designCompleted) {
+            return $this->asJson(['success'=>False,'message'=>"当前测试计划已经设计完成，不能更改其下的 TestCases 了"]);
+        }
         $tp->insertTCs($tcids);
         return $this->asJson(['success'=>True]);
     }
@@ -159,34 +153,62 @@ class TestExcutionController extends Controller
 
     public function actionDeleteTestCase($teid,$tcid)
     {
-        $model = $this->findModel($teid);
-        $tcids = $model->TCIDs;
-        if ($key = array_search($tcid,$tcids) != false) {
-            \yii\helpers\ArrayHelper::removeValue($tcids,$tcid);
+        $request = Yii::$app->request;
+        if ($request->isAjax && $request->isPost) {
+            $result = new \stdClass;
+            $result->success = False;
+
+            $model = $this->findModel($teid);
+            if ($model->designCompleted) { // 测试计划已经完成，不许再删除其下的案例
+                $result->message='测试计划已经完成，不许再删除其下的案例';
+            } else {
+                $tcids = $model->TCIDs;
+                $key = array_search($tcid,$tcids);
+                if ($key !== false) {
+                    \yii\helpers\ArrayHelper::removeValue($tcids,$tcid);
+                    $model->tcids = json_encode(array_values($tcids));
+                    if($model->save()) {
+                        $result->success = True;
+                    } else {
+                        $result->message ='数据库操作错误';
+                    }
+                } else {
+                    $result->message = '测试案例不在当前的测试计划中';
+                }
+            }
+            return $this->asJson($result);
+        } else {
+            return "非 Post ,非 ajax, 不处理！";
         }
-        $model->tcids = json_encode($tcids);
-        $model->save();
-        return $this->redirect(['gettestcasesbytestexcution','teid'=>$teid]);
     }
 
     public function actionConfirmComplete($teid)
     {
-        $model = $this->findModel($teid);
-        if (empty($model->TCIDs) || $model->designCompleted){ //测试计划不包含 TestCase 或者已经被标记过
-            return "此测试计划不包含 TestCase，无法标记为已完成，或者已经标记过了";
-        } else {
-            $designCompletedOldVal = $model->designCompleted;
-            $model->designCompleted = true;
-            $model->save();
+        $request = Yii::$app->request;
+        if ($request->isAjax && $request->isPost) {
+            $result = new \stdClass;
+            $result->success = False;
 
-            // 创建此测试计划下相关的 testresult 和 teststepresult 表数据
-            foreach($model->TCIDs as $tcid) {
-                $tc = TestCase::findOne($tcid);
-                $tc->initTestResult($teid);
+            $model = $this->findModel($teid);
+            if (empty($model->TCIDs) || $model->designCompleted) {
+                $result->message='此测试计划不包含 TestCase，无法标记为已完成，或者已经标记过了';
+            } else {
+                $model->designCompleted = True;
+                if ($model->save()) {
+                    // 创建此测试计划下相关的 testresult 和 teststepresult 表数据
+                    foreach($model->TCIDs as $tcid) {
+                        $tc = TestCase::findOne($tcid);
+                        $tc->initTestResult($teid);
+                    }
+                    $result->success = True;
+                } else {
+                    $result->message = "数据库操作错误";
+                }
             }
-            return $this->redirect(['index']);
+            return $this->asJson($result);
+        } else {
+            return "非 Post ,非 ajax, 不处理！";
         }
-
     }
 
     /**
