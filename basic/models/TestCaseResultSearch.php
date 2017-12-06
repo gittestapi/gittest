@@ -40,7 +40,7 @@ class TestCaseResultSearch extends TestCaseResult
      */
     public function search($params)
     {
-        $query = TestResult::find();
+        $query = TestCaseResult::find();
 
         // add conditions that should always apply here
 
