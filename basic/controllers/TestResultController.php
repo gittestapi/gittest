@@ -3,8 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\TestResult;
-use app\models\TestResultSearch;
+use app\models\TestCaseResult;
+use app\models\TestCaseResultSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,7 +35,7 @@ class TestResultController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new TestResultSearch();
+        $searchModel = new TestCaseResultSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -66,7 +66,7 @@ class TestResultController extends Controller
         $model = new TestResult();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->trid]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -85,7 +85,7 @@ class TestResultController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->trid]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,

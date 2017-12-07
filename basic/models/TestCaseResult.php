@@ -68,4 +68,12 @@ class TestCaseResult extends \yii\db\ActiveRecord
             return false;
         }
     }
+
+    public function getTestPlan() {
+        return $this->hasOne(TestExcution::className(), ['id' => 'teid']);
+    }
+
+    public function getTestCase() {
+        return $this->hasOne(TestCase::className(),['id' => 'tcid']);
+    }
 }
