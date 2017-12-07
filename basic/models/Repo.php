@@ -50,11 +50,11 @@ class Repo extends \yii\db\ActiveRecord
             'RegisterDate' => 'Register Date',
         ];
     }
-	
-	public function beforeSave($insert) {	
+
+	public function beforeSave($insert) {
 		if (parent::beforeSave($insert)) {
 			// Place your custom code here
-			
+
 			$this->RegisterDate = new Expression('NOW()');
 			return true;
 		} else {
@@ -93,9 +93,9 @@ class Repo extends \yii\db\ActiveRecord
         foreach($joinRepos as $j) {
             array_push($executers,$j->tester);
         }
-        return $executers;        
+        return $executers;
     }
-	
+
     public function getAreas()
     {
         $area = Area::find()->where([
@@ -107,6 +107,11 @@ class Repo extends \yii\db\ActiveRecord
             array_push($areas,$a);
         }
         return $areas;
+    }
+
+    public function getTestCases()
+    {
+        return $this->hasMany(TestCase::className(),['repoid'=>'id']);
     }
 
     /**

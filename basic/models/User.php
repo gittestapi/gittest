@@ -52,8 +52,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'RegisterDate' => 'Register Date',
         ];
     }
-	
-	public function beforeSave($insert) {	
+
+	public function beforeSave($insert) {
 		if (parent::beforeSave($insert)) {
 			// Place your custom code here
 			$this->RegisterDate = new Expression('NOW()');
@@ -62,17 +62,17 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 			return false;
 		}
 	}
-	
+
 	public static function findIdentity($id)
     {
         return new static(User::findOne($id));
     }
-	
+
 	public static function findIdentityByAccessToken($token, $type = null)
     {
         return new static(User::findOne($id));
     }
-	
+
 	/**
      * @inheritdoc
      */
@@ -96,7 +96,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return $this->id === $authKey;
     }
-	
+
 	public function validatePassword($password)
     {
         return $this->passwd === $password;
@@ -106,7 +106,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      * 返回用户参与的 repos
      * @return array 键为 repo 的 id，值为 repo 的 name
      */
-    public function getRepos($role=null)
+    public function getRepoNames($role=null) //原来的命名不规范且占用了 'getRepos（）' 约定功能
     {
         $cond = ['uid'=>$this->id];
         if (!is_null($role) && in_array(strtoupper($role),['M','E'])) {
@@ -119,8 +119,27 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             $repo = Repo::findOne($item->repoid);
             if ($repo) {
                 $reponames[$repo->id] = $repo->name;
-            }          
+            }
         }
-        return $reponames;     
+        return $reponames;
+    }
+
+    public function getJoinRepos()
+    {
+        return $this->hasMany(JoinRepo::className(),['uid'=>'id']);
+    }
+
+    /*
+    ** 当前用户参与的项目
+    *  @param string $role 用户在项目中的角色
+    */
+    public function getRepos($role=null)
+    {
+        if (!is_null($role) && in_array(strtoupper($role),['M','E'])) {
+            $role = strtoupper($role);
+            return $this->hasMany(Repo::className(),['id'=>'repoid'])->via('joinRepos',function($query) use ($role) {$query->where(['role'=>$role]);});
+        } else {
+            return $this->hasMany(Repo::className(),['id'=>'repoid'])->via('joinRepos');
+        }
     }
 }
