@@ -10,6 +10,7 @@ use app\models\TestExcutionSearch;
 use app\models\TestCaseResult;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\data\ArrayDataProvider;
 use yii\filters\VerbFilter;
 use yii\Helpers\ArrayHelper;
 
@@ -46,6 +47,53 @@ class TestExcutionController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    /**
+    * 我（作为Tester）的测试任务
+    */
+    public function actionMyMissions()
+    {
+        $repos = Yii::$app->user->identity->getRepos('E')->all();
+        $tcids = []; // 我 （作为Tester）能够参与的 TestCase ids
+        foreach ($repos as $repo) {
+            foreach($repo->testCases as $tc) {
+                array_push($tcids,$tc->id);
+            }
+        }
+        // 我（作为Tester）应该做的 TestCaseResults
+        $tcrs = TestCaseResult::find()->select(['teid','tcid'])->where(['status'=>null])->andwhere(['in','tcid',$tcids])->asArray()->all();
+        $missions = []; // key 为 TestExcution ID，val 为此 TestExcution 对应的 Repo IDs （我为 Tester）
+        foreach($tcrs as $tcr) {
+            $repoid = TestCase::findOne($tcr['tcid'])->repo->id;
+            if (!array_key_exists($tcr['teid'],$missions)) {
+                $missions[$tcr['teid']] = [$repoid];
+            } else {
+                if (!in_array($repoid,$missions[$tcr['teid']])) {
+                    $missions[$tcr['teid']][] = $repoid;
+                }
+            }
+        }
+        $missionsData = []; // 每一个任务包括 任务id，任务名称，任务创建者ID，任务涉及到的 Repo IDs（仅包括我是这些 Repo 的Tester）
+        foreach($missions as $k => $v) {
+            $item = [];
+            $tp = TestExcution::findOne($k);
+            $item['id'] = $k;
+            $item['name'] = $tp->name;
+            $item['createrID'] = $tp->uid;
+            $item['repoIDs'] = $v;
+            $missionsData[] = $item;
+        }
+        $provider = new ArrayDataProvider([
+            'allModels' => $missionsData,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+            'sort' => [
+                'attributes' => ['id','name'],
+            ]
+        ]);
+        return $this->render('my-missions',['provider'=>$provider]);
     }
 
     public function actionInsertTestPlan()
