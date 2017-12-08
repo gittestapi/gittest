@@ -74,8 +74,9 @@ class TestCaseResultSearch extends TestCaseResult
 
     /*
     ** 需要更新的 TestCaseResult (只针对一个 TestPlan 和 一个 Repo)
+    ** Repo 的 TestManager 可以查看
     */
-    public function searchForCurrentUser($params,$teid,$repoid)
+    public function searchForTestManager($params,$teid,$repoid)
     {
         $query = TestCaseResult::find();
 
@@ -110,7 +111,7 @@ class TestCaseResultSearch extends TestCaseResult
         $tcids = $repo->getTestCases()->select(['id'])->asArray()->all();
         $tcids = yii\helpers\ArrayHelper::getColumn($tcids,'id');
         $query->andFilterWhere(['in','tcid',$tcids]);
-        
+
         return $dataProvider;
     }
 }
