@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{link}',
                 'buttons' => [
                     'link' => function ($url,$model,$key) {
-                        return Html::a('开始任务',['testresult/task','tp'=>$model['id']]);
+                        return Html::a('开始任务',['test-result/task','tpid'=>$model['id']]);
                     }
                 ],
             ]

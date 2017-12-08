@@ -14,9 +14,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tcid')->textInput() ?>
 
-    <?= $form->field($model, 'tctitle')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model,'content')->textarea() ?>
 
     <?= $form->field($model, 'whorun')->textInput(['maxlength' => true]) ?>
 

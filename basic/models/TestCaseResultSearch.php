@@ -74,8 +74,9 @@ class TestCaseResultSearch extends TestCaseResult
 
     /*
     ** 需要更新的 TestCaseResult (只针对一个 TestPlan 和 一个 Repo)
+    ** Repo 的 TestManager 可以查看
     */
-    public function searchForCurrentUser($params,$teid,$repoid)
+    public function searchForTestManager($params,$teid,$repoid)
     {
         $query = TestCaseResult::find();
 
@@ -110,7 +111,65 @@ class TestCaseResultSearch extends TestCaseResult
         $tcids = $repo->getTestCases()->select(['id'])->asArray()->all();
         $tcids = yii\helpers\ArrayHelper::getColumn($tcids,'id');
         $query->andFilterWhere(['in','tcid',$tcids]);
-        
+
+        return $dataProvider;
+    }
+
+    /*
+    ** 需要更新的 TestCaseResult (只针对一个 TestPlan 和与当前的用户相关)
+    ** Repo 的 TestManager 可以查看
+    */
+    public function searchForTE($params,$teid)
+    {
+        $query = TestCaseResult::find()->where(['teid'=>$teid]);
+        $repos = Yii::$app->user->identity->getRepos('E')->all();
+        $releviteTCIDs = [];
+        foreach($repos as $repo) {
+            foreach($repo->testCases as $tc) {
+                array_push($releviteTCIDs,$tc->id);
+            }
+        }
+        $query->andWhere(['in','tcid',$releviteTCIDs]);
+        $query->joinWith('testCase as testCase');
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'sort' => [
+                'attributes' => [
+                    'id',
+                    'testCase.title' => [
+                        'asc' => ['testCase.title' => SORT_ASC],
+                        'desc' => ['testCase.title' => SORT_DESC],
+                    ],
+                ],
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ]
+            ],
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'tcid' => $this->tcid,
+            'teid' => $this->teid,
+            'updatedate' => $this->updatedate,
+        ]);
+
+        $query->andFilterWhere(['like', 'status', $this->status])
+            ->andFilterWhere(['like', 'whorun', $this->whorun])
+            ->andFilterWhere(['like', 'gitissuelink', $this->gitissuelink]);
+
         return $dataProvider;
     }
 }

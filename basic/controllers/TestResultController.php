@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\TestCaseResult;
 use app\models\TestCaseResultSearch;
+use app\models\TestExcution;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -106,6 +107,23 @@ class TestResultController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionTask($tpid)
+    {
+        $testExcution = TestExcution::findOne($tpid);
+        $teName = null;
+        if ($testExcution) {
+            $teName = $testExcution->name;
+        }
+        $searchModel = new TestCaseResultSearch();
+        $dataProvider = $searchModel->searchForTE(Yii::$app->request->queryParams,$tpid);
+
+        return $this->render('task',[
+            'teName' => $teName,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Finds the TestResult model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -115,7 +133,7 @@ class TestResultController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = TestResult::findOne($id)) !== null) {
+        if (($model = TestCaseResult::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
