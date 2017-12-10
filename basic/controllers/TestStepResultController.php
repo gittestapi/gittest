@@ -3,8 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\TestStepsResult;
-use app\models\TestStepsResultSearch;
+use app\models\TestStepResult;
+use app\models\TestStepResultSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * TestStepsResultController implements the CRUD actions for TestStepsResult model.
  */
-class TestStepsResultController extends Controller
+class TestStepResultController extends Controller
 {
     /**
      * @inheritdoc
@@ -35,7 +35,7 @@ class TestStepsResultController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new TestStepsResultSearch();
+        $searchModel = new TestStepResultSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -85,6 +85,9 @@ class TestStepsResultController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // 当前用户即为 Tester
+            $model->whorun = Yii::$app->user->id;
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -115,7 +118,7 @@ class TestStepsResultController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = TestStepsResult::findOne($id)) !== null) {
+        if (($model = TestStepResult::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

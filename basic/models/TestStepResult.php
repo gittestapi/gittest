@@ -56,4 +56,14 @@ class TestStepResult extends \yii\db\ActiveRecord
             'updatedate' => 'Updatedate',
         ];
     }
+
+    public function getTestCaseResult()
+    {
+        return $this->hasOne(TestCaseResult::className(),['id'=>'trid']);
+    }
+
+    public function getTestStep()
+    {
+        return $this->hasOne(Step::className(),['id'=>'sid']);
+    }
 }
