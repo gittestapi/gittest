@@ -46,7 +46,7 @@ class TestCaseController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-	
+
 	public function actionGettestcasesbyrepoid($id)
     {
         $searchModel = new TestCaseSearch2();
@@ -64,7 +64,7 @@ class TestCaseController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-	
+
 	protected function findRepoModel($id)
     {
         if (($model2 = Repo::findOne($id)) !== null) {
@@ -73,7 +73,7 @@ class TestCaseController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-	
+
 	public function actionIndexall()
     {
         $searchModel = new TestCaseSearch2();
@@ -112,10 +112,10 @@ class TestCaseController extends Controller
             foreach($contents as $c) {
                 $step = new Step();
                 $step->content = trim($c);
-                $step->tcid = $model->id;                   
+                $step->tcid = $model->id;
                 if($step->validate()){
                     $step->save(false);
-                }                    
+                }
             }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -135,17 +135,17 @@ class TestCaseController extends Controller
             foreach($contents as $c) {
                 $step = new Step();
                 $step->content = trim($c);
-                $step->tcid = $model->id;                   
+                $step->tcid = $model->id;
                 if($step->validate()){
                     $step->save(false);
-                }                    
+                }
             }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
             ]);
-        }        
+        }
     }
 
     /**
@@ -159,6 +159,8 @@ class TestCaseController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->whorun = Yii::$app->user->id;
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
