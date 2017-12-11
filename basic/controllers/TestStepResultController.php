@@ -3,8 +3,10 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\TestStepsResult;
-use app\models\TestStepsResultSearch;
+use app\models\TestCaseResult;
+use app\models\TestStepResult;
+use app\models\TestStepResultSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,7 +14,7 @@ use yii\filters\VerbFilter;
 /**
  * TestStepsResultController implements the CRUD actions for TestStepsResult model.
  */
-class TestStepsResultController extends Controller
+class TestStepResultController extends Controller
 {
     /**
      * @inheritdoc
@@ -35,7 +37,7 @@ class TestStepsResultController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new TestStepsResultSearch();
+        $searchModel = new TestStepResultSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -85,7 +87,10 @@ class TestStepsResultController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            // 当前用户即为 Tester
+            $model->whorun = Yii::$app->user->id;
+            $model->save(false);
+            return $this->redirect(['test-step-result/results', 'tcrid' => $model->trid]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -106,6 +111,17 @@ class TestStepsResultController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionResults($tcrid)
+    {
+        $testCaseResult = TestCaseResult::findOne($tcrid);
+        $query = TestStepResult::find()->where(['trid'=>$tcrid]);
+        $dataProvider = new ActiveDataProvider(['query'=>$query]);
+        return $this->render('results',[
+            'testCaseTitle' => $testCaseResult->testCase->title,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Finds the TestStepsResult model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -115,7 +131,7 @@ class TestStepsResultController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = TestStepsResult::findOne($id)) !== null) {
+        if (($model = TestStepResult::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

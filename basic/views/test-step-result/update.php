@@ -6,9 +6,11 @@ use yii\helpers\Html;
 /* @var $model app\models\TestStepsResult */
 
 $this->title = 'Update Test Steps Result: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Test Steps Results', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->testCaseResult->testPlan->name, 'url' => ['test-result/task','tpid'=>$model->testCaseResult->testPlan->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->testCaseResult->testCase->title, 'url' => ['test-result/update', 'id' => $model->testCaseResult->id]];
 $this->params['breadcrumbs'][] = 'Update';
+
+
 ?>
 <div class="test-steps-result-update">
 

@@ -41,7 +41,7 @@ class TestStepResultSearch extends TestStepResult
      */
     public function search($params)
     {
-        $query = TestStepsResult::find();
+        $query = TestStepResult::find();
 
         // add conditions that should always apply here
 

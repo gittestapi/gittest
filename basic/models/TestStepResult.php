@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "TestStepsResult".
@@ -55,5 +56,26 @@ class TestStepResult extends \yii\db\ActiveRecord
             'whorun' => 'Whorun',
             'updatedate' => 'Updatedate',
         ];
+    }
+
+    public function beforeSave($insert) {
+		if (parent::beforeSave($insert)) {
+			// Place your custom code here
+
+			$this->updatedate = new Expression('NOW()');
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+    public function getTestCaseResult()
+    {
+        return $this->hasOne(TestCaseResult::className(),['id'=>'trid']);
+    }
+
+    public function getTestStep()
+    {
+        return $this->hasOne(Step::className(),['id'=>'sid']);
     }
 }
