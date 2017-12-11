@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{link}',
                 'buttons' => [
                     'link' => function ($url,$model,$key) {
-                        return Html::a('写入测试步骤结果',['test-steps-result/task','tcrid'=>$model->id]);
+                        return Html::a('写入测试步骤结果',['test-step-result/results','tcrid'=>$model->id]);
                     }
                 ],
             ],
