@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TestStepsResultSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = $testCaseTitle."的测试步骤";
+$this->title = '"'.$testCaseTitle.'"的测试步骤';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="test-steps-result-index">
