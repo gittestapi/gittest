@@ -36,9 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'state',
                 'content' => function ($model, $key, $index, $column) {
                     if ($model['state'] === 'c') {
-                        return 'complated';
+                        return 'completed';
                     }
-                    return 'uncomplated';
+                    return 'uncompleted';
                 }
             ],
             [

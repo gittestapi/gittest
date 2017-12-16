@@ -11,6 +11,7 @@ use app\models\TestCaseResult;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\data\ArrayDataProvider;
+use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\Helpers\ArrayHelper;
 
@@ -265,6 +266,24 @@ class TestExcutionController extends Controller
         } else {
             return "非 Post ,非 ajax, 不处理！";
         }
+    }
+
+    public function actionGetTestResults($id)
+    {
+        $testExcution = $this->findModel($id);
+        $query = $testExcution->getTestCaseResults();
+        $query->joinWith('testCase as testCase');
+        $provider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        $provider->sort->attributes['testCase.title'] = [
+            'asc' => ['testCase.title' => SORT_ASC],
+            'desc' => ['testCase.title' => SORT_DESC],
+        ];
+        return $this->render('get-test-results',[
+            'testPlanTitle' => $testExcution->name,
+            'provider' => $provider,
+        ]);
     }
 
     /**
