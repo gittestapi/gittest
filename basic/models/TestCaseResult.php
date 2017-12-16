@@ -76,4 +76,8 @@ class TestCaseResult extends \yii\db\ActiveRecord
     public function getTestCase() {
         return $this->hasOne(TestCase::className(),['id' => 'tcid']);
     }
+
+    public function getTestStepResults() {
+        return $this->hasMany(TestStepResult::className(),['trid'=>'id']);
+    }
 }

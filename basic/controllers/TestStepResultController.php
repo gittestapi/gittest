@@ -114,8 +114,7 @@ class TestStepResultController extends Controller
     public function actionResults($tcrid)
     {
         $testCaseResult = TestCaseResult::findOne($tcrid);
-        $query = TestStepResult::find()->where(['trid'=>$tcrid]);
-        $dataProvider = new ActiveDataProvider(['query'=>$query]);
+        $dataProvider = new ActiveDataProvider(['query'=>$testCaseResult->getTestStepResults()]);
         return $this->render('results',[
             'testCaseTitle' => $testCaseResult->testCase->title,
             'dataProvider' => $dataProvider,
