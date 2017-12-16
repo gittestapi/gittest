@@ -60,14 +60,36 @@ class TestStepResult extends \yii\db\ActiveRecord
 
     public function beforeSave($insert) {
 		if (parent::beforeSave($insert)) {
-			// Place your custom code here
-
+            // ...custom code here...
 			$this->updatedate = new Expression('NOW()');
 			return true;
 		} else {
 			return false;
 		}
 	}
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        
+        // 根据 teststepresult 的 siblings 的情况来决定 testcaseresult 的 status 的值
+        $testCaseResult = $this->testCaseResult;
+        $testCaseResult->status = 's'; // 默认为 's'，具体取值还要下面的 for 循环判断
+        $siblings = $testCaseResult->testStepResults;
+        for($i=0;$i<count($siblings);$i++)
+        {
+            $status = $siblings[$i]->status;
+            if (is_null($status) || empty($status)) { // stepresult 的 status 为 null 时，testCaseResult 的 status 也为 null
+                $testCaseResult->status = null;
+                continue;
+            }
+            if ($status === 'f') { // stepresult 的 status 为 'f' 时，testCaseResult 的 status 也为 'f'
+                $testCaseResult->status = $status;
+                break;
+            }
+        }
+        $testCaseResult->save(false);
+    }
 
     public function getTestCaseResult()
     {
