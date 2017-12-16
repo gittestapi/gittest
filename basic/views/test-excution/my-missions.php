@@ -33,11 +33,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
+                'attribute' => 'state',
+                'content' => function ($model, $key, $index, $column) {
+                    if ($model['state'] === 'c') {
+                        return 'complated';
+                    }
+                    return 'uncomplated';
+                }
+            ],
+            [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{link}',
                 'buttons' => [
                     'link' => function ($url,$model,$key) {
-                        return Html::a('开始任务',['test-result/task','tpid'=>$model['id']]);
+                        return Html::a('录入结果',['test-result/task','tpid'=>$model['id']]);
                     }
                 ],
             ]

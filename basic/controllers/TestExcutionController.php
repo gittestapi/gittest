@@ -62,7 +62,7 @@ class TestExcutionController extends Controller
             }
         }
         // 我（作为Tester）应该做的 TestCaseResults
-        $tcrs = TestCaseResult::find()->select(['teid','tcid'])->where(['status'=>null])->andwhere(['in','tcid',$tcids])->asArray()->all();
+        $tcrs = TestCaseResult::find()->select(['teid','tcid'])->where(['in','tcid',$tcids])->asArray()->all();
         $missions = []; // key 为 TestExcution ID，val 为此 TestExcution 对应的 Repo IDs （我为 Tester）
         foreach($tcrs as $tcr) {
             $repoid = TestCase::findOne($tcr['tcid'])->repo->id;
@@ -82,6 +82,14 @@ class TestExcutionController extends Controller
             $item['name'] = $tp->name;
             $item['createrID'] = $tp->uid;
             $item['repoIDs'] = $v;
+            $item['state'] = 'c'; // complete
+            $testCaseResults = TestCaseResult::find()->where(['teid'=>$k])->all();
+            for($i=0;$i<count($testCaseResults);$i++){
+                if(is_null($testCaseResults[$i]->status) || empty($testCaseResults[$i]->status)) {
+                    $item['state'] = 'uc'; // uncompleted
+                    break;
+                }
+            }
             $missionsData[] = $item;
         }
         $provider = new ArrayDataProvider([
