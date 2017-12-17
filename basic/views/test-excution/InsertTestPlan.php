@@ -15,20 +15,20 @@ $this->params['breadcrumbs'][] = $this->title;
 $this->registerJsFile('js/inserttc2tp.js',['depends'=>[\yii\grid\GridViewAsset::className(),]]);
 
 // 获取当前用户所参与的项目（其为项目的测试管理人员 ）
-$reponamelist = \Yii::$app->user->identity->getRepos('M');
+$reponamelist = \Yii::$app->user->identity->getRepoNames('M');
 ?>
 <div class="test-case-index">
 
     <h1>Please select Test Cases into test plan!</h1>
- <?php 
-        
+ <?php
+
  ?>
  <div>
  <div style="float:left;"><span>Select Repo:</span>
 <?php $actual_link="http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";$rid=isset($_GET["repoid"]) ? $_GET["repoid"] : '';$myurl=isset($_GET['repoid']) ? str_replace('&repoid='.$rid,'',$actual_link) : ($actual_link);$myurl="'".$myurl."&repoid='";?>
 <?= Html::dropDownList('reponame', null, $reponamelist,['onchange' => 'if(this.value) window.location.href = '.$myurl.'+this.value','prompt' => '---Select a repo---',
           'options' =>
-                    [                        
+                    [
                       $rid => ['selected' => true]
                     ]
           ]); ?></div>
@@ -61,7 +61,7 @@ $reponamelist = \Yii::$app->user->identity->getRepos('M');
                 return in_array($data->id.'', $tcids)?"yes":"no"; // $data['name'] for array data, e.g. using SqlDataProvider.
             },
         ],
-			['class' => 'yii\grid\ActionColumn', 
+			['class' => 'yii\grid\ActionColumn',
 			'template' => '{view}',
 			'buttons' => [
                 'view' => function ($url,$model,$key) {

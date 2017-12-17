@@ -85,4 +85,9 @@ class TestExcution extends \yii\db\ActiveRecord
         $this->tcids = json_encode($tcidArray);
         $this->save();
     }
+
+    public function getTestCaseResults()
+    {
+        return $this->hasMany(TestCaseResult::className(),['teid'=>'id']);
+    }
 }
